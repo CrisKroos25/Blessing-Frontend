@@ -1,0 +1,68 @@
+.container {
+    font-family: 'Inter-TextoNormal';
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    background-color: rgb(254, 242, 221);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+
+    transition: transform 0.5s ease;
+}
+
+.container:hover .icon {
+    transform: scale(1.05);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.value {
+    font-family: 'Inter-Titulos';
+    color: rgb(65, 65, 65);
+}
+
+.label {
+    font-family: 'Inter-TextoNormal-Gruesa';
+    font-size: 14px;
+    color: rgb(74, 74, 74);
+}
+
+.meta {
+    font-family: 'Inter-TextoNormal';
+    font-size: 12px;
+    color: gray;
+}
+
+.okey {
+    color: rgba(0, 128, 0, 0.656);
+    background-color: rgba(0, 128, 0, 0.14);
+}
+
+.lower {
+    color: rgba(255, 0, 0, 0.671);
+    background-color: rgba(255, 0, 0, 0.133);
+}
+
+.warning {
+    color: orange;
+}

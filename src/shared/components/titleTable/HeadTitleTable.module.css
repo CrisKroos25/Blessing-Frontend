@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.title {
+    font-family: "Inter-Titulos";
+    font-size: 20px;
+    color: rgb(54, 54, 54);
+    white-space: nowrap; /* Evita que se quiebre */
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #444444;
+}

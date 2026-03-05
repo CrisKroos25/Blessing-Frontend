@@ -1,0 +1,28 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+.modal {
+    width: 600px;
+    padding: 12px 24px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.header,
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.body {
+    padding: 24px 0;
+}
