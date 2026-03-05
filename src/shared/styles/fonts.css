@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Inter-TextoNormal';
+    src: url(/src/assets/fonts/Inter_18pt-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter-Titulos';
+    src: url(/src/assets/fonts/Inter_18pt-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter-TextoNormal-Gruesa';
+    src: url(/src/assets/fonts/Inter_18pt-Medium.ttf) format('truetype');
+}
