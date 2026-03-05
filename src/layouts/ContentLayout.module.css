@@ -1,0 +1,8 @@
+.container_main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px 40px;
+  min-height: 100vh;
+  font-family: "Inter-TextoNormal";
+}
