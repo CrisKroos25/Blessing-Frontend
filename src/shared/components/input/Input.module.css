@@ -1,0 +1,25 @@
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 5px 14px;
+    border-radius: 15px;
+    transition: 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px #fe9dbf;
+}
+
+.input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    padding: 7px;
+    font-size: 16px;
+    font-family: 'Inter-TextoNormal';
+}
