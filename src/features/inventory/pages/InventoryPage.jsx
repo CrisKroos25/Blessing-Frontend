@@ -8,7 +8,7 @@ export default function InventoryPage() {
         <>
             <ContentCard />
 
-            <ContentMain products={products} />
+            <ContentMain products={products} create={create} />
         </>
     );
 }
