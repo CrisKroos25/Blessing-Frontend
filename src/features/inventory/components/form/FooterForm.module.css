@@ -1,0 +1,21 @@
+.footer {
+    padding: 24px;
+    border-top: 1px solid #ffcadd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content_button {
+    display: flex;
+    gap: 12px;
+}
+
+.typeSubtitle {
+    font-size: 12px;
+    color: #777;
+}
+
+.required {
+    color: #e91e63;
+}
