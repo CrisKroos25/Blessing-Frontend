@@ -1,32 +1,70 @@
 import styles from './Modal.module.css';
-import ProductForm from '@/features/inventory/components/form/ProductForm';
+import BodyForm from '@/features/inventory/components/form/BodyForm';
+import HeaderForm from '@/features/inventory/components/form/HeaderForm';
+import FooterForm from '@/features/inventory/components/form/FooterForm';
+import { useEffect } from 'react';
+import { useProductForm } from '@/features/inventory/hooks/useProductForm';
 
-export default function Modal({ title, modalState, onClose, products }) {
-    if (modalState.type === null) return null;
+export default function Modal({ modalState, onClose, create, update }) {
+    const { type, product } = modalState;
+
+    const { formData, handleChange } = useProductForm(product);
+
+    useEffect(() => {
+        document.body.style.overflow = type ? 'hidden' : 'auto';
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [type]);
+
+    if (!type) return null;
+
+    const handleSubmit = async () => {
+        if (type === 'create') {
+            await create(formData);
+        }
+
+        if (type === 'edit') {
+            await update(product.id, formData);
+        }
+
+        onClose();
+    };
 
     return (
         <div className={styles.overlay} onClick={onClose}>
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-                {/* HEADER */}
-                <header className={styles.header}>
-                    <h2>{title}</h2>
-                    <button onClick={onClose}>✕</button>
-                </header>
+                <HeaderForm
+                    title={
+                        type === 'create'
+                            ? 'Añadir producto'
+                            : 'Editar producto'
+                    }
+                    subTitle={product?.name ?? 'Complete los datos'}
+                    onClose={onClose}
+                />
 
-                {/* BODY */}
                 <div className={styles.body}>
-                    {modalState.type === 'edit' && (
-                        <ProductForm product={modalState.product} />
+                    {type !== 'delete' && (
+                        <BodyForm
+                            formData={formData}
+                            handleChange={handleChange}
+                        />
                     )}
-                    {modalState.type === 'delete' &&
-                        `Estas seguro de eliminar <${modalState.product.name}>`}
+
+                    {type === 'delete' && (
+                        <p>
+                            ¿Eliminar <b>{product.name}</b>?
+                        </p>
+                    )}
                 </div>
 
-                {/* FOOTER */}
-                <footer className={styles.footer}>
-                    <button onClick={onClose}>Cancelar</button>
-                    <button>Guardar</button>
-                </footer>
+                <FooterForm
+                    onClose={onClose}
+                    onSubmit={handleSubmit}
+                    type={type}
+                />
             </div>
         </div>
     );
