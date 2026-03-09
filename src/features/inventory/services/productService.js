@@ -10,11 +10,10 @@ import { MOCK_PRODUCTS } from '@/shared/constants/products';
  * @returns {Promise<Array>} Lista de productos
  */
 export const fetchProducts = async () => {
-    // Simula una llamada a API
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(MOCK_PRODUCTS);
-        }, 3000);
+            resolve([...MOCK_PRODUCTS]); // 👈 CLON
+        }, 500);
     });
 };
 
