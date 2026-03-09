@@ -5,7 +5,7 @@ import InventoryTabs from '../tabs/InventoryTabs';
 import MaterialsControlled from '../views/MaterialsControlled';
 import { useState } from 'react';
 
-export default function ContentMain({ products }) {
+export default function ContentMain({ products, create }) {
     const [view, setView] = useState('materialsControlled');
 
     const componentsViews = {
@@ -20,7 +20,11 @@ export default function ContentMain({ products }) {
         <div className={styles.container__main}>
             <InventoryTabs view={view} setView={setView} />
 
-            <div>{CurrentView && <CurrentView products={products} />}</div>
+            <div>
+                {CurrentView && (
+                    <CurrentView products={products} create={create} />
+                )}
+            </div>
         </div>
     );
 }
