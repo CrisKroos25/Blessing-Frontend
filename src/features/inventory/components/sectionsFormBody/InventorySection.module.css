@@ -1,0 +1,39 @@
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* titulo de seccion */
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.sectionNumber {
+    background: #ff9800;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: #444;
+    flex: 1;
+    border-bottom: 1px solid #ffcadd;
+    padding-bottom: 6px;
+}

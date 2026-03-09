@@ -1,0 +1,144 @@
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* titulo de seccion */
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.sectionNumber {
+    background: #e91e63;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: #444;
+    flex: 1;
+    border-bottom: 1px solid #ffcadd;
+    padding-bottom: 6px;
+}
+
+/* grid */
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.gridTwo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* campos */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    letter-spacing: 0.03em;
+    font-family: 'Inter-Titulos';
+}
+
+.required {
+    color: #e91e63;
+}
+
+/* textarea */
+
+.textarea {
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    min-height: 90px;
+    outline: none;
+    border: none;
+    padding: 12px 14px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    resize: none;
+    font-size: 14px;
+    color: #4b5563;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+}
+
+.textarea:focus-within {
+    box-shadow: 0 0 0 1px #ff9cbf;
+}
+
+.textarea::placeholder {
+    opacity: 0.5;
+}
+
+/* product type cards */
+
+.typeSelector {
+    display: flex;
+    gap: 16px;
+}
+
+.typeCard {
+    flex: 1;
+    height: 100px;
+    padding: 16px;
+
+    border-radius: 12px;
+    border: 2px solid #e6e6e6;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.icon {
+    font-size: 22px;
+    margin: 0 0 7px 0;
+}
+
+.typeCard:hover {
+    border-color: #ff4d7d;
+}
+
+.typeCardActive {
+    border-color: #ff4d7d;
+    background: #fff1f5;
+}
+
+.typeTitle {
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+}
+
+.typeSubtitle {
+    font-size: 12px;
+    color: #777;
+}
