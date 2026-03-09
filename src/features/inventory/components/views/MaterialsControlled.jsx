@@ -6,7 +6,7 @@ import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
 import MaterialsTable from '../tables/MaterialsTable';
 import Modal from '@/shared/components/modal/Modal';
 
-export default function MaterialsControlled({ products }) {
+export default function MaterialsControlled({ products, create }) {
     const [modalState, setModalState] = useState({ type: null, product: null });
 
     const handleClickClose = () => {
@@ -29,7 +29,11 @@ export default function MaterialsControlled({ products }) {
                 title={'Inventario de materiales controlados'}
                 subtitle={'Materias primas y componentes'}
                 action={
-                    <Button colorButton="#FF9800" logoButton={Plus}>
+                    <Button
+                        onClick={() => openModal('create', null)}
+                        colorButton="#FF9800"
+                        logoButton={Plus}
+                    >
                         Agregar producto
                     </Button>
                 }
@@ -38,10 +42,9 @@ export default function MaterialsControlled({ products }) {
             <MaterialsTable openModal={openModal} products={products} />
 
             <Modal
-                title={'Ventana modal'}
-                children={'Hola mundo'}
                 onClose={handleClickClose}
                 modalState={modalState}
+                create={create}
             />
         </div>
     );
