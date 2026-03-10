@@ -1,25 +1,38 @@
+// ============================================================
+// Modal.jsx
+// ------------------------------------------------------------
+// Este componente muestra el modal con el formulario.
+// Recibe desde afuera:
+//   - modalState: { type, product } → sabe qué mostrar
+//   - onClose:    función para cerrarse
+//   - create:     función para crear un producto nuevo
+//   - update:     función para editar un producto existente
+// ============================================================
+
 import styles from './Modal.module.css';
+import { useProductForm } from '@/features/inventory/hooks/useProductForm';
 import BodyForm from '@/features/inventory/components/form/BodyForm';
 import HeaderForm from '@/features/inventory/components/form/HeaderForm';
 import FooterForm from '@/features/inventory/components/form/FooterForm';
-import { useEffect } from 'react';
-import { useProductForm } from '@/features/inventory/hooks/useProductForm';
+import DeleteForm from '@/features/inventory/components/form/DeleteForm';
+
+// Importamos el hook que bloquea el scroll del fondo
+import { useBodyScrollLock } from '@/features/inventory/hooks/useBodyScroll';
 
 export default function Modal({ modalState, onClose, create, update }) {
     const { type, product } = modalState;
 
-    const { formData, handleChange } = useProductForm(product);
+    // useProductForm inicializa el formulario con los datos del producto
+    // (si es "create", arranca vacío; si es "edit", arranca con los datos del producto)
+    const { formData, handleChange, resetForm } = useProductForm(product);
 
-    useEffect(() => {
-        document.body.style.overflow = type ? 'hidden' : 'auto';
+    // Bloqueamos el scroll del fondo cuando el modal está abierto
+    useBodyScrollLock(!!type);
 
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [type]);
-
+    // Si no hay tipo, el modal está cerrado → no renderizamos nada
     if (!type) return null;
 
+    // Esta función se ejecuta al hacer click en "Guardar"
     const handleSubmit = async () => {
         if (type === 'create') {
             await create(formData);
@@ -29,23 +42,40 @@ export default function Modal({ modalState, onClose, create, update }) {
             await update(product.id, formData);
         }
 
+        resetForm(); // ← limpia antes de cerrar
+        // Después de guardar, cerramos el modal
         onClose();
     };
 
     return (
+        // El overlay oscuro del fondo → si hacen click afuera, se cierra
         <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            {/* stopPropagation evita que el click dentro del modal lo cierre */}
+            <div
+                className={`${styles.modal} ${
+                    type === 'delete' ? styles.modalDelete : styles.modalForm
+                }`}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <HeaderForm
                     title={
                         type === 'create'
                             ? 'Añadir producto'
-                            : 'Editar producto'
+                            : type === 'edit'
+                              ? 'Editar producto'
+                              : 'Eliminar producto'
                     }
-                    subTitle={product?.name ?? 'Complete los datos'}
+                    subTitle={
+                        type !== 'update'
+                            ? (product?.name ?? 'Complete los datos')
+                            : null
+                    }
+                    type={type}
                     onClose={onClose}
                 />
 
                 <div className={styles.body}>
+                    {/* Mostramos el formulario para crear o editar */}
                     {type !== 'delete' && (
                         <BodyForm
                             formData={formData}
@@ -53,18 +83,20 @@ export default function Modal({ modalState, onClose, create, update }) {
                         />
                     )}
 
+                    {/* Mostramos confirmación para eliminar */}
                     {type === 'delete' && (
-                        <p>
-                            ¿Eliminar <b>{product.name}</b>?
-                        </p>
+                        <DeleteForm
+                            productName={product.name}
+                            onClose={onClose}
+                            onConfirm={handleSubmit}
+                        />
                     )}
                 </div>
 
-                <FooterForm
-                    onClose={onClose}
-                    onSubmit={handleSubmit}
-                    type={type}
-                />
+                {/* Footer solo para crear y editar, DeleteForm tiene sus propios botones */}
+                {type !== 'delete' && (
+                    <FooterForm onClose={onClose} onSubmit={handleSubmit} />
+                )}
             </div>
         </div>
     );
