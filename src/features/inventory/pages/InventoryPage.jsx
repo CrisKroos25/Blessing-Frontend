@@ -1,14 +1,15 @@
-import ContentMain from '@features/inventory/components/sections/ContentMain';
-import ContentCard from '@features/inventory/components/sections/ContentCard';
+import InventoryLayout from '@/features/inventory/components/sectionsPage/InventoryLayout';
+import InventoryCards from '@/features/inventory/components/sectionsPage/InventoryCards';
 import { useProducts } from '../hooks/useProducts';
+
 export default function InventoryPage() {
     const { products, loading, error, create, update, remove } = useProducts();
 
     return (
         <>
-            <ContentCard />
+            <InventoryCards />
 
-            <ContentMain products={products} create={create} />
+            <InventoryLayout products={products} create={create} />
         </>
     );
 }

@@ -2,15 +2,15 @@ import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
 import Button from '@/shared/components/button/Button';
 import { Plus } from 'lucide-react';
 
-export default function FinalProducts() {
+export default function IndirectMaterialsView() {
     return (
         <>
             <HeadTitleTable
-                title={'Productos ensamblados finales'}
-                subtitle={'Arreglos y combos listos para vender'}
+                title={'Inventario de materiales indirectos'}
+                subtitle={'Consumibles y suministros'}
                 action={
                     <Button colorButton="#FF9800" logoButton={Plus}>
-                        Agregar producto
+                        Agregar material
                     </Button>
                 }
             />

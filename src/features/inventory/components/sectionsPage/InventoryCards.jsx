@@ -1,9 +1,8 @@
-import styles from './ContentCard.module.css';
+import styles from './InventoryCards.module.css';
 import CardInfo from '@/shared/components/cardInfo/CardInfo';
 import { CARDS_ITEMS } from '@shared/constants/cardsItems';
-import { useProducts } from '../../hooks/useProducts';
 
-export default function ContentCard() {
+export default function InventoryCards() {
     return (
         <div className={styles.container__cards}>
             {CARDS_ITEMS.map((item) => (

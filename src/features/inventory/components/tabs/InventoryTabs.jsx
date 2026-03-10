@@ -3,9 +3,9 @@ import Button from '@/shared/components/button/Button';
 
 export default function InventoryTabs({ view, setView }) {
     const tabs = [
-        { key: 'materialsControlled', label: 'Materiales controlados' },
-        { key: 'indirectMaterials', label: 'Materiales indirectos' },
-        { key: 'finalProducts', label: 'Productos finales' },
+        { key: 'controlledMaterialsView', label: 'Materiales controlados' },
+        { key: 'indirectMaterialsView', label: 'Materiales indirectos' },
+        { key: 'finalProductsView', label: 'Productos finales' },
     ];
 
     return (

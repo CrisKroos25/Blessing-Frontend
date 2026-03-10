@@ -8,18 +8,18 @@
 //   3. Pasar las acciones correctas al Modal
 // ============================================================
 
-import styles from './MaterialsControlled.module.css';
+import styles from './ControlledMaterialsView.module.css';
 import { Plus } from 'lucide-react';
 
 import Button from '@/shared/components/button/Button';
 import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
-import MaterialsTable from '../tables/MaterialsTable';
+import MaterialsTable from '../components/tables/MaterialsTable';
 import Modal from '@/shared/components/modal/Modal';
 
 // Importamos el hook que maneja el estado del modal
-import { useModalState } from '../../hooks/useModalState';
+import { useModalState } from '../hooks/useModalState';
 
-export default function MaterialsControlled({ products, create, update }) {
+export default function ControlledMaterialsView({ products, create, update }) {
     // useModalState se encarga de todo lo relacionado al modal:
     // abrir, cerrar, y saber qué tipo de acción se está haciendo
     const { modalState, openModal, closeModal } = useModalState();
