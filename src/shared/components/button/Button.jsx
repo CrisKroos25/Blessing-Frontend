@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 
 export default function Button({
     children, // Reemplaza a textButton
-    colorButton = '#4f46e5', // Color por defecto
+    colorButton = '#FF9800', // Color por defecto
     sizeButton = 'auto',
     logoButton: Icon,
     colorFont = 'white',
