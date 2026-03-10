@@ -1,11 +1,11 @@
+/* PricingSection.module.css — estructura idéntica, sin estilos nuevos */
+
 .section {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
-
-/* titulo de seccion */
 
 .sectionHeader {
     display: flex;
@@ -15,14 +15,13 @@
 }
 
 .sectionNumber {
-    background: #ff9800;
+    background: #e91e63;
     color: white;
     font-size: 14px;
     font-weight: 600;
     border-radius: 8px;
     width: 32px;
     height: 32px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,4 +35,28 @@
     flex: 1;
     border-bottom: 1px solid #ffcadd;
     padding-bottom: 6px;
+}
+
+.gridTwo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    letter-spacing: 0.03em;
+    font-family: 'Inter-Titulos';
+}
+
+.required {
+    color: #e91e63;
 }
