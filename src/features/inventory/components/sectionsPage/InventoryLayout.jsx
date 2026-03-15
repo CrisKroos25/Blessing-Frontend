@@ -5,7 +5,7 @@ import FinalProductsView from '../../views/FinalProductsView';
 import InventoryTabs from '../tabs/InventoryTabs';
 import { useState } from 'react';
 
-export default function InventoryLayout({ products, create }) {
+export default function InventoryLayout({ products, create, update, remove }) {
     const [view, setView] = useState('controlledMaterialsView');
 
     const componentsViews = {
@@ -22,7 +22,12 @@ export default function InventoryLayout({ products, create }) {
 
             <div>
                 {CurrentView && (
-                    <CurrentView products={products} create={create} />
+                    <CurrentView
+                        products={products}
+                        create={create}
+                        update={update}
+                        remove={remove}
+                    />
                 )}
             </div>
         </div>

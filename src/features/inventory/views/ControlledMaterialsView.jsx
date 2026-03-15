@@ -19,7 +19,12 @@ import Modal from '@/shared/components/modal/Modal';
 // Importamos el hook que maneja el estado del modal
 import { useModalState } from '../hooks/useModalState';
 
-export default function ControlledMaterialsView({ products, create, update }) {
+export default function ControlledMaterialsView({
+    products,
+    create,
+    update,
+    remove,
+}) {
     // useModalState se encarga de todo lo relacionado al modal:
     // abrir, cerrar, y saber qué tipo de acción se está haciendo
     const { modalState, openModal, closeModal } = useModalState();
@@ -51,6 +56,7 @@ export default function ControlledMaterialsView({ products, create, update }) {
                 onClose={closeModal}
                 create={create}
                 update={update}
+                remove={remove}
             />
         </div>
     );

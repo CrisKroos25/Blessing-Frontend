@@ -7,9 +7,14 @@ export default function InventoryPage() {
 
     return (
         <>
-            <InventoryCards />
+            <InventoryCards products={products} />
 
-            <InventoryLayout products={products} create={create} />
+            <InventoryLayout
+                products={products}
+                create={create}
+                update={update}
+                remove={remove}
+            />
         </>
     );
 }
