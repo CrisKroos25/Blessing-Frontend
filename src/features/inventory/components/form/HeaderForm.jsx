@@ -25,7 +25,7 @@ export default function HeaderForm({
                         <Icon size={25} />
                     </div>
                     <div className={styles.description}>
-                        <h2>{title}</h2>
+                        <h2 className={styles.title}>{title}</h2>
                         {subTitle && (
                             <div className={styles.subtitle}>{subTitle}</div>
                         )}

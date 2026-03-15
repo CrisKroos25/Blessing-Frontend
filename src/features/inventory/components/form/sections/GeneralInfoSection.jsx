@@ -13,13 +13,13 @@ import { Gift, Leaf } from 'lucide-react';
 // Así si en el futuro hay más tipos, solo tocamos este array.
 const PRODUCT_TYPES = [
     {
-        value: 'raw', // valor que se guarda en formData
+        value: 'Controlado', // valor que se guarda en formData
         label: 'Materia Prima',
         subtitle: 'Componente Base',
         icon: Leaf,
     },
     {
-        value: 'final',
+        value: 'Arreglo',
         label: 'Producto Final',
         subtitle: 'Arreglo',
         icon: Gift,

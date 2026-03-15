@@ -20,6 +20,7 @@ export default function PricingSection({ formData, handleChange }) {
                     <Input
                         name="purchasePrice"
                         type="number"
+                        step="0.01"
                         min="0"
                         value={formData.purchasePrice}
                         onChange={handleChange}

@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    font-size: 12px;
 }
 
 .content_icon {
@@ -29,6 +30,12 @@
 .description {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title {
+    letter-spacing: 0.1px;
 }
 
 .subtitle {
