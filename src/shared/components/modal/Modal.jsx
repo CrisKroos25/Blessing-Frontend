@@ -19,7 +19,7 @@ import DeleteForm from '@/features/inventory/components/form/DeleteForm';
 // Importamos el hook que bloquea el scroll del fondo
 import { useBodyScrollLock } from '@/features/inventory/hooks/useBodyScroll';
 
-export default function Modal({ modalState, onClose, create, update }) {
+export default function Modal({ modalState, onClose, create, update, remove }) {
     const { type, product } = modalState;
 
     // useProductForm inicializa el formulario con los datos del producto
@@ -40,6 +40,9 @@ export default function Modal({ modalState, onClose, create, update }) {
 
         if (type === 'edit') {
             await update(product.id, formData);
+        }
+        if (type === 'delete') {
+            await remove(product.id, formData);
         }
 
         resetForm(); // ← limpia antes de cerrar
@@ -66,9 +69,9 @@ export default function Modal({ modalState, onClose, create, update }) {
                               : 'Eliminar producto'
                     }
                     subTitle={
-                        type !== 'update'
-                            ? (product?.name ?? 'Complete los datos')
-                            : null
+                        type === 'create'
+                            ? 'Complete los detalles a continuación para registrar un nuevo artículo en su inventario'
+                            : (product?.name ?? null)
                     }
                     type={type}
                     onClose={onClose}
