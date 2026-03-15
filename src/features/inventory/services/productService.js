@@ -1,64 +1,56 @@
-/**
- * Servicio para operaciones CRUD de productos
- * En producción, aquí se harían llamadas a una API real
- */
+// ============================================================
+// productService.js
+// ------------------------------------------------------------
+// Capa de servicio: aquí vive toda la comunicación con el backend.
+// Por ahora usamos datos mock con setTimeout para simular
+// la latencia de una API real.
+//
+// Cuando se tenga un backend, solo se cambia este archivo —
+// el hook y los componentes no necesitan saber cómo viajan los datos.
+// ============================================================
 
 import { MOCK_PRODUCTS } from '@/shared/constants/products';
 
-/**
- * Obtiene todos los productos
- * @returns {Promise<Array>} Lista de productos
- */
+// Simula obtener todos los productos
+// [...MOCK_PRODUCTS] devuelve una copia del array para que
+// el estado de React no comparta referencia con el mock
 export const fetchProducts = async () => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve([...MOCK_PRODUCTS]); // 👈 CLON
+            resolve([...MOCK_PRODUCTS]);
         }, 500);
     });
 };
 
-/**
- * Obtiene un producto por ID
- * @param {number} id - ID del producto
- * @returns {Promise<Object>} Producto encontrado
- */
+// Simula buscar un producto por su ID
+// Rechaza la promesa si no lo encuentra, igual que haría una API real
 export const fetchProductById = async (id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const product = MOCK_PRODUCTS.find((p) => p.id === id);
-            if (product) {
-                resolve(product);
-            } else {
-                reject(new Error(`Producto con ID ${id} no encontrado`));
-            }
+            product
+                ? resolve(product)
+                : reject(new Error(`Producto con ID ${id} no encontrado`));
         }, 300);
     });
 };
 
-/**
- * Crea un nuevo producto
- * @param {Object} productData - Datos del nuevo producto
- * @returns {Promise<Object>} Producto creado
- */
+// Simula crear un producto nuevo
+// Usamos Math.max para generar un ID único basado en el más alto existente.
+// MOCK_PRODUCTS.length + 1 falla si algún producto fue eliminado.
 export const createProduct = async (productData) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const newProduct = {
-                id: MOCK_PRODUCTS.length + 1,
-                ...productData,
-            };
+            const newId = Math.max(...MOCK_PRODUCTS.map((p) => p.id)) + 1;
+            const newProduct = { id: newId, ...productData };
             MOCK_PRODUCTS.push(newProduct);
             resolve(newProduct);
         }, 500);
     });
 };
 
-/**
- * Actualiza un producto
- * @param {number} id - ID del producto
- * @param {Object} productData - Datos actualizados
- * @returns {Promise<Object>} Producto actualizado
- */
+// Simula actualizar un producto existente
+// Spread: primero los datos viejos, luego los nuevos los sobreescriben
 export const updateProduct = async (id, productData) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -76,11 +68,8 @@ export const updateProduct = async (id, productData) => {
     });
 };
 
-/**
- * Elimina un producto
- * @param {number} id - ID del producto
- * @returns {Promise<boolean>} True si se eliminó correctamente
- */
+// Simula eliminar un producto
+// splice(index, 1) elimina 1 elemento en la posición indicada
 export const deleteProduct = async (id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {

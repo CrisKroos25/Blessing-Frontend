@@ -12,17 +12,17 @@ import { useState } from 'react';
 // en cada render. Si necesitas agregar un campo nuevo
 // al formulario, solo lo agregas aquí.
 const INITIAL_FORM_STATE = {
+    image: '',
     name: '',
     description: '',
-    status: '',
     category: '',
     type: '', // // 'raw' | 'final'  ← consistente con GeneralInfoSection
     stock: '',
     stockMin: '',
     unit: '', // ← nuevo
     materialType: '', // ← nuevo
-    price: '',
-    image: '',
+    purchasePrice: '',
+    salePrice: '',
 };
 
 export function useProductForm(product) {
@@ -35,11 +35,11 @@ export function useProductForm(product) {
     // Maneja cambios en inputs y selects normales:
     // <input name="price" onChange={handleChange} />
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
 
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: type === 'number' ? Number(value) : value,
         }));
     };
 
