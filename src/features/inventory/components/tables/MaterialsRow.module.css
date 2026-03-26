@@ -65,7 +65,7 @@
 .button__options {
     background-color: transparent;
     border: none;
-    color: #e91e63;
+    color: var(--primary-color);
 }
 
 .button__options:hover {

@@ -9,28 +9,58 @@
 // porque no maneja lógica — solo distribuye props.
 // ============================================================
 
-import GeneralInfoSection from './sections/GeneralInfoSection';
-import InventorySection from './sections/InventorySection';
-import PricingSection from './sections/PricingSection';
-import ImageSection from './sections/ImageSection';
+import GeneralInfoSection from './sectionsBody/GeneralInfoSection';
+import InventorySection from './sectionsBody/InventorySection';
+import PricingSection from './sectionsBody/PricingSection';
+import ImageSection from './sectionsBody/ImageSection';
+import MaterialsSection from './sectionsBody/MaterialsSection';
 
-export default function BodyForm({ formData, handleChange }) {
+export default function BodyForm({
+    formData,
+    handleChange,
+    lockType,
+    allProducts,
+    errors = {},
+}) {
     return (
         <>
             {/* Sección 1: Nombre, descripción, categoría y tipo */}
             <GeneralInfoSection
                 formData={formData}
                 handleChange={handleChange}
+                lockType={lockType}
+                errors={errors}
             />
 
             {/* Sección 2: Stock y unidades */}
-            <InventorySection formData={formData} handleChange={handleChange} />
+            <InventorySection
+                formData={formData}
+                handleChange={handleChange}
+                errors={errors}
+            />
 
             {/* Sección 3: Precios */}
-            <PricingSection formData={formData} handleChange={handleChange} />
+            <PricingSection
+                formData={formData}
+                handleChange={handleChange}
+                errors={errors}
+            />
 
             {/* Sección 4: Imágenes del producto */}
-            <ImageSection formData={formData} handleChange={handleChange} />
+            <ImageSection
+                formData={formData}
+                handleChange={handleChange}
+                errors={errors}
+            />
+
+            {/* Solo visible si el producto es un arreglo final */}
+            {formData.type === 'Finales' && (
+                <MaterialsSection
+                    formData={formData}
+                    handleChange={handleChange}
+                    allProducts={allProducts}
+                />
+            )}
         </>
     );
 }

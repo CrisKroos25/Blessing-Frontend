@@ -8,9 +8,6 @@
 import { useState } from 'react';
 
 // Valores por defecto del formulario.
-// Los definimos FUERA del hook para que no se recreen
-// en cada render. Si necesitas agregar un campo nuevo
-// al formulario, solo lo agregas aquí.
 const INITIAL_FORM_STATE = {
     image: '',
     name: '',
@@ -19,21 +16,21 @@ const INITIAL_FORM_STATE = {
     type: '', // // 'raw' | 'final'  ← consistente con GeneralInfoSection
     stock: '',
     stockMin: '',
-    unit: '', // ← nuevo
-    materialType: '', // ← nuevo
+    unit: '',
+    materialType: '',
     purchasePrice: '',
     salePrice: '',
+    materials: [],
 };
 
+// Mezclamos INITIAL_FORM_STATE con lo que venga del producto si viene vacio usamos el formulario vacío.
 export function useProductForm(product) {
-    // Si recibimos un producto, lo usamos como estado inicial.
-    // Si no (modo creación), usamos el formulario vacío.
-    // Esto reemplaza el useEffect anterior — es más simple y predecible
-    // porque el estado se define UNA sola vez al montar el componente.
-    const [formData, setFormData] = useState(product ?? INITIAL_FORM_STATE);
+    const [formData, setFormData] = useState({
+        ...INITIAL_FORM_STATE,
+        ...product,
+    });
 
-    // Maneja cambios en inputs y selects normales:
-    // <input name="price" onChange={handleChange} />
+    // Maneja cambios en inputs y selects normales: <input name="price" onChange={handleChange} />
     const handleChange = (e) => {
         const { name, value, type } = e.target;
 
@@ -44,7 +41,6 @@ export function useProductForm(product) {
     };
 
     // Resetea el formulario a su estado inicial.
-    // Útil para limpiar después de guardar o al cancelar.
     const resetForm = () => {
         setFormData(INITIAL_FORM_STATE);
     };

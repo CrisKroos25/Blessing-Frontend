@@ -10,12 +10,12 @@ export default function HeaderForm({
     subTitle,
     onClose,
     icon: Icon = SquarePen,
-    type = 'default',
+    action = 'default',
 }) {
     const headerStyle =
-        type === 'delete' ? styles.headerDelete : styles.headerDefault;
+        action === 'delete' ? styles.headerDelete : styles.headerDefault;
     const iconStyle =
-        type === 'delete' ? styles.iconDelete : styles.iconDefault;
+        action === 'delete' ? styles.iconDelete : styles.iconDefault;
 
     return (
         <header className={`${styles.header} ${headerStyle}`}>

@@ -1,5 +1,5 @@
-import InventoryLayout from '@/features/inventory/components/sectionsPage/InventoryLayout';
-import InventoryCards from '@/features/inventory/components/sectionsPage/InventoryCards';
+import InventoryLayout from '../sectionsPage/InventoryLayout';
+import InventoryCards from '../sectionsPage/InventoryCards';
 import { useProducts } from '../hooks/useProducts';
 
 export default function InventoryPage() {

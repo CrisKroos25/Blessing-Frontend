@@ -12,7 +12,7 @@ export default function MainLayout() {
 
     return (
         <div className={styles.layout}>
-            <Sidebar className={styles.sidebar} />
+            <Sidebar />
 
             <div className={styles.mainWrapper}>
                 <Header

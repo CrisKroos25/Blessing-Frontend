@@ -1,19 +1,21 @@
-import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
-import Button from '@/shared/components/button/Button';
-import { Plus } from 'lucide-react';
+// IndirectMaterialsView.jsx
+import InventoryView from './InventoryView';
 
-export default function IndirectMaterialsView() {
+export default function IndirectMaterialsView({
+    products,
+    create,
+    update,
+    remove,
+}) {
     return (
-        <>
-            <HeadTitleTable
-                title={'Inventario de materiales indirectos'}
-                subtitle={'Consumibles y suministros'}
-                action={
-                    <Button colorButton="#FF9800" logoButton={Plus}>
-                        Agregar material
-                    </Button>
-                }
-            />
-        </>
+        <InventoryView
+            title="Materiales indirectos"
+            subtitle="Insumos y materiales de uso general"
+            defaultType="Insumos"
+            products={products}
+            create={create}
+            update={update}
+            remove={remove}
+        />
     );
 }

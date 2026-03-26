@@ -1,19 +1,23 @@
-import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
-import Button from '@/shared/components/button/Button';
-import { Plus } from 'lucide-react';
+// FinalProductsView.jsx
+import InventoryView from './InventoryView';
 
-export default function FinalProductsView() {
+export default function FinalProductsView({
+    products,
+    create,
+    update,
+    remove,
+    allProducts,
+}) {
     return (
-        <>
-            <HeadTitleTable
-                title={'Productos ensamblados finales'}
-                subtitle={'Arreglos y combos listos para vender'}
-                action={
-                    <Button colorButton="#FF9800" logoButton={Plus}>
-                        Agregar producto
-                    </Button>
-                }
-            />
-        </>
+        <InventoryView
+            title="Productos finales"
+            subtitle="Arreglos y productos ensamblados"
+            defaultType="Finales"
+            products={products}
+            allProducts={allProducts}
+            create={create}
+            update={update}
+            remove={remove}
+        />
     );
 }

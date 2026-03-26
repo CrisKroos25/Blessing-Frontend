@@ -1,70 +1,98 @@
 .sidebar {
-  font-family: "Inter-TextoNormal";
-  width: 100%;
-  position: sticky;
-  top: 0;
-  height: 100vh;  
-  padding: 1.5rem 1rem;
-  background-color: #ffffff;
-  border-right: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 1.5rem 1rem;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.5rem 1.5rem;
 }
 
-.logo {
-  font-size: 2rem;
+.logoWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.logoIcon {
+    color: #ffffff;
+}
+
+.brandText {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
 }
 
 .title {
-  font-size: 1.4rem;
-  margin: 0;
+    font-family: 'Inter-Titulos';
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .subtitle {
-  font-size: 0.85rem;
-  margin: 0;
-  color: #6b7280;
+    font-size: 0.75rem;
+    margin: 0;
+    color: #9ca3af;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
+/* El resto se queda igual */
 .menu {
-  list-style: none;
-  padding: 0;
-  margin: 2rem 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .menuItem {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  text-decoration: none;
-  color: inherit;
-  font-size: 0.95rem;
-  transition: background 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.95rem;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
 
 .menuItem:hover {
-  background-color: #ffdae7;
-  color: #4f5869;
+    background-color: var(--primary-color-hover);
+    color: #4f5869;
 }
 
 .active {
-  background-color: #e91e63;
-  color: #ffffff;
+    background-color: var(--primary-color);
+    color: #ffffff;
 }
-.active:hover{
-  background-color: #e91e63;
+
+.active:hover {
+    background-color: var(--primary-color);
     color: #ffffff;
 }

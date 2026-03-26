@@ -1,15 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import { NAVIGATION_ITEMS } from '../shared/constants/navigationItems';
 import styles from './Sidebar.module.css';
+import { Gift } from 'lucide-react';
 
 export default function Sidebar() {
     return (
         <aside className={styles.sidebar}>
             <div className={styles.brand}>
-                <span className={styles.logo}>❤️</span>
-                <div>
-                    <h1 className={styles.title}>LoveGifts</h1>
-                    <p className={styles.subtitle}>Sistema de inventario</p>
+                <div className={styles.logoWrapper}>
+                    <Gift
+                        size={22}
+                        strokeWidth={2}
+                        className={styles.logoIcon}
+                    />
+                </div>
+                <div className={styles.brandText}>
+                    <h1 className={styles.title}>Blessing</h1>
+                    <p className={styles.subtitle}>Inventario</p>
                 </div>
             </div>
 
@@ -23,7 +30,7 @@ export default function Sidebar() {
                                     `${styles.menuItem} ${isActive ? styles.active : ''}`
                                 }
                             >
-                                {<Icon size={18} />}
+                                <Icon size={18} />
                                 <span>{label}</span>
                             </NavLink>
                         </li>

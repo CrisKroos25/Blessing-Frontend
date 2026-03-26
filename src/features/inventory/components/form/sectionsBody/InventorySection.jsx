@@ -8,7 +8,7 @@
 
 import styles from './InventorySection.module.css';
 import Input from '@/shared/components/input/Input';
-import { ShieldAlert, Package } from 'lucide-react';
+import { ShieldAlert, Package, CircleAlert } from 'lucide-react';
 
 // Opciones para el selector de unidades de medida
 const UNIT_OPTIONS = [
@@ -38,7 +38,11 @@ const MATERIAL_TYPES = [
     },
 ];
 
-export default function InventorySection({ formData, handleChange }) {
+export default function InventorySection({
+    formData,
+    handleChange,
+    errors = {},
+}) {
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
@@ -60,6 +64,12 @@ export default function InventorySection({ formData, handleChange }) {
                         onChange={handleChange}
                         placeholder="0"
                     />
+                    {errors.stock && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.stock}
+                        </span>
+                    )}
                 </div>
 
                 <div className={styles.field}>
@@ -75,6 +85,12 @@ export default function InventorySection({ formData, handleChange }) {
                         onChange={handleChange}
                         placeholder="0"
                     />
+                    {errors.stockMin && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.stockMin}
+                        </span>
+                    )}
                 </div>
                 <div className={styles.field}>
                     <label className={styles.label}>
@@ -97,10 +113,16 @@ export default function InventorySection({ formData, handleChange }) {
                             </option>
                         ))}
                     </select>
+                    {errors.unit && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.unit}
+                        </span>
+                    )}
                 </div>
             </div>
 
-            {/* Fila 3: Clasificación del material */}
+            {/* Fila 3: Clasificación del material
             <div className={styles.field}>
                 <label className={styles.label}>
                     CLASIFICACIÓN <span className={styles.required}>*</span>
@@ -137,7 +159,7 @@ export default function InventorySection({ formData, handleChange }) {
                         },
                     )}
                 </div>
-            </div>
+            </div>*/}
         </section>
     );
 }

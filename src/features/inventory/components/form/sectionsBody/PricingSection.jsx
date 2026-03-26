@@ -2,8 +2,13 @@
 
 import styles from './PricingSection.module.css';
 import Input from '@/shared/components/input/Input';
+import { CircleAlert } from 'lucide-react';
 
-export default function PricingSection({ formData, handleChange }) {
+export default function PricingSection({
+    formData,
+    handleChange,
+    errors = {},
+}) {
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
@@ -26,13 +31,16 @@ export default function PricingSection({ formData, handleChange }) {
                         onChange={handleChange}
                         placeholder="0.00"
                     />
+                    {errors.purchasePrice && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.purchasePrice}
+                        </span>
+                    )}
                 </div>
 
                 <div className={styles.field}>
-                    <label className={styles.label}>
-                        PRECIO DE VENTA{' '}
-                        <span className={styles.required}>*</span>
-                    </label>
+                    <label className={styles.label}>PRECIO DE VENTA</label>
                     <Input
                         name="salePrice"
                         type="number"

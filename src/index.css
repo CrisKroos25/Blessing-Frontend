@@ -1,5 +1,19 @@
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --white-color: #ffffff;
+    --primary-color: #e91e63;
+    --color-border-card: #ff4d7d;
+    --primary-color-hover: #ffdae7;
+    --font-color: #111827;
+    --font-color-hover: #4f5869;
+    --font-color-secundary: #9ca3af;
+    --border-color: #e5e7eb;
+    --input-background-color: #f3f4f6;
+    --input-border-color: #fe9dbf;
+    --typeCardActive: #fff1f5;
 }

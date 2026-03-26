@@ -1,11 +1,13 @@
+/* InventorySection.module.css
+   Reutiliza la misma estructura visual de GeneralInfoSection.
+   Solo agregamos el estilo del <select> que es nuevo. */
+
 .section {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
-
-/* titulo de seccion */
 
 .sectionHeader {
     display: flex;
@@ -15,14 +17,13 @@
 }
 
 .sectionNumber {
-    background: #e91e63;
+    background: var(--primary-color);
     color: white;
     font-size: 14px;
     font-weight: 600;
     border-radius: 8px;
     width: 32px;
     height: 32px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,21 +39,11 @@
     padding-bottom: 6px;
 }
 
-/* grid */
-
-.grid {
+.gridThree {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-}
-
-.gridTwo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
 }
-
-/* campos */
 
 .field {
     display: flex;
@@ -72,33 +63,35 @@
     color: #e91e63;
 }
 
-/* textarea */
-
-.textarea {
+/* Select — mismo feeling visual que los inputs del proyecto */
+.select {
     font-family: 'Inter-TextoNormal';
     width: 100%;
-    min-height: 90px;
-    outline: none;
-    border: none;
-    padding: 12px 14px;
+    padding: 10px 14px;
     background-color: #fafafa;
+    border: none;
     border-radius: 10px;
-    resize: none;
     font-size: 14px;
     color: #4b5563;
     box-shadow: 0 0 0 1.2px #eaeaea;
+    outline: none;
+    cursor: pointer;
+    appearance: none; /* quita la flecha nativa del SO */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
 }
 
-.textarea:focus-within {
-    box-shadow: 0 0 0 1px #ff9cbf;
-}
-
-.textarea::placeholder {
+.opacity {
+    color: red;
     opacity: 0.5;
 }
 
-/* product type cards */
+.select:focus {
+    box-shadow: 0 0 0 1px #ff9cbf;
+}
 
+/* Cards de clasificación — idénticas a GeneralInfoSection */
 .typeSelector {
     display: flex;
     gap: 16px;
@@ -108,18 +101,10 @@
     flex: 1;
     height: 100px;
     padding: 16px;
-
     border-radius: 12px;
     border: 2px solid #e6e6e6;
-
     cursor: pointer;
-
     transition: all 0.2s ease;
-}
-
-.icon {
-    font-size: 22px;
-    margin: 0 0 7px 0;
 }
 
 .typeCard:hover {
@@ -129,6 +114,11 @@
 .typeCardActive {
     border-color: #ff4d7d;
     background: #fff1f5;
+}
+
+.icon {
+    font-size: 22px;
+    margin: 0 0 7px 0;
 }
 
 .typeTitle {
@@ -141,4 +131,14 @@
 .typeSubtitle {
     font-size: 12px;
     color: #777;
+}
+
+.errorText {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #eb6d6b;
+    font-family: 'Inter-TextoNormal';
+    margin-top: 2px;
 }

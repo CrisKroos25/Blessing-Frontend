@@ -7,26 +7,46 @@
 
 import styles from './GeneralInfoSection.module.css';
 import Input from '@/shared/components/input/Input';
-import { Gift, Leaf } from 'lucide-react';
+import { Gift, Leaf, CircleAlert } from 'lucide-react';
 
 // Definimos los tipos de producto fuera del componente.
 // Así si en el futuro hay más tipos, solo tocamos este array.
 const PRODUCT_TYPES = [
     {
         value: 'Controlado', // valor que se guarda en formData
-        label: 'Materia Prima',
-        subtitle: 'Componente Base',
+        label: 'Controlado',
+        subtitle: 'Material',
         icon: Leaf,
     },
     {
-        value: 'Arreglo',
-        label: 'Producto Final',
-        subtitle: 'Arreglo',
+        value: 'Insumos',
+        label: 'Insumo',
+        subtitle: 'Apoyo para armado',
+        icon: Gift,
+    },
+    {
+        value: 'Finales',
+        label: 'Arreglo',
+        subtitle: 'Arreglo completo',
         icon: Gift,
     },
 ];
 
-export default function GeneralInfoSection({ formData, handleChange }) {
+const CATEGORY_OPTIONS = [
+    { value: 'Peluches', label: 'Peluches' },
+    { value: 'Arreglos', label: 'Arreglos finales' },
+    { value: 'Cintas', label: 'Cintas' },
+    { value: 'Cajas', label: 'Cajas de regalo' },
+    { value: 'Decoracion', label: 'Piezas de decoracion' },
+    { value: 'Papel', label: 'Papel' },
+];
+
+export default function GeneralInfoSection({
+    formData,
+    handleChange,
+    lockType,
+    errors = {},
+}) {
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
@@ -46,6 +66,11 @@ export default function GeneralInfoSection({ formData, handleChange }) {
                         onChange={handleChange}
                         placeholder="e.j Peluche de Snoopy"
                     />
+                    {errors.name && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />} {errors.name}
+                        </span>
+                    )}
                 </div>
 
                 <div className={styles.field}>
@@ -65,12 +90,27 @@ export default function GeneralInfoSection({ formData, handleChange }) {
                     <label className={styles.label}>
                         CATEGORÍA <span className={styles.required}>*</span>
                     </label>
-                    <Input
+                    <select
                         name="category"
+                        className={styles.select}
                         value={formData.category}
                         onChange={handleChange}
-                        placeholder="Selecciona una categoría..."
-                    />
+                    >
+                        <option value="" disabled>
+                            Selecciona una unidad...
+                        </option>
+                        {CATEGORY_OPTIONS.map(({ value, label }) => (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.category}
+                        </span>
+                    )}
                 </div>
 
                 <div className={styles.field}>
@@ -80,20 +120,21 @@ export default function GeneralInfoSection({ formData, handleChange }) {
                     </label>
 
                     <div className={styles.typeSelector}>
-                        {/* Recorremos el array de tipos y renderizamos una card por cada uno */}
                         {PRODUCT_TYPES.map(
                             ({ value, label, subtitle, icon: Icon }) => {
-                                // ¿Esta card es la que está seleccionada actualmente?
                                 const isActive = formData.type === value;
 
                                 return (
                                     <div
                                         key={value}
-                                        // Si está activa, le agregamos la clase de estilos activa
-                                        className={`${styles.typeCard} ${isActive ? styles.typeCardActive : ''}`}
-                                        // Al hacer click, llamamos handleChange con el formato
-                                        // que espera el hook useProductForm
+                                        className={`
+                            ${styles.typeCard}
+                            ${isActive ? styles.typeCardActive : ''}
+                            ${lockType ? styles.typeCardLocked : ''}
+                        `}
+                                        // Si lockType está activo, no hacemos nada al click
                                         onClick={() =>
+                                            !lockType &&
                                             handleChange({
                                                 target: { name: 'type', value },
                                             })

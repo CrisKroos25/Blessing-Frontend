@@ -18,7 +18,8 @@ export default function InventoryCards({ products }) {
     const valueCards = [
         {
             id: 1,
-            total: products.length,
+            total: products.filter((product) => product.type == 'Controlado')
+                .length,
             subtitle: 'Productos controlados',
             description: '12 categorías',
             icon: Box,
@@ -42,7 +43,8 @@ export default function InventoryCards({ products }) {
         },
         {
             id: 4,
-            total: products.length,
+            total: products.filter((product) => product.type == 'Finales')
+                .length,
             subtitle: 'Tipos de productos ensamblados',
             description: 'Arreglos activos',
             icon: Boxes,

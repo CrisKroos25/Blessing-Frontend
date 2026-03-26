@@ -1,5 +1,5 @@
 // DeleteForm.jsx
-// Cuerpo del modal cuando type === 'delete'
+// Cuerpo del modal cuando action === 'delete'
 // Reemplaza el <p> inline que había en Modal.jsx
 
 import styles from './DeleteForm.module.css';

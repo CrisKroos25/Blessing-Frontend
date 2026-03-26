@@ -8,12 +8,12 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/dashboard" element={<SalesPage />}></Route>
+                <Route path="/dashboard" element={<SalesPage />} />
                 <Route path="/sales" element={<SalesPage />} />
                 <Route path="/purchases" element={<PurchasesPage />} />
                 <Route path="/inventory" element={<InventoryPage />} />
-                <Route path="/reports" element={<SalesPage />}></Route>
-                <Route path="/settings" element={<SalesPage />}></Route>
+                <Route path="/reports" element={<SalesPage />} />
+                <Route path="/settings" element={<SalesPage />} />
             </Route>
         </Routes>
     );
