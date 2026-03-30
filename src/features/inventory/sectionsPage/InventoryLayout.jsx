@@ -38,8 +38,8 @@ export default function InventoryLayout({ products, create, update, remove }) {
             {/* CurrentView && evita un error si la key no existe en VIEW_COMPONENTS — renderiza solo si es válido */}
             {CurrentView && (
                 <CurrentView
-                    products={filteredProducts}
-                    allProducts={products}
+                    products={filteredProducts} // Productos filtrados segun la vista.
+                    allProducts={products} // Solo lo recibe FinalProducts.jsx
                     create={create}
                     update={update}
                     remove={remove}

@@ -23,7 +23,7 @@ export default function Modal({
             create={create}
             update={update}
             remove={remove}
-            allProducts={allProducts}
+            allProducts={allProducts} // Solo lo usa FinalProducts.jsx
         />
     );
 }

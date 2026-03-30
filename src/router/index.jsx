@@ -8,7 +8,7 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/dashboard" element={<SalesPage />} />
+                <Route path="/home" element={<SalesPage />} />
                 <Route path="/sales" element={<SalesPage />} />
                 <Route path="/purchases" element={<PurchasesPage />} />
                 <Route path="/inventory" element={<InventoryPage />} />

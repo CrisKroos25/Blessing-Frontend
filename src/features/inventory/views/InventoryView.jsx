@@ -32,7 +32,7 @@ export default function InventoryView({
     create,
     update,
     remove,
-    allProducts,
+    allProducts, // Solo funciona para FinalProducts.jsx
 }) {
     // useModalState se encarga de todo lo relacionado al modal:
     // abrir, cerrar, y saber qué tipo de acción se está haciendo
@@ -66,7 +66,7 @@ export default function InventoryView({
                 update={update}
                 remove={remove}
                 defaultType={defaultType}
-                allProducts={allProducts}
+                allProducts={allProducts} // Solamente para FinalProducts.jsx
             />
         </div>
     );

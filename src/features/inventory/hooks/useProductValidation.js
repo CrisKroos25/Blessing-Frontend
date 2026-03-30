@@ -23,7 +23,7 @@ export function useProductValidation() {
         });
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        return Object.keys(newErrors).length === 0; // Devuelve true (sin errores) o false (con al menos un error)
     };
 
     const clearErrors = () => setErrors({});

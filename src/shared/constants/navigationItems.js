@@ -16,7 +16,7 @@ export const NAVIGATION_ITEMS = [
     {
         id: 1,
         label: 'Panel',
-        path: '/dashboard',
+        path: '/home',
         icon: ChartColumn,
     },
     {
