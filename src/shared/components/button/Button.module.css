@@ -1,7 +1,7 @@
 .button {
     display: flex;
-    justify-content: center;   
-    align-items: center;       
+    justify-content: center;
+    align-items: center;
     gap: 7px;
     color: white;
     border: none;
@@ -10,7 +10,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: "Inter-Titulos";
+    font-family: 'Inter-Titulos';
     font-size: 16px;
 }
 button:hover {
