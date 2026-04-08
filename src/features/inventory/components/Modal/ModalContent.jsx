@@ -13,9 +13,10 @@ import styles from './ModalContent.module.css';
 import { useProductForm } from '@/features/inventory/hooks/useProductForm';
 import { useProductValidation } from '@/features/inventory/hooks/useProductValidation';
 import { useBodyScrollLock } from '@/features/inventory/hooks/useBodyScroll';
+import { useBundleMaterials } from '@/features/inventory/hooks/useBundleMaterials';
 import { resolveInitialProduct } from '@/features/inventory/utils/productFormUtils';
 import { useToastContext } from '@/shared/context/ToastContext';
-import { act, useState } from 'react';
+import { useState } from 'react';
 import BodyForm from '@/features/inventory/components/form/BodyForm';
 import HeaderForm from '@/features/inventory/components/form/HeaderForm';
 import FooterForm from '@/features/inventory/components/form/FooterForm';
@@ -48,6 +49,9 @@ export default function ModalContent({
     const { formData, handleChange, resetForm } =
         useProductForm(initialProduct);
 
+    // Cargar materials si es edit y bundle
+    useBundleMaterials(action, product, handleChange);
+
     // Bloqueamos el scroll del fondo cuando el modal está abierto
     useBodyScrollLock(true);
 
@@ -63,6 +67,7 @@ export default function ModalContent({
             }
             if (action === 'edit') {
                 await update(product.id, formData);
+                console.log(formData);
             }
             if (action === 'delete') {
                 await remove(product.id);
@@ -78,7 +83,7 @@ export default function ModalContent({
             clearErrors();
             resetForm();
             onClose();
-        } catch (err) {
+        } catch {
             toast.error('Ocurrió un error, intenta de nuevo');
         } finally {
             setIsSubmitting(false); // ← desbloquea siempre, con éxito o error

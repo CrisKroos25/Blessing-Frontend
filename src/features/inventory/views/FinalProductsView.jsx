@@ -12,7 +12,7 @@ export default function FinalProductsView({
         <InventoryView
             title="Productos finales"
             subtitle="Arreglos y productos ensamblados"
-            defaultType="Finales"
+            defaultType="bundle"
             products={products}
             allProducts={allProducts}
             create={create}

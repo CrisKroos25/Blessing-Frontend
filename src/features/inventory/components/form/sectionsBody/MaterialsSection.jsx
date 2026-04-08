@@ -25,7 +25,7 @@ export default function MaterialsSection({
         const alreadyAdded = formData.materials?.some(
             (m) => m.productId === product.id,
         );
-        const isFinal = product.type === 'Finales';
+        const isFinal = product.type === 'bundle';
         const matchesSearch = product.name
             .toLowerCase()
             .includes(search.toLowerCase());

@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
+// REQUIRED_FIELDS — mismos nombres
 const REQUIRED_FIELDS = {
     name: 'Nombre de producto',
     category: 'Categoría',
     type: 'Tipo de producto',
     stock: 'Stock actual',
-    stockMin: 'Stock mínimo',
+    min_stock: 'Stock mínimo',
     unit: 'Unidad de medida',
-    purchasePrice: 'Precio de compra',
+    purchase_price: 'Precio de compra',
 };
 
 export function useProductValidation() {

@@ -12,11 +12,11 @@ import { ShieldAlert, Package, CircleAlert } from 'lucide-react';
 
 // Opciones para el selector de unidades de medida
 const UNIT_OPTIONS = [
+    { value: 'pcs', label: 'Piezas (pcs)' },
     { value: 'kg', label: 'Kilogramos (kg)' },
     { value: 'g', label: 'Gramos (g)' },
     { value: 'l', label: 'Litros (l)' },
     { value: 'ml', label: 'Mililitros (ml)' },
-    { value: 'pcs', label: 'Piezas (pcs)' },
     { value: 'm', label: 'Metros (m)' },
 ];
 
@@ -78,17 +78,17 @@ export default function InventorySection({
                     </label>
                     {/* Stock mínimo: alerta cuando el stock baja de este número */}
                     <Input
-                        name="stockMin"
+                        name="min_stock"
                         type="number"
                         min="0"
-                        value={formData.stockMin}
+                        value={formData.min_stock}
                         onChange={handleChange}
                         placeholder="0"
                     />
-                    {errors.stockMin && (
+                    {errors.min_stock && (
                         <span className={styles.errorText}>
                             {<CircleAlert size={12} />}
-                            {errors.stockMin}
+                            {errors.min_stock}
                         </span>
                     )}
                 </div>

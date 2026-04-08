@@ -11,7 +11,7 @@ export default function ControlledMaterialsView({
         <InventoryView
             title="Materiales controlados"
             subtitle="Materias primas y componentes"
-            defaultType="Controlado"
+            defaultType="product"
             products={products}
             create={create}
             update={update}

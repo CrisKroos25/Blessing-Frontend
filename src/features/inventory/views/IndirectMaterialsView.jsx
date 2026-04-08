@@ -11,7 +11,7 @@ export default function IndirectMaterialsView({
         <InventoryView
             title="Materiales indirectos"
             subtitle="Insumos y materiales de uso general"
-            defaultType="Insumos"
+            defaultType="supply"
             products={products}
             create={create}
             update={update}

@@ -54,7 +54,7 @@ export default function BodyForm({
             />
 
             {/* Solo visible si el producto es un arreglo final */}
-            {formData.type === 'Finales' && (
+            {formData.type === 'bundle' && (
                 <MaterialsSection
                     formData={formData}
                     handleChange={handleChange}

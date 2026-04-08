@@ -10,9 +10,9 @@ import { useState } from 'react';
 
 // Cada vista tiene su propia función de filtrado de productos.
 const VIEW_FILTERS = {
-    controlledMaterialsView: (p) => p.type === 'Controlado',
-    indirectMaterialsView: (p) => p.type === 'Insumos',
-    finalProductsView: (p) => p.type === 'Finales',
+    controlledMaterialsView: (p) => p.type === 'product',
+    indirectMaterialsView: (p) => p.type === 'supply',
+    finalProductsView: (p) => p.type === 'bundle',
 };
 
 // se renderiza dinámicamente el componente

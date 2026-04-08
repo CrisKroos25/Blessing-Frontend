@@ -23,18 +23,18 @@ export default function PricingSection({
                         <span className={styles.required}>*</span>
                     </label>
                     <Input
-                        name="purchasePrice"
+                        name="purchase_price"
                         type="number"
                         step="0.01"
                         min="0"
-                        value={formData.purchasePrice}
+                        value={formData.purchase_price}
                         onChange={handleChange}
                         placeholder="0.00"
                     />
-                    {errors.purchasePrice && (
+                    {errors.purchase_price && (
                         <span className={styles.errorText}>
                             {<CircleAlert size={12} />}
-                            {errors.purchasePrice}
+                            {errors.purchase_price}
                         </span>
                     )}
                 </div>
@@ -42,10 +42,10 @@ export default function PricingSection({
                 <div className={styles.field}>
                     <label className={styles.label}>PRECIO DE VENTA</label>
                     <Input
-                        name="salePrice"
+                        name="sell_price"
                         type="number"
                         min="0"
-                        value={formData.salePrice}
+                        value={formData.sell_price}
                         onChange={handleChange}
                         placeholder="0.00"
                     />

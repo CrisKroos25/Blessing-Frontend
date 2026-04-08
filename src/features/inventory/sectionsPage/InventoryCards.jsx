@@ -7,18 +7,18 @@ export default function InventoryCards({ products }) {
     // así la lógica es clara y separada de la presentación
 
     const lowStockCount = products.filter(
-        (product) => product.stock < product.stockMin,
+        (product) => product.stock < product.min_stock,
     ).length;
 
     const totalValue = products.reduce(
-        (acc, product) => acc + Number(product.purchasePrice),
+        (acc, product) => acc + Number(product.purchase_price),
         0,
     );
 
     const valueCards = [
         {
             id: 1,
-            total: products.filter((product) => product.type == 'Controlado')
+            total: products.filter((product) => product.type == 'product')
                 .length,
             subtitle: 'Productos controlados',
             description: '12 categorías',
@@ -43,7 +43,7 @@ export default function InventoryCards({ products }) {
         },
         {
             id: 4,
-            total: products.filter((product) => product.type == 'Finales')
+            total: products.filter((product) => product.type == 'bundle')
                 .length,
             subtitle: 'Tipos de productos ensamblados',
             description: 'Arreglos activos',

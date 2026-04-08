@@ -8,18 +8,18 @@
 import { useState } from 'react';
 
 // Valores por defecto del formulario.
+// INITIAL_FORM_STATE — nombres exactos del backend
 const INITIAL_FORM_STATE = {
     image: '',
     name: '',
     description: '',
     category: '',
-    type: '', // // 'raw' | 'final'  ← consistente con GeneralInfoSection
+    type: '', // 'product' | 'supply' | 'bundle'
     stock: '',
-    stockMin: '',
+    min_stock: '',
     unit: '',
-    materialType: '',
-    purchasePrice: '',
-    salePrice: '',
+    purchase_price: '',
+    sell_price: '',
     materials: [],
 };
 

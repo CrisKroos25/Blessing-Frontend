@@ -1,85 +1,105 @@
 // ============================================================
-// productService.js
+// services/productService.js
 // ------------------------------------------------------------
-// Capa de servicio: aquí vive toda la comunicación con el backend.
-// Por ahora usamos datos mock con setTimeout para simular
-// la latencia de una API real.
-//
-// Cuando se tenga un backend, solo se cambia este archivo —
-// el hook y los componentes no necesitan saber cómo viajan los datos.
+// Capa de servicio: toda la comunicación con el backend vive aquí.
+// Cuando el backend cambie de URL o estructura, solo tocamos este archivo.
+// El resto del frontend (hooks, componentes) no sabe cómo viajan los datos.
 // ============================================================
 
-import { MOCK_PRODUCTS } from '@/shared/constants/products';
+const BASE_URL = 'http://localhost:8000/api';
 
-// Simula obtener todos los productos
-// [...MOCK_PRODUCTS] devuelve una copia del array para que
-// el estado de React no comparta referencia con el mock
+// ── Helper ──────────────────────────────────────────────────
+// Centraliza el manejo de errores HTTP para no repetirlo
+// en cada función. Si la respuesta no es ok, lanza un error
+// con el mensaje que devuelve el backend.
+const handleResponse = async (res) => {
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.detail ?? `Error ${res.status}`);
+    }
+    // DELETE devuelve 204 sin body — no intentamos parsear JSON
+    if (res.status === 204) return true;
+    return res.json();
+};
+
+// ── GET /api/items/ ─────────────────────────────────────────
+// Trae todos los items activos del inventario
 export const fetchProducts = async () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([...MOCK_PRODUCTS]);
-        }, 500);
-    });
+    const res = await fetch(`${BASE_URL}/items/`);
+    return handleResponse(res);
 };
 
-// Simula buscar un producto por su ID
-// Rechaza la promesa si no lo encuentra, igual que haría una API real
-export const fetchProductById = async (id) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const product = MOCK_PRODUCTS.find((p) => p.id === id);
-            product
-                ? resolve(product)
-                : reject(new Error(`Producto con ID ${id} no encontrado`));
-        }, 300);
+// ── POST /api/items/ ────────────────────────────────────────
+// Crea un nuevo item — si es bundle también envía sus materiales
+export const createProduct = async (formData) => {
+    const { materials, ...itemData } = formData;
+
+    const res = await fetch(`${BASE_URL}/items/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itemData),
     });
+
+    const newItem = await handleResponse(res);
+
+    // Si es bundle y tiene materiales, los guardamos en bundledetail
+    if (formData.type === 'bundle' && materials?.length > 0) {
+        await saveBundleMaterials(newItem.id, materials);
+    }
+
+    return newItem;
 };
 
-// Simula crear un producto nuevo
-// Usamos Math.max para generar un ID único basado en el más alto existente.
-// MOCK_PRODUCTS.length + 1 falla si algún producto fue eliminado.
-export const createProduct = async (productData) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const newId = Math.max(...MOCK_PRODUCTS.map((p) => p.id)) + 1;
-            const newProduct = { id: newId, ...productData };
-            MOCK_PRODUCTS.push(newProduct);
-            resolve(newProduct);
-        }, 500);
+// ── PUT /api/items/:id/ ─────────────────────────────────────
+// Actualiza un item existente
+export const updateProduct = async (id, formData) => {
+    const { materials, ...itemData } = formData;
+
+    const res = await fetch(`${BASE_URL}/items/${id}/`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itemData),
     });
+
+    const updatedItem = await handleResponse(res);
+
+    // Si es bundle, reemplazamos los materiales
+    if (formData.type === 'bundle' && materials?.length > 0) {
+        await saveBundleMaterials(id, materials);
+    }
+
+    return updatedItem;
 };
 
-// Simula actualizar un producto existente
-// Spread: primero los datos viejos, luego los nuevos los sobreescriben
-export const updateProduct = async (id, productData) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const index = MOCK_PRODUCTS.findIndex((p) => p.id === id);
-            if (index !== -1) {
-                MOCK_PRODUCTS[index] = {
-                    ...MOCK_PRODUCTS[index],
-                    ...productData,
-                };
-                resolve(MOCK_PRODUCTS[index]);
-            } else {
-                reject(new Error(`Producto con ID ${id} no encontrado`));
-            }
-        }, 500);
-    });
-};
-
-// Simula eliminar un producto
-// splice(index, 1) elimina 1 elemento en la posición indicada
+// ── DELETE /api/items/:id/ ──────────────────────────────────
+// Elimina un item (o soft delete si el backend lo maneja)
 export const deleteProduct = async (id) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const index = MOCK_PRODUCTS.findIndex((p) => p.id === id);
-            if (index !== -1) {
-                MOCK_PRODUCTS.splice(index, 1);
-                resolve(true);
-            } else {
-                reject(new Error(`Producto con ID ${id} no encontrado`));
-            }
-        }, 500);
+    const res = await fetch(`${BASE_URL}/items/${id}/`, {
+        method: 'DELETE',
     });
+    return handleResponse(res);
+};
+
+// ── Helper: guardar materiales de un bundle ─────────────────
+// Llama al endpoint de bundles para guardar los materiales
+// que componen un arreglo
+const saveBundleMaterials = async (bundleId, materials) => {
+    const res = await fetch(`${BASE_URL}/bundles/${bundleId}/materials/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            materials.map((m) => ({
+                item: m.productId,
+                quantity: m.quantity,
+            })),
+        ),
+    });
+    return handleResponse(res);
+};
+
+// ── GET /api/items/:id/materials ─────────────────────────────────
+// Obtiene los materiales de un bundle
+export const fetchBundleMaterials = async (itemId) => {
+    const res = await fetch(`${BASE_URL}/items/${itemId}/materials/`);
+    return handleResponse(res);
 };

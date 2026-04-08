@@ -11,21 +11,22 @@ import { Gift, Leaf, CircleAlert } from 'lucide-react';
 
 // Definimos los tipos de producto fuera del componente.
 // Así si en el futuro hay más tipos, solo tocamos este array.
+// GeneralInfoSection.jsx — PRODUCT_TYPES con valores del backend
 const PRODUCT_TYPES = [
     {
-        value: 'Controlado', // valor que se guarda en formData
+        value: 'product',
         label: 'Controlado',
-        subtitle: 'Material',
+        subtitle: 'Material principal',
         icon: Leaf,
     },
     {
-        value: 'Insumos',
+        value: 'supply',
         label: 'Insumo',
         subtitle: 'Apoyo para armado',
         icon: Gift,
     },
     {
-        value: 'Finales',
+        value: 'bundle',
         label: 'Arreglo',
         subtitle: 'Arreglo completo',
         icon: Gift,
