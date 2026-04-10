@@ -14,7 +14,9 @@ export function useBundleMaterials(action, product, handleChange) {
             if (action === 'edit' && product?.type === 'bundle') {
                 try {
                     const materials = await fetchBundleMaterials(product.id);
-                    handleChange({ target: { name: 'materials', value: materials } });
+                    handleChange({
+                        target: { name: 'materials', value: materials },
+                    });
                 } catch {
                     console.error('Error loading materials');
                 }

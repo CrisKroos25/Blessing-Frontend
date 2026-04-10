@@ -42,7 +42,6 @@ export default function ModalContent({
         action,
         product,
         defaultType,
-        allProducts,
     );
 
     // useProductForm inicializa el formulario con los datos del producto
@@ -67,7 +66,6 @@ export default function ModalContent({
             }
             if (action === 'edit') {
                 await update(product.id, formData);
-                console.log(formData);
             }
             if (action === 'delete') {
                 await remove(product.id);
@@ -83,7 +81,8 @@ export default function ModalContent({
             clearErrors();
             resetForm();
             onClose();
-        } catch {
+        } catch (error) {
+            console.error('Error en handleSubmit:', error);
             toast.error('Ocurrió un error, intenta de nuevo');
         } finally {
             setIsSubmitting(false); // ← desbloquea siempre, con éxito o error
@@ -110,7 +109,7 @@ export default function ModalContent({
                     subTitle={
                         action === 'create'
                             ? 'Complete los detalles a continuación para registrar un nuevo artículo en su inventario'
-                            : (product?.name ?? null)
+                            : product?.name
                     }
                     action={action}
                     onClose={onClose}
