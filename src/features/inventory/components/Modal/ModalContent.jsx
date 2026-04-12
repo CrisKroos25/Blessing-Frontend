@@ -56,7 +56,8 @@ export default function ModalContent({
 
     // Esta función se ejecuta al hacer click en "Guardar"
     const handleSubmit = async () => {
-        if (!validate(formData)) return; // ← se detiene si hay errores
+        // Validación solo para CREATE y EDIT, no para DELETE
+        if (action !== 'delete' && !validate(formData)) return;
 
         setIsSubmitting(true); // ← bloquea el botón
 
@@ -83,7 +84,7 @@ export default function ModalContent({
             onClose();
         } catch (error) {
             console.error('Error en handleSubmit:', error);
-            toast.error('Ocurrió un error, intenta de nuevo');
+            toast.error(error?.message || 'Ocurrió un error, intenta de nuevo');
         } finally {
             setIsSubmitting(false); // ← desbloquea siempre, con éxito o error
         }
@@ -119,6 +120,7 @@ export default function ModalContent({
                     {/* Mostramos el formulario para crear o editar */}
                     {action !== 'delete' && (
                         <BodyForm
+                            action={action}
                             formData={formData}
                             handleChange={handleChange}
                             lockType={action === 'create'}

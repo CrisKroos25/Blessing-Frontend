@@ -23,53 +23,47 @@ export const useProducts = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Carga inicial — trae todos los productos del servicio
-    const loadProducts = async () => {
-        try {
-            setLoading(true);
-            const data = await fetchProducts();
-            setProducts(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            // finally se ejecuta siempre, con éxito o con error
-            // así loading nunca queda pegado en true
-            setLoading(false);
-        }
-    };
-
+    // Errores de creación/edición/eliminación van SOLO al modal via throw,
+    // no se tocan el estado global de error para no bloquear la página.
     const create = async (productData) => {
         try {
             const newProduct = await createProduct(productData);
-
-            // Agregamos el nuevo producto al final del array local
-            // sin necesidad de volver a llamar loadProducts()
             setProducts((prev) => [...prev, newProduct]);
         } catch (err) {
-            setError(err.message);
+            throw err;
         }
     };
 
     const update = async (id, productData) => {
         try {
             const updated = await updateProduct(id, productData);
-
-            // Recorremos el array y reemplazamos solo el producto
-            // que cambió, dejando todos los demás intactos
             setProducts((prev) => prev.map((p) => (p.id === id ? updated : p)));
         } catch (err) {
-            setError(err.message);
+            throw err;
         }
     };
 
     const remove = async (id) => {
         try {
             await deleteProduct(id);
-
-            // Filtramos el producto eliminado fuera del array local
             setProducts((prev) => prev.filter((p) => p.id !== id));
         } catch (err) {
-            setError(err.message);
+            throw err;
+        }
+    };
+
+    // Carga inicial de productos desde el servidor.
+    // Solo este método modifica el estado global de error.
+    const loadProducts = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchProducts();
+            setProducts(data);
+            setError(null); // Limpiar error si la carga fue exitosa
+        } catch (err) {
+            setError(err.message); // ← InventoryPage muestra este error
+        } finally {
+            setLoading(false);
         }
     };
 

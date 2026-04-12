@@ -15,9 +15,17 @@ const BASE_URL = 'http://localhost:8000/api';
 const handleResponse = async (res) => {
     if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.detail ?? `Error ${res.status}`);
+
+        // Construimos un mensaje legible desde la respuesta del backend
+        const message =
+            errorData.detail ||
+            errorData.error ||
+            Object.values(errorData)[0] || // primer campo de error de validación
+            `Error ${res.status}`;
+
+        throw new Error(message);
     }
-    // DELETE devuelve 204 sin body — no intentamos parsear JSON
+
     if (res.status === 204) return true;
     return res.json();
 };
@@ -34,20 +42,19 @@ export const fetchProducts = async () => {
 export const createProduct = async (formData) => {
     const { materials, ...itemData } = formData;
 
+    // Traducimos el formato del frontend al que espera el backend
+    const mappedMaterials = materials.map((m) => ({
+        item: m.productId,
+        quantity: m.quantity,
+    }));
+
     const res = await fetch(`${BASE_URL}/items/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(itemData),
+        body: JSON.stringify({ ...itemData, materials: mappedMaterials }),
     });
 
-    const newItem = await handleResponse(res);
-
-    // Si es bundle y tiene materiales, los guardamos en bundledetail
-    if (formData.type === 'bundle' && materials?.length > 0) {
-        await saveBundleMaterials(newItem.id, materials);
-    }
-
-    return newItem;
+    return handleResponse(res);
 };
 
 // ── PUT /api/items/:id/ ─────────────────────────────────────

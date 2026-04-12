@@ -23,6 +23,27 @@ export function useProductValidation() {
             }
         });
 
+        // Validaciones específicas para bundles (arreglos):
+        // - Debe tener al menos un material/componente
+        // - Cada material debe tener cantidad > 0
+        if (formData.type === 'bundle') {
+            if (!formData.materials?.length) {
+                newErrors.materials =
+                    'Un arreglo debe tener al menos un producto o insumo';
+            } else {
+                const invalidMaterial = formData.materials.some(
+                    (material) =>
+                        material.quantity == null ||
+                        Number(material.quantity) <= 0,
+                );
+
+                if (invalidMaterial) {
+                    newErrors.materials =
+                        'Cada material debe tener cantidad mayor que cero';
+                }
+            }
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0; // Devuelve true (sin errores) o false (con al menos un error)
     };
