@@ -7,46 +7,31 @@
 
 import styles from './GeneralInfoSection.module.css';
 import Input from '@/shared/components/input/Input';
-import { Gift, Leaf, CircleAlert } from 'lucide-react';
+import { ShieldAlert, Package, CircleAlert } from 'lucide-react';
 
-// Definimos los tipos de producto fuera del componente.
-// Así si en el futuro hay más tipos, solo tocamos este array.
-// GeneralInfoSection.jsx — PRODUCT_TYPES con valores del backend
-const PRODUCT_TYPES = [
+// Tipos de clasificación del material
+const MATERIAL_TYPES = [
     {
         value: 'product',
         label: 'Controlado',
-        subtitle: 'Material principal',
-        icon: Leaf,
+        subtitle:
+            'Seguimiento riguroso de cantidades, alertas de stock mínimo y registros de uso.',
+        icon: ShieldAlert,
     },
     {
         value: 'supply',
         label: 'Insumo',
-        subtitle: 'Apoyo para armado',
-        icon: Gift,
+        subtitle:
+            'Compatibilidad con artículos con seguimiento más sencillo: cinta, fomi, papel, etc.',
+        icon: Package,
     },
-    {
-        value: 'bundle',
-        label: 'Arreglo',
-        subtitle: 'Arreglo completo',
-        icon: Gift,
-    },
-];
-
-const CATEGORY_OPTIONS = [
-    { value: 'Peluches', label: 'Peluches' },
-    { value: 'Arreglos', label: 'Arreglos finales' },
-    { value: 'Cintas', label: 'Cintas' },
-    { value: 'Cajas', label: 'Cajas de regalo' },
-    { value: 'Decoracion', label: 'Piezas de decoracion' },
-    { value: 'Papel', label: 'Papel' },
 ];
 
 export default function GeneralInfoSection({
     formData,
     handleChange,
-    lockType,
     errors = {},
+    lockType,
 }) {
     return (
         <section className={styles.section}>
@@ -86,42 +71,14 @@ export default function GeneralInfoSection({
                 </div>
             </div>
 
-            <div className={styles.gridTwo}>
-                <div className={styles.field}>
-                    <label className={styles.label}>
-                        CATEGORÍA <span className={styles.required}>*</span>
-                    </label>
-                    <select
-                        name="category"
-                        className={styles.select}
-                        value={formData.category}
-                        onChange={handleChange}
-                    >
-                        <option value="" disabled>
-                            Selecciona una unidad...
-                        </option>
-                        {CATEGORY_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-                    {errors.category && (
-                        <span className={styles.errorText}>
-                            {<CircleAlert size={12} />}
-                            {errors.category}
-                        </span>
-                    )}
-                </div>
-
+            {formData.type !== 'bundle' && (
                 <div className={styles.field}>
                     <label className={styles.label}>
                         TIPO DE PRODUCTO{' '}
                         <span className={styles.required}>*</span>
                     </label>
-
                     <div className={styles.typeSelector}>
-                        {PRODUCT_TYPES.map(
+                        {MATERIAL_TYPES.map(
                             ({ value, label, subtitle, icon: Icon }) => {
                                 const isActive = formData.type === value;
 
@@ -129,20 +86,22 @@ export default function GeneralInfoSection({
                                     <div
                                         key={value}
                                         className={`
-                            ${styles.typeCard}
-                            ${isActive ? styles.typeCardActive : ''}
-                            ${lockType ? styles.typeCardLocked : ''}
-                        `}
-                                        // Si lockType está activo, no hacemos nada al click
-                                        onClick={() =>
-                                            !lockType &&
+                                        ${styles.typeCard}
+                                        ${isActive ? styles.typeCardActive : ''}
+                                        ${lockType ? styles.typeCardLocked : ''}
+                                    `}
+                                        onClick={() => {
+                                            if (lockType) return;
                                             handleChange({
-                                                target: { name: 'type', value },
-                                            })
-                                        }
+                                                target: {
+                                                    name: 'type',
+                                                    value,
+                                                },
+                                            });
+                                        }}
                                     >
                                         <div className={styles.icon}>
-                                            <Icon />
+                                            <Icon size={20} />
                                         </div>
                                         <div className={styles.typeTitle}>
                                             {label}
@@ -156,7 +115,7 @@ export default function GeneralInfoSection({
                         )}
                     </div>
                 </div>
-            </div>
+            )}
         </section>
     );
 }

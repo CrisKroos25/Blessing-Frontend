@@ -20,22 +20,13 @@ const UNIT_OPTIONS = [
     { value: 'm', label: 'Metros (m)' },
 ];
 
-// Tipos de clasificación del material
-const MATERIAL_TYPES = [
-    {
-        value: 'controlled',
-        label: 'Controlado',
-        subtitle:
-            'Seguimiento riguroso de cantidades, alertas de stock mínimo y registros de uso.',
-        icon: ShieldAlert,
-    },
-    {
-        value: 'supply',
-        label: 'Insumo',
-        subtitle:
-            'Compatibilidad con artículos con seguimiento más sencillo: cinta, fomi, papel, etc.',
-        icon: Package,
-    },
+const CATEGORY_OPTIONS = [
+    { value: 'Peluches', label: 'Peluches' },
+    { value: 'Arreglos', label: 'Arreglos finales' },
+    { value: 'Cintas', label: 'Cintas' },
+    { value: 'Cajas', label: 'Cajas de regalo' },
+    { value: 'Decoracion', label: 'Piezas de decoracion' },
+    { value: 'Papel', label: 'Papel' },
 ];
 
 export default function InventorySection({
@@ -48,6 +39,67 @@ export default function InventorySection({
             <div className={styles.sectionHeader}>
                 <div className={styles.sectionNumber}>2</div>
                 <div className={styles.sectionTitle}>Inventario</div>
+            </div>
+
+            <div className={styles.gridThree}>
+                <div className={styles.field}>
+                    <label className={styles.label}>
+                        CATEGORÍA <span className={styles.required}>*</span>
+                    </label>
+                    <select
+                        name="category"
+                        className={styles.select}
+                        value={
+                            formData.type === 'bundle'
+                                ? 'Arreglos'
+                                : formData.category
+                        }
+                        onChange={handleChange}
+                        disabled={formData.type === 'bundle'}
+                    >
+                        <option value="" disabled>
+                            Selecciona una categoría...
+                        </option>
+                        {CATEGORY_OPTIONS.map(({ value, label }) => (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category && (
+                        <span className={styles.errorText}>
+                            <CircleAlert size={12} /> {errors.category}
+                        </span>
+                    )}
+                </div>
+                <div className={styles.field}>
+                    <label className={styles.label}>
+                        UNIDAD DE MEDIDA{' '}
+                        <span className={styles.required}>*</span>
+                    </label>
+                    {/* Select nativo — simple y accesible */}
+                    <select
+                        name="unit"
+                        className={styles.select}
+                        value={formData.unit}
+                        onChange={handleChange}
+                    >
+                        <option value="" disabled>
+                            Selecciona una unidad...
+                        </option>
+                        {UNIT_OPTIONS.map(({ value, label }) => (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.unit && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.unit}
+                        </span>
+                    )}
+                </div>
             </div>
 
             {/* Fila 1: Stock actual y stock mínimo */}
@@ -92,74 +144,7 @@ export default function InventorySection({
                         </span>
                     )}
                 </div>
-                <div className={styles.field}>
-                    <label className={styles.label}>
-                        UNIDAD DE MEDIDA{' '}
-                        <span className={styles.required}>*</span>
-                    </label>
-                    {/* Select nativo — simple y accesible */}
-                    <select
-                        name="unit"
-                        className={styles.select}
-                        value={formData.unit}
-                        onChange={handleChange}
-                    >
-                        <option value="" disabled>
-                            Selecciona una unidad...
-                        </option>
-                        {UNIT_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-                    {errors.unit && (
-                        <span className={styles.errorText}>
-                            {<CircleAlert size={12} />}
-                            {errors.unit}
-                        </span>
-                    )}
-                </div>
             </div>
-
-            {/* Fila 3: Clasificación del material
-            <div className={styles.field}>
-                <label className={styles.label}>
-                    CLASIFICACIÓN <span className={styles.required}>*</span>
-                </label>
-                <div className={styles.typeSelector}>
-                    {MATERIAL_TYPES.map(
-                        ({ value, label, subtitle, icon: Icon }) => {
-                            const isActive = formData.materialType === value;
-
-                            return (
-                                <div
-                                    key={value}
-                                    className={`${styles.typeCard} ${isActive ? styles.typeCardActive : ''}`}
-                                    onClick={() =>
-                                        handleChange({
-                                            target: {
-                                                name: 'materialType',
-                                                value,
-                                            },
-                                        })
-                                    }
-                                >
-                                    <div className={styles.icon}>
-                                        <Icon size={20} />
-                                    </div>
-                                    <div className={styles.typeTitle}>
-                                        {label}
-                                    </div>
-                                    <div className={styles.typeSubtitle}>
-                                        {subtitle}
-                                    </div>
-                                </div>
-                            );
-                        },
-                    )}
-                </div>
-            </div>*/}
         </section>
     );
 }

@@ -21,6 +21,7 @@ export default function BodyForm({
     lockType,
     allProducts,
     errors = {},
+    action,
 }) {
     return (
         <>
@@ -32,14 +33,29 @@ export default function BodyForm({
                 errors={errors}
             />
 
+            {/* Solo visible si el producto es un arreglo final */}
+            {formData.type === 'bundle' && (
+                <MaterialsSection
+                    formData={formData}
+                    handleChange={handleChange}
+                    allProducts={allProducts}
+                    errors={errors}
+                />
+            )}
+
             {/* Sección 2: Stock y unidades */}
-            <InventorySection
-                formData={formData}
-                handleChange={handleChange}
-                errors={errors}
-            />
+            {formData.type !== 'bundle' && (
+                <InventorySection
+                    action={action}
+                    formData={formData}
+                    handleChange={handleChange}
+                    errors={errors}
+                    lockType={lockType}
+                />
+            )}
 
             {/* Sección 3: Precios */}
+
             <PricingSection
                 formData={formData}
                 handleChange={handleChange}
@@ -52,15 +68,6 @@ export default function BodyForm({
                 handleChange={handleChange}
                 errors={errors}
             />
-
-            {/* Solo visible si el producto es un arreglo final */}
-            {formData.type === 'bundle' && (
-                <MaterialsSection
-                    formData={formData}
-                    handleChange={handleChange}
-                    allProducts={allProducts}
-                />
-            )}
         </>
     );
 }

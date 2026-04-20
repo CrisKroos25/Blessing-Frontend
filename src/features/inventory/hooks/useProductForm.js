@@ -5,10 +5,11 @@
 // Funciona para CREAR (product = null) y EDITAR (product = {...})
 // ============================================================
 
-import { useState } from 'react';
-
 // Valores por defecto del formulario.
 // INITIAL_FORM_STATE — nombres exactos del backend
+
+import { useState, useEffect } from 'react';
+
 const INITIAL_FORM_STATE = {
     image: '',
     name: '',
@@ -23,28 +24,35 @@ const INITIAL_FORM_STATE = {
     materials: [],
 };
 
-// Mezclamos INITIAL_FORM_STATE con lo que venga del producto si viene vacio usamos el formulario vacío.
 export function useProductForm(product) {
     const [formData, setFormData] = useState({
         ...INITIAL_FORM_STATE,
         ...product,
     });
 
-    // Maneja cambios en inputs y selects normales: <input name="price" onChange={handleChange} />
+    useEffect(() => {
+        if (formData.type === 'bundle') {
+            setFormData((prev) => ({
+                ...prev,
+                category: 'Arreglos',
+                unit: 'pcs',
+                stock: 1,
+                min_stock: 1,
+            }));
+        }
+    }, [formData.type]);
+
+    // Maneja inputs
     const handleChange = (e) => {
         const { name, value, type } = e.target;
 
         setFormData((prev) => ({
             ...prev,
-            [name]: type === 'number'
-                ? value === "" 
-                    ? "" 
-                    : Number(value)
-                : value,
+            [name]:
+                type === 'number' ? (value === '' ? '' : Number(value)) : value,
         }));
     };
 
-    // Resetea el formulario a su estado inicial.
     const resetForm = () => {
         setFormData(INITIAL_FORM_STATE);
     };

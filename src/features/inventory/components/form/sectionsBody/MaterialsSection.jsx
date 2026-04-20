@@ -8,12 +8,13 @@
 
 import { useState } from 'react';
 import styles from './MaterialsSection.module.css';
-import { Search, Plus, Trash2 } from 'lucide-react';
+import { Search, Plus, Trash2, Package } from 'lucide-react';
 
 export default function MaterialsSection({
     formData,
     handleChange,
     allProducts = [],
+    errors = {},
 }) {
     const [search, setSearch] = useState('');
     const [showResults, setShowResults] = useState(false);
@@ -82,7 +83,7 @@ export default function MaterialsSection({
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
-                <div className={styles.sectionNumber}>5</div>
+                <div className={styles.sectionNumber}>2</div>
                 <div className={styles.sectionTitle}>
                     Materiales del arreglo
                 </div>
@@ -107,6 +108,9 @@ export default function MaterialsSection({
                         }
                     />
                 </div>
+                {errors.materials && (
+                    <div className={styles.errorText}>{errors.materials}</div>
+                )}
 
                 {/* Resultados del buscador */}
                 {showResults && (
@@ -123,17 +127,32 @@ export default function MaterialsSection({
                                     onClick={() => handleAddMaterial(product)}
                                 >
                                     <div className={styles.resultInfo}>
-                                        <span className={styles.resultName}>
-                                            {product.name}
-                                        </span>
-                                        <span className={styles.resultCategory}>
-                                            {product.category}
-                                        </span>
+                                        <div className={styles.resultHeader}>
+                                            <Package
+                                                size={14}
+                                                className={styles.itemIcon}
+                                            />
+                                            <span className={styles.resultName}>
+                                                {product.name}
+                                            </span>
+                                        </div>
+                                        <div className={styles.resultDetails}>
+                                            <span
+                                                className={styles.badgeCategory}
+                                            >
+                                                {product.category}
+                                            </span>
+                                            <span
+                                                className={`${styles.badgeStock} ${product.stock <= (product.min_stock || 0) ? styles.noStock : ''}`}
+                                            >
+                                                Stock: {product.stock ?? 0}{' '}
+                                                {product.unit ?? ''}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <Plus
-                                        size={16}
-                                        className={styles.resultIcon}
-                                    />
+                                    <button className={styles.addButton}>
+                                        <Plus size={16} />
+                                    </button>
                                 </div>
                             ))
                         )}
@@ -149,30 +168,67 @@ export default function MaterialsSection({
                             key={material.productId}
                             className={styles.materialItem}
                         >
-                            <span className={styles.materialName}>
-                                {material.name}
-                            </span>
+                            <div className={styles.materialInfo}>
+                                <div className={styles.materialHeader}>
+                                    <Package
+                                        size={14}
+                                        className={styles.itemIcon}
+                                    />
+                                    <span className={styles.materialName}>
+                                        {material.name}
+                                    </span>
+                                </div>
+                                <span className={styles.materialStock}>
+                                    {(() => {
+                                        const p = allProducts.find(
+                                            (x) => x.id === material.productId,
+                                        );
+                                        if (!p) return null;
+                                        return (
+                                            <>
+                                                Disponible:{' '}
+                                                <span
+                                                    className={
+                                                        p.stock <
+                                                        material.quantity
+                                                            ? styles.lowStockText
+                                                            : styles.normalStockText
+                                                    }
+                                                >
+                                                    {p.stock ?? 0}{' '}
+                                                    {p.unit ?? ''}
+                                                </span>
+                                            </>
+                                        );
+                                    })()}
+                                </span>
+                            </div>
 
                             <div className={styles.materialControls}>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    className={styles.quantityInput}
-                                    value={material.quantity}
-                                    onChange={(e) =>
-                                        handleQuantityChange(
-                                            material.productId,
-                                            e.target.value,
-                                        )
-                                    }
-                                />
+                                <div className={styles.quantityWrapper}>
+                                    <span className={styles.quantityLabel}>
+                                        Cant:
+                                    </span>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        className={styles.quantityInput}
+                                        value={material.quantity}
+                                        onChange={(e) =>
+                                            handleQuantityChange(
+                                                material.productId,
+                                                e.target.value,
+                                            )
+                                        }
+                                    />
+                                </div>
                                 <button
                                     className={styles.removeButton}
                                     onClick={() =>
                                         handleRemoveMaterial(material.productId)
                                     }
                                 >
-                                    <Trash2 size={15} />
+                                    <Trash2 size={16} />
                                 </button>
                             </div>
                         </div>

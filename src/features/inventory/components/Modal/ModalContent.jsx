@@ -87,6 +87,7 @@ export default function ModalContent({
             toast.error(error?.message || 'Ocurrió un error, intenta de nuevo');
         } finally {
             setIsSubmitting(false); // ← desbloquea siempre, con éxito o error
+            console.log(formData);
         }
     };
 

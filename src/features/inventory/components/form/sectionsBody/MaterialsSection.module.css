@@ -106,7 +106,48 @@
 .resultInfo {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
+    flex: 1;
+}
+
+.resultHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.itemIcon {
+    color: #4b5563;
+    opacity: 0.7;
+}
+
+.resultDetails {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badgeCategory {
+    font-size: 11px;
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.badgeStock {
+    font-size: 11px;
+    background: #ecfdf5;
+    color: #10b981;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.noStock {
+    background: #fef2f2;
+    color: #ef4444;
 }
 
 .resultName {
@@ -115,13 +156,22 @@
     color: #333;
 }
 
-.resultCategory {
-    font-size: 12px;
-    color: #aaa;
+.addButton {
+    background: #fff0f5;
+    color: #e91e63;
+    border: none;
+    line-height: 0;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.resultIcon {
-    color: #e91e63;
+.addButton:hover {
+    background: #ffe4ef;
 }
 
 .noResults {
@@ -148,25 +198,71 @@
     box-shadow: 0 0 0 1.2px #eaeaea;
 }
 
+.materialInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.materialHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .materialName {
     font-family: 'Inter-Titulos';
     font-size: 14px;
     color: #444;
 }
 
+.materialStock {
+    font-size: 11px;
+    color: #888;
+    margin-left: 20px;
+}
+
+.normalStockText {
+    color: #10b981;
+    font-weight: 500;
+}
+
+.lowStockText {
+    color: #ef4444;
+    font-weight: 500;
+}
+
 .materialControls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+}
+
+.quantityWrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    padding: 0 4px 0 8px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    transition: box-shadow 0.2s ease;
+}
+
+.quantityWrapper:focus-within {
+    box-shadow: 0 0 0 1.2px #ff9cbf;
+}
+
+.quantityLabel {
+    font-size: 12px;
+    color: #888;
 }
 
 .quantityInput {
-    width: 64px;
-    padding: 6px 10px;
+    width: 48px;
+    padding: 6px 4px;
     border: none;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 0 0 1.2px #eaeaea;
+    background: transparent;
     font-size: 14px;
     color: #333;
     text-align: center;
@@ -175,7 +271,7 @@
 }
 
 .quantityInput:focus {
-    box-shadow: 0 0 0 1px #ff9cbf;
+    outline: none;
 }
 
 .removeButton {
@@ -204,4 +300,11 @@
     border-radius: 10px;
     border: 2px dashed #f0f0f0;
     font-family: 'Inter-Titulos';
+}
+
+.errorText {
+    color: #d32f2f;
+    font-size: 13px;
+    margin-top: 8px;
+    font-family: 'Inter-TextoNormal';
 }

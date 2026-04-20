@@ -23,12 +23,23 @@ export const useProducts = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    // Sincroniza silenciosamente el inventario para reflejar deducciones de stock de materiales
+    const reloadSilently = async () => {
+        try {
+            const data = await fetchProducts();
+            setProducts(data);
+        } catch (err) {
+            console.error('Error re-sincronizando inventario:', err);
+        }
+    };
+
     // Errores de creación/edición/eliminación van SOLO al modal via throw,
     // no se tocan el estado global de error para no bloquear la página.
     const create = async (productData) => {
         try {
             const newProduct = await createProduct(productData);
             setProducts((prev) => [...prev, newProduct]);
+            reloadSilently();
         } catch (err) {
             throw err;
         }
@@ -38,6 +49,7 @@ export const useProducts = () => {
         try {
             const updated = await updateProduct(id, productData);
             setProducts((prev) => prev.map((p) => (p.id === id ? updated : p)));
+            reloadSilently();
         } catch (err) {
             throw err;
         }
@@ -47,6 +59,7 @@ export const useProducts = () => {
         try {
             await deleteProduct(id);
             setProducts((prev) => prev.filter((p) => p.id !== id));
+            reloadSilently();
         } catch (err) {
             throw err;
         }
