@@ -1,0 +1,258 @@
+/* ItemsSection.module.css */
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+    overflow: hidden; /* ← añade esto */
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.sectionNumber {
+    background: var(--primary-color);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: #444;
+    flex: 1;
+    border-bottom: 1px solid #ffcadd;
+    padding-bottom: 6px;
+}
+
+/* ── Buscador ──────────────────────────────────────────────────────────── */
+
+.searchWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    color: #aaa;
+    pointer-events: none; /* no interfiere con el click al input */
+}
+
+.searchInput {
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    padding: 10px 14px 10px 38px; /* espacio para el ícono izquierdo */
+    background-color: #fafafa;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #4b5563;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    outline: none;
+    transition: box-shadow 0.15s ease;
+}
+
+.searchInput:focus {
+    box-shadow: 0 0 0 1px #ff9cbf;
+}
+
+.searchInput::placeholder {
+    opacity: 0.5;
+}
+
+/* ── Carruseles por Categoría ────────────────────────────────────────────── */
+
+.carouselWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0; /* Previene el desbordamiento infinito en flexbox */
+    overflow: hidden; /* Contención absoluta para el scroll interno */
+}
+
+.categoryGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0; /* Asegura que no rompa la estructura de grid principal */
+}
+
+.categoryTitle {
+    font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin: 0;
+    padding-left: 4px;
+}
+
+/* Reemplaza tu .carousel actual */
+.carousel {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 12px;
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-right: 2px;
+
+    /* Esto es lo crítico: */
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap; /* Las cards NO saltan a la siguiente línea */
+}
+
+.carousel::-webkit-scrollbar {
+    height: 6px;
+}
+.carousel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.carousel::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+.carousel::-webkit-scrollbar-thumb:hover {
+    background: #ffcadd;
+}
+
+/* ── Card de producto ──────────────────────────────────────────────────── */
+
+.productCard {
+    background: #fafafa;
+    border-radius: 12px;
+    border: 2px solid #e6e6e6;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    min-width: 150px;
+    max-width: 150px;
+    flex-shrink: 0;
+}
+
+.productCard:hover {
+    border-color: #ffcadd;
+    box-shadow: 0 2px 8px rgba(255, 150, 180, 0.15);
+}
+
+/* ── Imagen / placeholder ──────────────────────────────────────────────── */
+
+.imageWrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #eef0f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholderIcon {
+    color: #b0b8c1;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── Info debajo de la imagen ──────────────────────────────────────────── */
+
+.productInfo {
+    padding: 12px 14px;
+}
+
+.productName {
+    font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.productMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productPrice {
+    font-family: 'Inter-TextoNormal';
+    font-size: 14px;
+    font-weight: 700;
+    color: #2e9e5b; /* verde — mismo patrón que la imagen */
+}
+
+/* Badge de stock */
+.stockBadge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.stockOk {
+    background-color: #e8f8ef;
+    color: #2e9e5b;
+}
+
+.stockLow {
+    background-color: #fff3e8;
+    color: #e07b2a;
+}
+
+.stockOut {
+    background-color: #fdecea;
+    color: #d93025;
+}
+
+/* ── Error de items vacíos ─────────────────────────────────────────────── */
+
+.errorText {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #eb6d6b;
+    font-family: 'Inter-TextoNormal';
+    margin-top: 2px;
+}
+
+/* ── Sin resultados ────────────────────────────────────────────────────── */
+
+.emptySearch {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 32px 0;
+    color: #aaa;
+    font-size: 13px;
+    font-family: 'Inter-TextoNormal';
+}
