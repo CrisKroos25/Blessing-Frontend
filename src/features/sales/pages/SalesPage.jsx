@@ -1,10 +1,9 @@
-export default function SalesPage() {
+import SalesLayout from '../sectionsPage/SalesLayout';
 
+export default function SalesPage() {
     return (
-        <div>
-            <h2>
-                Esto es la pagina de ventas.... 👷
-            </h2>
-        </div>
-    )
+        <>
+            <SalesLayout />
+        </>
+    );
 }

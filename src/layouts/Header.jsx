@@ -28,14 +28,6 @@ export default function Header({
                             className={styles.input}
                         />
                     </div>
-                    <Button
-                        sizeButton={sizeButton}
-                        colorButton={buttonColor}
-                        logoButton={logoButtona}
-                        onClick={() => console.log('Click!')}
-                    >
-                        {textButton}
-                    </Button>
                 </div>
 
                 <div className={styles.right}>
