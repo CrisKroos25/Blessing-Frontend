@@ -1,0 +1,7 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr; /* o el layout que tengas */
+    min-width: 0; /* ← esto es lo que corta el desbordamiento */
+    width: 100%;
+    gap: 20px;
+}
