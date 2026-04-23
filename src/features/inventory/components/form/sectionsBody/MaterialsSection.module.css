@@ -303,8 +303,11 @@
 }
 
 .errorText {
-    color: #d32f2f;
-    font-size: 13px;
-    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #eb6d6b;
     font-family: 'Inter-TextoNormal';
+    margin-top: 2px;
 }

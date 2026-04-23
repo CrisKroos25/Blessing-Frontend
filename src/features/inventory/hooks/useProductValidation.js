@@ -8,6 +8,7 @@ const REQUIRED_FIELDS = {
     stock: 'Stock actual',
     min_stock: 'Stock mínimo',
     unit: 'Unidad de medida',
+    sell_price: 'Precio de venta',
     purchase_price: 'Precio de compra',
 };
 
@@ -16,6 +17,8 @@ export function useProductValidation() {
 
     const validate = (formData) => {
         const newErrors = {};
+        console.log('Validando formData.type:', formData.type);
+        console.log('Validando formData.materials:', formData.materials);
 
         Object.entries(REQUIRED_FIELDS).forEach(([field, label]) => {
             if (!formData[field] && formData[field] !== 0) {

@@ -49,6 +49,12 @@ export default function PricingSection({
                         onChange={handleChange}
                         placeholder="0.00"
                     />
+                    {errors.sell_price && (
+                        <span className={styles.errorText}>
+                            {<CircleAlert size={12} />}
+                            {errors.sell_price}
+                        </span>
+                    )}
                 </div>
             </div>
         </section>

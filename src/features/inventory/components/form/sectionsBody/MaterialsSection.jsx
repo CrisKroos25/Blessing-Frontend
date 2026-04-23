@@ -8,7 +8,7 @@
 
 import { useState } from 'react';
 import styles from './MaterialsSection.module.css';
-import { Search, Plus, Trash2, Package } from 'lucide-react';
+import { Search, Plus, Trash2, Package, CircleAlert } from 'lucide-react';
 
 export default function MaterialsSection({
     formData,
@@ -26,7 +26,7 @@ export default function MaterialsSection({
         const alreadyAdded = formData.materials?.some(
             (m) => m.productId === product.id,
         );
-        const isFinal = product.type === 'bundle';
+        const isFinal = product.type === 'bundle' || product.type === 'supply';
         const matchesSearch = product.name
             .toLowerCase()
             .includes(search.toLowerCase());
@@ -109,7 +109,9 @@ export default function MaterialsSection({
                     />
                 </div>
                 {errors.materials && (
-                    <div className={styles.errorText}>{errors.materials}</div>
+                    <div className={styles.errorText}>
+                        {<CircleAlert size={12} />} {errors.materials}
+                    </div>
                 )}
 
                 {/* Resultados del buscador */}
