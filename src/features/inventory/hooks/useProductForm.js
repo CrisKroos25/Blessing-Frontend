@@ -36,8 +36,7 @@ export function useProductForm(product) {
                 ...prev,
                 category: 'Arreglos',
                 unit: 'pcs',
-                stock: 1,
-                min_stock: 1,
+                ...(product?.id ? {} : { stock: 1, min_stock: 0 }),
             }));
         }
     }, [formData.type]);
