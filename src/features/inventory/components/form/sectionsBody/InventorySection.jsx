@@ -41,6 +41,7 @@ export default function InventorySection({
                 <div className={styles.sectionTitle}>Inventario</div>
             </div>
 
+            {/* Fila 1: Categoria y unidad de medida*/}
             <div className={styles.gridThree}>
                 <div className={styles.field}>
                     <label className={styles.label}>
@@ -102,7 +103,7 @@ export default function InventorySection({
                 </div>
             </div>
 
-            {/* Fila 1: Stock actual y stock mínimo */}
+            {/* Fila 2: Stock actual y stock mínimo */}
             <div className={styles.gridThree}>
                 <div className={styles.field}>
                     <label className={styles.label}>
