@@ -30,6 +30,29 @@ const handleResponse = async (res) => {
     return res.json();
 };
 
+const buildFormData = (formData) => {
+    const data = new FormData();
+
+    Object.entries(formData).forEach(([key, value]) => {
+        if (key === 'materials') return;
+
+        if (key === 'image') {
+            if (value instanceof File) {
+                data.append('image', value); // imagen nueva
+            } else if (value === null) {
+                data.append('remove_image', 'true'); // señal para borrar
+            }
+            // si es string (URL del backend) no tocamos nada
+            return;
+        }
+
+        if (value !== null && value !== undefined) {
+            data.append(key, value);
+        }
+    });
+
+    return data;
+};
 // ── GET /api/items/ ─────────────────────────────────────────
 // Trae todos los items activos del inventario
 export const fetchProducts = async () => {
@@ -41,17 +64,25 @@ export const fetchProducts = async () => {
 // Crea un nuevo item — si es bundle también envía sus materiales
 export const createProduct = async (formData) => {
     const { materials, ...itemData } = formData;
+    const data = buildFormData(itemData);
 
-    // Traducimos el formato del frontend al que espera el backend
-    const mappedMaterials = materials.map((m) => ({
-        item: m.productId,
-        quantity: m.quantity,
-    }));
+    // Los materiales van como JSON en un campo aparte dentro del FormData
+    if (materials?.length > 0) {
+        const mappedMaterials = materials.map((m) => ({
+            item: m.productId,
+            quantity: m.quantity,
+        }));
+        data.append('materials', JSON.stringify(mappedMaterials));
+    }
 
     const res = await fetch(`${BASE_URL}/items/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...itemData, materials: mappedMaterials }),
+        // Sin Content-Type — el navegador lo setea automáticamente
+        // con el boundary correcto para multipart/form-data
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        body: data,
     });
 
     return handleResponse(res);
@@ -61,16 +92,19 @@ export const createProduct = async (formData) => {
 // Actualiza un item existente
 export const updateProduct = async (id, formData) => {
     const { materials, ...itemData } = formData;
+    const data = buildFormData(itemData);
 
     const res = await fetch(`${BASE_URL}/items/${id}/`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(itemData),
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        body: data,
     });
 
     const updatedItem = await handleResponse(res);
 
-    // Si es bundle, reemplazamos los materiales
+    // Materiales se actualizan por separado igual que antes
     if (formData.type === 'bundle' && materials?.length > 0) {
         await saveBundleMaterials(id, materials);
     }
