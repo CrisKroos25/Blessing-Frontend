@@ -62,7 +62,7 @@ export async function fetchSaleProducts() {
 }
 
 export async function fetchSales() {
-    return request('/sales/', {
+    return request('/sales/list/', {
         method: 'GET',
         headers: defaultHeaders(),
     });
@@ -77,7 +77,7 @@ export async function createSale(payload) {
         if (csrftoken) headers['X-CSRFToken'] = csrftoken;
     }
 
-    return request('/sales/', {
+    return request('/sales/list/', {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),
