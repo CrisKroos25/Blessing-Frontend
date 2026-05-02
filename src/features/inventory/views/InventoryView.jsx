@@ -15,6 +15,7 @@
 
 import styles from './InventoryView.module.css';
 import { Plus } from 'lucide-react';
+import { useSearch } from '../hooks/useSearch';
 
 import Button from '@/shared/components/button/Button';
 import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
@@ -38,11 +39,16 @@ export default function InventoryView({
     // abrir, cerrar, y saber qué tipo de acción se está haciendo
     const { modalState, openModal, closeModal } = useModalState();
 
+    // El hook recibe products y devuelve la lista filtrada
+    const { query, setQuery, filtered } = useSearch(products, 'name');
+
     return (
         <div className={styles.container__main}>
             <HeadTitleTable
                 title={title}
                 subtitle={subtitle}
+                query={query}
+                onSearch={setQuery}
                 action={
                     // Al hacer click, abrimos el modal en modo "create" (null)
                     <Button
@@ -56,7 +62,7 @@ export default function InventoryView({
             />
             {/* La tabla recibe openModal para que cada fila
                 pueda abrir el modal en modo "edit" o "delete" */}
-            <MaterialsTable products={products} openModal={openModal} />
+            <MaterialsTable products={filtered} openModal={openModal} />
             {/* El Modal recibe todo lo que necesita para funcionar */}
             <Modal
                 key={modalState.product?.id ?? 'create'}

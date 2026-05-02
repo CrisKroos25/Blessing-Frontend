@@ -12,7 +12,7 @@
 }
 
 .title {
-    font-family: "Inter-Titulos";
+    font-family: 'Inter-Titulos';
     font-size: 20px;
     color: rgb(54, 54, 54);
     white-space: nowrap; /* Evita que se quiebre */
@@ -21,4 +21,40 @@
 .subtitle {
     font-size: 13px;
     color: #444444;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search_wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 7px 14px;
+    border-radius: 15px;
+    transition: 0.2s ease;
+}
+
+.search_icon {
+    font-size: 14px;
+    margin-right: 8px;
+    color: #b5b9c1;
+}
+
+.input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'Inter-TextoNormal';
+    width: 250px;
+    padding: 7px;
+}
+
+.contentOptions {
+    display: flex;
+    gap: 15px;
 }
