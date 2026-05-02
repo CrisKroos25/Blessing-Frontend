@@ -31,31 +31,57 @@ export const fetchProducts = async () => {
 
 // ── POST /api/inventory/items/ ──────────────────────────────
 export const createProduct = async (formData) => {
-    const { materials, ...itemData } = formData;
+    const { materials, image, ...itemData } = formData;
+
     const mappedMaterials = materials.map((m) => ({
         item: m.productId,
         quantity: m.quantity,
     }));
+
+    const data = new FormData();
+
+    // Agregamos todos los campos de texto
+    Object.entries({ ...itemData, materials: JSON.stringify(mappedMaterials) }).forEach(
+        ([key, value]) => data.append(key, value)
+    );
+
+    // Solo agregamos image si es un File real — nunca un string vacío
+    if (image instanceof File) {
+        data.append('image', image);
+    }
+
     const res = await fetch(`${BASE_URL}/inventory/items/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...itemData, materials: mappedMaterials }),
+        // Sin Content-Type — el browser lo pone solo con el boundary correcto
+        body: data,
     });
+
     return handleResponse(res);
 };
 
 // ── PUT /api/inventory/items/:id/ ───────────────────────────
 export const updateProduct = async (id, formData) => {
-    const { materials, ...itemData } = formData;
+    const { materials, image, ...itemData } = formData;
+
+    const data = new FormData();
+
+    Object.entries(itemData).forEach(([key, value]) => data.append(key, value));
+
+    if (image instanceof File) {
+        data.append('image', image);
+    }
+
     const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(itemData),
+        body: data,
     });
+
     const updatedItem = await handleResponse(res);
+
     if (formData.type === 'bundle' && materials?.length > 0) {
         await saveBundleMaterials(id, materials);
     }
+
     return updatedItem;
 };
 
