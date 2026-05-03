@@ -16,6 +16,7 @@
 import styles from './InventoryView.module.css';
 import { Plus } from 'lucide-react';
 import { useSearch } from '../hooks/useSearch';
+import { useTableFilters } from '../hooks/useTableFilters'; // ← agrega esto
 
 import Button from '@/shared/components/button/Button';
 import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
@@ -33,14 +34,16 @@ export default function InventoryView({
     create,
     update,
     remove,
-    allProducts, // Solo funciona para FinalProducts.jsx
+    allProducts,
 }) {
-    // useModalState se encarga de todo lo relacionado al modal:
-    // abrir, cerrar, y saber qué tipo de acción se está haciendo
     const { modalState, openModal, closeModal } = useModalState();
 
-    // El hook recibe products y devuelve la lista filtrada
+    // 1. Filtra por texto
     const { query, setQuery, filtered } = useSearch(products, 'name');
+
+    // 2. Filtra y ordena el resultado de useSearch
+    const { result, filters, categories, setFilter, resetFilters } =
+        useTableFilters(filtered);
 
     return (
         <div className={styles.container__main}>
@@ -49,8 +52,12 @@ export default function InventoryView({
                 subtitle={subtitle}
                 query={query}
                 onSearch={setQuery}
+                // Pasamos todo lo necesario para los controles de filtro
+                filters={filters}
+                categories={categories}
+                setFilter={setFilter}
+                resetFilters={resetFilters}
                 action={
-                    // Al hacer click, abrimos el modal en modo "create" (null)
                     <Button
                         onClick={() => openModal('create', null)}
                         colorButton="#FF9800"
@@ -60,10 +67,10 @@ export default function InventoryView({
                     </Button>
                 }
             />
-            {/* La tabla recibe openModal para que cada fila
-                pueda abrir el modal en modo "edit" o "delete" */}
-            <MaterialsTable products={filtered} openModal={openModal} />
-            {/* El Modal recibe todo lo que necesita para funcionar */}
+
+            {/* result ya pasó por búsqueda + filtros + orden */}
+            <MaterialsTable products={result} openModal={openModal} />
+
             <Modal
                 key={modalState.product?.id ?? 'create'}
                 modalState={modalState}
@@ -72,7 +79,7 @@ export default function InventoryView({
                 update={update}
                 remove={remove}
                 defaultType={defaultType}
-                allProducts={allProducts} // Solamente para FinalProducts.jsx
+                allProducts={allProducts}
             />
         </div>
     );

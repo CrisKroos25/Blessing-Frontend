@@ -21,7 +21,6 @@ export default function MaterialsTable({ openModal, products }) {
                     <th>Stock actual</th>
                     <th>Stock mínimo</th>
                     <th>Estatus</th>
-                    <th>Tipo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
