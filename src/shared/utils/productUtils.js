@@ -3,6 +3,6 @@
 
 export const getProductStatus = (product) => {
     if (product.stock === 0) return 'inactive'; // Agotado
-    if (product.stock <= product.min_stock) return 'low'; // Stock bajo
+    if (product.stock < product.min_stock) return 'low'; // Stock bajo
     return 'active'; // Disponible
 };
