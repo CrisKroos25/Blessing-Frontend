@@ -33,6 +33,17 @@ export default function ModalContent({
     remove,
     allProducts,
 }) {
+    // Variables para titulo del formulario segun accion y tipo de producto
+    const titles = {
+        create: {
+            bundle: 'Añadir un arreglo',
+            supply: 'Añadir un insumo',
+            product: 'Añadir un producto',
+        },
+        edit: 'Editar producto',
+        delete: 'Eliminar producto',
+    };
+
     const { errors, validate, clearErrors } = useProductValidation();
     const toast = useToastContext();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,10 +114,8 @@ export default function ModalContent({
                 <HeaderForm
                     title={
                         action === 'create'
-                            ? 'Añadir producto'
-                            : action === 'edit'
-                              ? 'Editar producto'
-                              : 'Eliminar producto'
+                            ? titles.create[defaultType]
+                            : titles[action]
                     }
                     subTitle={
                         action === 'create'
