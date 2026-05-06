@@ -1,13 +1,17 @@
 import styles from './InventoryCards.module.css';
 import CardInfo from '@/shared/components/cardInfo/CardInfo';
-import { Box, TriangleAlert, DollarSign, Boxes, icons } from 'lucide-react';
+import { Box, TriangleAlert, PiggyBank, Boxes } from 'lucide-react';
 
 export default function InventoryCards({ products }) {
     // Calculamos los valores ANTES de armar el array
     // así la lógica es clara y separada de la presentación
 
-    const lowStockCount = products.filter(
-        (product) => product.stock < product.min_stock,
+    const criticStockCount = products.filter(
+        (product) => product.stock === 0,
+    ).length;
+
+    const lowCount = products.filter(
+        (product) => product.stock < product.min_stock && product.stock !== 0,
     ).length;
 
     const totalValue = products.reduce(
@@ -27,25 +31,25 @@ export default function InventoryCards({ products }) {
         },
         {
             id: 2,
-            total: lowStockCount,
+            total: lowCount,
             subtitle: 'Artículos con pocas existencias',
-            description: `${lowStockCount} alertas críticas`,
+            description: `${criticStockCount} alertas críticas`,
             icon: TriangleAlert,
             status: 'lower',
         },
         {
             id: 3,
-            total: 'Q ' + totalValue,
+            total: 'Q ' + totalValue.toFixed(2),
             subtitle: 'Valor total del inventario',
             description: 'Precio de compra acumulado',
-            icon: DollarSign,
+            icon: PiggyBank,
             status: 'okey',
         },
         {
             id: 4,
             total: products.filter((product) => product.type == 'bundle')
                 .length,
-            subtitle: 'Tipos de productos ensamblados',
+            subtitle: 'Productos ensamblados',
             description: 'Arreglos activos',
             icon: Boxes,
             status: 'warning',

@@ -38,20 +38,14 @@ export default function MaterialsRow({ product, openModal }) {
             </td>
             <td className={styles.fontBold}>{product.name}</td>
             <td>{product.category}</td>
-            <td className={styles.font_bold}>{product.stock}</td>
+            <td className={styles.fontBold}>{product.stock}</td>
             <td>{product.min_stock}</td>
             <td>
                 <span className={`${styles.badge} ${styles[status]}`}>
                     {STATUS_LABELS[status]}
                 </span>
             </td>
-            <td>
-                {product.type == 'product'
-                    ? 'Controlado'
-                    : product.type == 'supply'
-                      ? 'Insumo'
-                      : 'Arreglos'}
-            </td>
+
             <td className={styles.container__button}>
                 <button
                     onClick={() => openModal('edit', product)}

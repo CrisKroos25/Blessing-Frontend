@@ -23,6 +23,30 @@ const handleResponse = async (res) => {
     return res.json();
 };
 
+// ── Helper para FormData ────────────────────────────────────
+const buildFormData = (formData) => {
+    const data = new FormData();
+
+    Object.entries(formData).forEach(([key, value]) => {
+        if (key === 'materials') return;
+
+        if (key === 'image') {
+            if (value instanceof File) {
+                data.append('image', value);
+            } else if (value === null) {
+                data.append('remove_image', 'true');
+            }
+            return;
+        }
+
+        if (value !== null && value !== undefined) {
+            data.append(key, value);
+        }
+    });
+
+    return data;
+};
+
 // ── GET /api/inventory/items/ ───────────────────────────────
 export const fetchProducts = async () => {
     const res = await fetch(`${BASE_URL}/inventory/items/`);
@@ -31,28 +55,24 @@ export const fetchProducts = async () => {
 
 // ── POST /api/inventory/items/ ──────────────────────────────
 export const createProduct = async (formData) => {
-    const { materials, image, ...itemData } = formData;
+    const { materials, ...itemData } = formData;
 
-    const mappedMaterials = materials.map((m) => ({
-        item: m.productId,
-        quantity: m.quantity,
-    }));
+    const data = buildFormData(itemData);
 
-    const data = new FormData();
+    if (materials?.length > 0) {
+        const mappedMaterials = materials.map((m) => ({
+            item: m.productId,
+            quantity: m.quantity,
+        }));
 
-    // Agregamos todos los campos de texto
-    Object.entries({ ...itemData, materials: JSON.stringify(mappedMaterials) }).forEach(
-        ([key, value]) => data.append(key, value)
-    );
-
-    // Solo agregamos image si es un File real — nunca un string vacío
-    if (image instanceof File) {
-        data.append('image', image);
+        data.append('materials', JSON.stringify(mappedMaterials));
     }
 
     const res = await fetch(`${BASE_URL}/inventory/items/`, {
         method: 'POST',
-        // Sin Content-Type — el browser lo pone solo con el boundary correcto
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         body: data,
     });
 
@@ -61,23 +81,21 @@ export const createProduct = async (formData) => {
 
 // ── PUT /api/inventory/items/:id/ ───────────────────────────
 export const updateProduct = async (id, formData) => {
-    const { materials, image, ...itemData } = formData;
+    const { materials, ...itemData } = formData;
 
-    const data = new FormData();
-
-    Object.entries(itemData).forEach(([key, value]) => data.append(key, value));
-
-    if (image instanceof File) {
-        data.append('image', image);
-    }
+    const data = buildFormData(itemData);
 
     const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
         method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         body: data,
     });
 
     const updatedItem = await handleResponse(res);
 
+    // Materiales se actualizan por separado
     if (formData.type === 'bundle' && materials?.length > 0) {
         await saveBundleMaterials(id, materials);
     }
@@ -97,18 +115,21 @@ export const deleteProduct = async (id) => {
 const saveBundleMaterials = async (bundleId, materials) => {
     const res = await fetch(`${BASE_URL}/inventory/bundles/${bundleId}/materials/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(
             materials.map((m) => ({
                 item: m.productId,
                 quantity: m.quantity,
-            })),
+            }))
         ),
     });
+
     return handleResponse(res);
 };
 
-// ── GET /api/inventory/items/:id/materials/ ──────────────────
+// ── GET /api/inventory/items/:id/materials/ ─────────────────
 export const fetchBundleMaterials = async (itemId) => {
     const res = await fetch(`${BASE_URL}/inventory/items/${itemId}/materials/`);
     return handleResponse(res);

@@ -38,7 +38,7 @@ export const useProducts = () => {
     const create = async (productData) => {
         try {
             const newProduct = await createProduct(productData);
-            setProducts((prev) => [...prev, newProduct]);
+            setProducts((prev) => [newProduct, ...prev]);
             reloadSilently();
         } catch (err) {
             throw err;

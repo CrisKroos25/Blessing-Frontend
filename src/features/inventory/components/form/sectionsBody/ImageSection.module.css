@@ -37,15 +37,16 @@
     padding-bottom: 6px;
 }
 
-.gridTwo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+.hiddenInput {
+    display: none;
 }
 
-/* Recuadro para subir imagen */
+/* ── Sin imagen: zona de upload ────────────────────────────────────────── */
+
+/* Ocupa todo el ancho porque no hay grid — es el único elemento */
 .uploadCard {
-    height: 140px;
+    width: 100%;
+    height: 200px;
     border-radius: 12px;
     border: 2px dashed #e6e6e6;
     display: flex;
@@ -55,24 +56,21 @@
     gap: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-sizing: border-box;
 }
 
 .uploadCard:hover {
-    border-color: #ff4d7d;
+    border-color: var(--primary-color);
     background: #fff1f5;
 }
 
-.hiddenInput {
-    display: none;
+.uploadCard:hover .uploadIcon {
+    color: var(--primary-color);
 }
 
 .uploadIcon {
-    color: #bbb;
+    color: #ccc;
     transition: color 0.2s ease;
-}
-
-.uploadCard:hover .uploadIcon {
-    color: #ff4d7d;
 }
 
 .uploadText {
@@ -85,40 +83,75 @@
 .uploadHint {
     font-size: 11px;
     color: #bbb;
+    font-family: 'Inter-TextoNormal';
 }
 
-/* Recuadro de preview */
-.previewCard {
-    height: 140px;
+/* ── Con imagen: preview + overlay ─────────────────────────────────────── */
+
+.imageContainer {
+    -ms-flex-align: center;
+    position: relative;
+    width: 450px;
+    height: 450px;
     border-radius: 12px;
-    border: 2px solid #e6e6e6;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fafafa;
+    border: 2px solid #e6e6e6;
+    margin: auto;
 }
 
 .previewImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-/* Estado vacío del preview */
-.emptyPreview {
+/* Overlay oscuro que aparece al hacer hover */
+.overlay {
+    position: absolute;
+    inset: 0; /* cubre toda la imagen */
+    background: rgba(0, 0, 0, 0.45);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
-.emptyIcon {
-    color: #ddd;
+.imageContainer:hover .overlay {
+    opacity: 1;
 }
 
-.emptyText {
-    font-size: 12px;
-    color: #ccc;
+/* Botones dentro del overlay */
+.overlayBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
     font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    background: white;
+    color: #333;
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.overlayBtn:hover {
+    transform: scale(1.04);
+}
+
+/* Botón eliminar — rojo */
+.overlayBtnDanger {
+    background: #fdecea;
+    color: #d93025;
+}
+
+.overlayBtnDanger:hover {
+    background: #fbd6d4;
 }

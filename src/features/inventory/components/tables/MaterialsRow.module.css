@@ -1,5 +1,5 @@
 .row td {
-    padding: 30px 14px;
+    padding: 25px 14px;
     border-top: 1px solid #f0f0f0;
     color: #4b5563;
     text-align: center;
@@ -56,16 +56,12 @@
     color: #991b1b;
 }
 
-.container__button {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
 .button__options {
     background-color: transparent;
     border: none;
     color: var(--primary-color);
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 .button__options:hover {

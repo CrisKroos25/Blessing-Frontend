@@ -2,6 +2,10 @@ import { useSaleForm } from '../hooks/useSaleForm';
 import { useSaleValidation } from '../hooks/useSaleValidation';
 import { useSales } from '../hooks/useSales';
 import { useToastContext } from '@/shared/context/ToastContext';
+
+import { useSearch } from '@/features/inventory/hooks/useSearch';
+import { useTableFilters } from '@/features/inventory/hooks/useTableFilters';
+
 import styles from './SalesIncomeView.module.css';
 import ClientSection from '../components/form/ClientSection';
 import ItemsSection from '../components/form/ItemsSection';
@@ -23,6 +27,13 @@ export default function SalesIncomeView() {
     } = useSaleForm();
 
     const { errors, validate, resetErrors } = useSaleValidation();
+
+    // 1. Filtra por texto
+    const { query, setQuery, filtered } = useSearch(products, 'name');
+
+    // 2. Filtra y ordena el resultado de useSearch
+    const { result, filters, categories, setFilter, resetFilters } =
+        useTableFilters(filtered);
 
     const handleSubmit = async () => {
         const isValid = validate({ customer, items });
@@ -62,9 +73,16 @@ export default function SalesIncomeView() {
                 errors={errors.customer}
             />
             <ItemsSection
-                products={products} // ← ya no es mock
+                products={result}
                 onAdd={addItem}
                 error={errors.items}
+                query={query}
+                onSearch={setQuery}
+                // Pasar todo lo necesario para los controles de filtro
+                filters={filters}
+                categories={categories}
+                setFilter={setFilter}
+                resetFilters={resetFilters}
             />
             <TotalSection
                 items={items}

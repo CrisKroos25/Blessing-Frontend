@@ -36,8 +36,7 @@ export function useProductForm(product) {
                 ...prev,
                 category: 'Arreglos',
                 unit: 'pcs',
-                stock: 1,
-                min_stock: 1,
+                ...(product?.id ? {} : { stock: 1, min_stock: 0 }),
             }));
         }
     }, [formData.type]);
@@ -46,10 +45,19 @@ export function useProductForm(product) {
     const handleChange = (e) => {
         const { name, value, type } = e.target;
 
+        let newValue = value;
+
+        if (type === 'number') {
+            if (value === '') {
+                newValue = '';
+            } else {
+                newValue = Math.max(0, Number(value)); // evitar negativos
+            }
+        }
+
         setFormData((prev) => ({
             ...prev,
-            [name]:
-                type === 'number' ? (value === '' ? '' : Number(value)) : value,
+            [name]: newValue,
         }));
     };
 
