@@ -8,9 +8,14 @@
 
 import styles from './MaterialsTable.module.css';
 import MaterialsRow from './MaterialsRow';
-import { PackageOpen } from 'lucide-react';
+import { PackageOpen, RefreshCw } from 'lucide-react';
 
-export default function MaterialsTable({ openModal, products }) {
+export default function MaterialsTable({
+    openModal,
+    products,
+    loading,
+    error,
+}) {
     return (
         <table className={styles.table}>
             <thead>
@@ -25,7 +30,30 @@ export default function MaterialsTable({ openModal, products }) {
                 </tr>
             </thead>
             <tbody>
-                {products.length === 0 ? (
+                {loading ? (
+                    // Si esta cargando la pagina muestra un spinner de espera
+                    <tr>
+                        <td colSpan={8} className={styles.empty}>
+                            <div className={styles.containerEmpty}>
+                                <RefreshCw
+                                    size={28}
+                                    className={styles.spinner}
+                                />
+                                <span>Cargando inventario...</span>
+                            </div>
+                        </td>
+                    </tr>
+                ) : error ? (
+                    // En caso de error muestra el mensaje
+                    <tr>
+                        <td colSpan={8} className={styles.empty}>
+                            <div className={styles.containerEmpty}>
+                                <PackageOpen size={28} />
+                                <span>No se pudo cargar el inventario</span>
+                            </div>
+                        </td>
+                    </tr>
+                ) : products.length === 0 ? (
                     // Si no hay productos, mostramos un mensaje en lugar
                     // de una tabla vacía que confunde al usuario.
                     // colSpan={8} hace que la celda ocupe todas las columnas.
