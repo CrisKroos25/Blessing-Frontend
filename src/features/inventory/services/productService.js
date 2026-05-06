@@ -6,7 +6,7 @@
 // El resto del frontend (hooks, componentes) no sabe cómo viajan los datos.
 // ============================================================
 
-const BASE_URL = 'http://localhost:8000/api';
+const BASE_URL = 'http://localhost:8000/api/inventory';
 
 // ── Helper ──────────────────────────────────────────────────
 // Centraliza el manejo de errores HTTP para no repetirlo
