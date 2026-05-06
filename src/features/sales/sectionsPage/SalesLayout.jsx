@@ -12,7 +12,13 @@ const VIEW_COMPONENTS = {
     salesRecordView: SalesRecordView,
 };
 
-export default function SalesLayout({}) {
+export default function SalesLayout({
+    products,
+    sales,
+    createSale,
+    loading,
+    error,
+}) {
     const [view, setView] = useState('salesIncomeView'); // `view` guarda la key del tab activo.
 
     const CurrentView = VIEW_COMPONENTS[view]; // Obtenemos el componente que corresponde al tab activo
@@ -23,7 +29,17 @@ export default function SalesLayout({}) {
             <SalesTabs view={view} setView={setView} />
 
             {/* CurrentView && evita un error si la key no existe en VIEW_COMPONENTS — renderiza solo si es válido */}
-            {CurrentView && <CurrentView />}
+            {view === 'salesIncomeView' && (
+                <CurrentView
+                    products={products}
+                    createSale={createSale}
+                    loading={loading}
+                    error={error}
+                />
+            )}
+            {view === 'salesRecordView' && (
+                <CurrentView sales={sales} loading={loading} error={error} />
+            )}
         </div>
     );
 }
