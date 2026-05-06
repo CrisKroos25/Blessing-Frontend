@@ -1,0 +1,160 @@
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.sectionNumber {
+    background: var(--primary-color);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: #444;
+    flex: 1;
+    border-bottom: 1px solid #ffcadd;
+    padding-bottom: 6px;
+}
+
+.searchWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    color: #aaa;
+    pointer-events: none;
+}
+
+.searchInput {
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #4b5563;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    outline: none;
+    transition: box-shadow 0.15s ease;
+}
+
+.searchInput:focus { box-shadow: 0 0 0 1px #ff9cbf; }
+.searchInput::placeholder { opacity: 0.5; }
+
+.carousel {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 12px;
+    padding: 4px 2px 12px;
+    width: 100%;
+    min-width: 0;
+    flex-wrap: nowrap;
+}
+
+.carousel::-webkit-scrollbar { height: 6px; }
+.carousel::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.carousel::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+.carousel::-webkit-scrollbar-thumb:hover { background: #ffcadd; }
+
+.itemCard {
+    background: #fafafa;
+    border-radius: 12px;
+    border: 2px solid #e6e6e6;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-width: 150px;
+    max-width: 150px;
+    flex-shrink: 0;
+}
+
+.itemCard:hover {
+    border-color: #ffcadd;
+    box-shadow: 0 2px 8px rgba(255, 150, 180, 0.15);
+}
+
+.imageWrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #eef0f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholderIcon { color: #b0b8c1; }
+
+.itemImage { width: 100%; height: 100%; object-fit: cover; }
+
+.itemInfo { padding: 12px 14px; }
+
+.itemName {
+    font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.itemMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itemPrice {
+    font-family: 'Inter-TextoNormal';
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.itemStock {
+    font-size: 11px;
+    color: #999;
+    font-family: 'Inter-TextoNormal';
+}
+
+.errorText {
+    font-size: 11px;
+    color: #eb6d6b;
+    font-family: 'Inter-TextoNormal';
+}
+
+.emptySearch {
+    color: #aaa;
+    font-size: 13px;
+    font-family: 'Inter-TextoNormal';
+    padding: 24px 0;
+}

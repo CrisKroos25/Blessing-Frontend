@@ -1,0 +1,185 @@
+.container { display: flex; flex-direction: column; gap: 20px; }
+
+/* Subtabs */
+.subtabs { display: flex; gap: 8px; }
+
+.subtab {
+    background: #f3f4f6;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Inter-TextoNormal';
+    color: #666;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.subtab:hover { background: #ffecf2; color: var(--primary-color); }
+
+.subtabActive {
+    background: var(--primary-color);
+    color: white;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+}
+
+/* Layout dos columnas */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* Formulario */
+.formCard {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+}
+
+.formTitle {
+    font-family: 'Inter-Titulos';
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin: 0;
+}
+
+.gridTwo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    letter-spacing: 0.03em;
+    font-family: 'Inter-Titulos';
+}
+
+.required { color: var(--primary-color); }
+
+.optional { font-size: 11px; font-weight: 400; color: #aaa; margin-left: 4px; }
+
+.input {
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    padding: 10px 14px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #4b5563;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    outline: none;
+    transition: box-shadow 0.15s ease;
+}
+
+.input:focus { box-shadow: 0 0 0 1px #ff9cbf; }
+.input::placeholder { opacity: 0.5; }
+
+/* Lista */
+.listCard {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listHeader { display: flex; justify-content: space-between; align-items: center; }
+
+.listTitle {
+    font-family: 'Inter-Titulos';
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin: 0;
+}
+
+.listCount {
+    background: #f3f4f6;
+    color: #666;
+    font-size: 12px;
+    font-family: 'Inter-Titulos';
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.listRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eaeaea;
+    background: white;
+    transition: border-color 0.15s;
+}
+
+.listRow:hover { border-color: #ffcadd; }
+
+.inactive { opacity: 0.5; }
+
+.listInfo { display: flex; flex-direction: column; gap: 2px; }
+
+.listName {
+    font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.listSub {
+    font-family: 'Inter-TextoNormal';
+    font-size: 11px;
+    color: #999;
+    margin: 0;
+}
+
+.listActions { display: flex; gap: 6px; }
+
+.deactivateBtn {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'Inter-TextoNormal';
+    background: none;
+    border: 1px solid #eb6d6b;
+    color: #eb6d6b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.deactivateBtn:hover { background: #fdecea; }
+
+.reactivateBtn {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'Inter-TextoNormal';
+    background: none;
+    border: 1px solid #2e9e5b;
+    color: #2e9e5b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.reactivateBtn:hover { background: #e8f8ef; }
+
+.emptyList {
+    font-family: 'Inter-TextoNormal';
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    padding: 16px 0;
+}
