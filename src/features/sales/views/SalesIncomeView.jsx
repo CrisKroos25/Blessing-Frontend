@@ -11,8 +11,12 @@ import ClientSection from '../components/form/ClientSection';
 import ItemsSection from '../components/form/ItemsSection';
 import TotalSection from '../components/form/TotalSection';
 
-export default function SalesIncomeView() {
-    const { products, createSale, isLoading, error } = useSales();
+export default function SalesIncomeView({
+    products,
+    createSale,
+    loading,
+    error,
+}) {
     const toast = useToastContext();
 
     const {
@@ -36,6 +40,7 @@ export default function SalesIncomeView() {
         useTableFilters(filtered);
 
     const handleSubmit = async () => {
+        // Validaciones para cliente creado en useSalesForm y items tenga al menos un producto
         const isValid = validate({ customer, items });
         if (!isValid) return;
 
@@ -90,7 +95,7 @@ export default function SalesIncomeView() {
                 onUpdateQuantity={updateQuantity}
                 onRemove={removeItem}
                 onSubmit={handleSubmit}
-                isLoading={isLoading} // ← deshabilita el botón mientras carga
+                loading={loading} // ← deshabilita el botón mientras carga
             />
         </div>
     );
