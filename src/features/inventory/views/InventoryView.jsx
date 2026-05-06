@@ -35,6 +35,8 @@ export default function InventoryView({
     update,
     remove,
     allProducts,
+    loading,
+    error,
 }) {
     const { modalState, openModal, closeModal } = useModalState();
 
@@ -69,7 +71,12 @@ export default function InventoryView({
             />
 
             {/* result ya pasó por búsqueda + filtros + orden */}
-            <MaterialsTable products={result} openModal={openModal} />
+            <MaterialsTable
+                products={result}
+                openModal={openModal}
+                loading={loading}
+                error={error}
+            />
 
             <Modal
                 key={modalState.product?.id ?? 'create'}

@@ -1,10 +1,10 @@
 // Componente contenedor del contenido principal del inventario.
-// 1. Saber qué tab/vista está activ 2. Filtrar los productos según la vista activa 3. Renderizar la vista correcta con sus productos
+// 1. Saber qué tab/vista está activa
+// 2. Filtrar los productos según la vista activa
+// 3. Renderizar la vista correcta con sus productos
 
 import styles from './InventoryLayout.module.css';
-import ControlledMaterialsView from '../views/ControlledMaterialsView';
-import IndirectMaterialsView from '../views/IndirectMaterialsView';
-import FinalProductsView from '../views/FinalProductsView';
+import InventoryView from '../views/InventoryView';
 import InventoryTabs from '../components/tabs/InventoryTabs';
 import { useState } from 'react';
 
@@ -15,17 +15,15 @@ const VIEW_FILTERS = {
     finalProductsView: (p) => p.type === 'bundle',
 };
 
-// se renderiza dinámicamente el componente
-const VIEW_COMPONENTS = {
-    controlledMaterialsView: ControlledMaterialsView,
-    indirectMaterialsView: IndirectMaterialsView,
-    finalProductsView: FinalProductsView,
-};
-
-export default function InventoryLayout({ products, create, update, remove }) {
+export default function InventoryLayout({
+    products,
+    create,
+    update,
+    remove,
+    loading,
+    error,
+}) {
     const [view, setView] = useState('controlledMaterialsView'); // `view` guarda la key del tab activo.
-
-    const CurrentView = VIEW_COMPONENTS[view]; // Obtenemos el componente que corresponde al tab activo
 
     // Filtramos los productos usando la función del tab activo. Así cada vista solo recibe los productos que le pertenecen
     const filteredProducts = products.filter(VIEW_FILTERS[view]);
@@ -35,14 +33,45 @@ export default function InventoryLayout({ products, create, update, remove }) {
             {/* InventoryTabs recibe el tab activo y la función para cambiarlo cuando el usuario hace click */}
             <InventoryTabs view={view} setView={setView} />
 
-            {/* CurrentView && evita un error si la key no existe en VIEW_COMPONENTS — renderiza solo si es válido */}
-            {CurrentView && (
-                <CurrentView
-                    products={filteredProducts} // Productos filtrados segun la vista.
-                    allProducts={products} // Solo lo recibe FinalProducts.jsx
+            {/* view && evita un error si la key no existe en VIEW_COMPONENTS — renderiza solo si es válido */}
+            {view === 'controlledMaterialsView' && (
+                <InventoryView
+                    title="Materiales controlados"
+                    subtitle="Materias primas y componentes"
+                    defaultType="product"
+                    products={filteredProducts}
                     create={create}
                     update={update}
                     remove={remove}
+                    loading={loading}
+                    error={error}
+                />
+            )}
+            {view === 'indirectMaterialsView' && (
+                <InventoryView
+                    title="Materiales indirectos"
+                    subtitle="Insumos y materiales de uso general"
+                    defaultType="supply"
+                    products={filteredProducts}
+                    create={create}
+                    update={update}
+                    remove={remove}
+                    loading={loading}
+                    error={error}
+                />
+            )}
+            {view === 'finalProductsView' && (
+                <InventoryView
+                    title="Productos finales"
+                    subtitle="Arreglos y productos ensamblados"
+                    defaultType="bundle"
+                    products={filteredProducts}
+                    allProducts={products}
+                    create={create}
+                    update={update}
+                    remove={remove}
+                    loading={loading}
+                    error={error}
                 />
             )}
         </div>
