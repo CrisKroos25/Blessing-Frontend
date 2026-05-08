@@ -19,8 +19,11 @@ export default function SalesRow({ sale, openModal }) {
         <tr className={styles.row}>
             <td className={styles.fontBold}>
                 {new Date(sale.created_at).toLocaleString('es-GT', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
                 })}
             </td>
             <td>{sale.customer_name}</td>
@@ -30,7 +33,9 @@ export default function SalesRow({ sale, openModal }) {
             <td>{sale.total}</td>
             <td className={styles.container__button}>
                 <button
-                    onClick={() => openModal('view', sale)}
+                    onClick={() => {
+                        openModal('edit', sale);
+                    }}
                     className={styles.button__options}
                 >
                     {<Eye size={'20px'} />}
