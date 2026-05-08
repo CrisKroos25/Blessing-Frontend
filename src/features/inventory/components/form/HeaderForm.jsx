@@ -10,12 +10,13 @@ export default function HeaderForm({
     subTitle,
     onClose,
     icon: Icon = SquarePen,
-    action = 'default',
+    variant = 'default',
 }) {
     const headerStyle =
-        action === 'delete' ? styles.headerDelete : styles.headerDefault;
+        variant === 'danger' ? styles.headerDelete : styles.headerDefault;
+
     const iconStyle =
-        action === 'delete' ? styles.iconDelete : styles.iconDefault;
+        variant === 'danger' ? styles.iconDelete : styles.iconDefault;
 
     return (
         <header className={`${styles.header} ${headerStyle}`}>
@@ -24,13 +25,16 @@ export default function HeaderForm({
                     <div className={`${styles.icon} ${iconStyle}`}>
                         <Icon size={25} />
                     </div>
+
                     <div className={styles.description}>
                         <h2 className={styles.title}>{title}</h2>
+
                         {subTitle && (
                             <div className={styles.subtitle}>{subTitle}</div>
                         )}
                     </div>
                 </div>
+
                 <button className={styles.button} onClick={onClose}>
                     <X size={20} />
                 </button>
