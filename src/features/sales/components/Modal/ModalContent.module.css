@@ -1,0 +1,41 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+/* Modal base — solo comparte lo visual */
+.modal {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    max-height: 90vh;
+    max-width: 100vw;
+}
+
+/* Modal grande: crear y editar */
+.modalForm {
+    height: 86vh;
+    min-width: 50vw;
+}
+
+/* Modal chico: eliminar — se ajusta al contenido */
+.modalDelete {
+    width: 700px;
+}
+
+.body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 26px;
+}
