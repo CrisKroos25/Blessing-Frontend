@@ -3,12 +3,28 @@
 // Requeridos: nombre, teléfono. Opcionales: NIT, dirección, medio de contacto.
 
 import styles from './ClientSection.module.css';
-import { MessageCircle, Store } from 'lucide-react';
+import {
+    MessageCircle,
+    Store,
+    Banknote,
+    CreditCard,
+    Repeat,
+} from 'lucide-react';
 
 // Opciones de medio de contacto con ícono y etiqueta
 const MEDIOS_CONTACTO = [
     { value: 'whatsapp', icon: <MessageCircle size={18} />, label: 'WhatsApp' },
     { value: 'tienda', icon: <Store size={18} />, label: 'En tienda' },
+];
+
+const METODOS_PAGO = [
+    { value: 'efectivo', icon: <Banknote size={18} />, label: 'Efectivo' },
+    {
+        value: 'transferencia',
+        icon: <Repeat size={18} />,
+        label: 'Transferencia',
+    },
+    { value: 'tarjeta', icon: <CreditCard size={18} />, label: 'Tarjeta' },
 ];
 
 export default function ClientSection({ formData, onChange, errors }) {
@@ -78,10 +94,7 @@ export default function ClientSection({ formData, onChange, errors }) {
 
                 {/* ── DIRECCIÓN ────────────────────────────────────────── */}
                 <div className={styles.field}>
-                    <label className={styles.label}>
-                        DIRECCIÓN{' '}
-                        <span className={styles.optional}>(opcional)</span>
-                    </label>
+                    <label className={styles.label}>DIRECCIÓN </label>
                     <input
                         type="text"
                         name="address"
@@ -92,41 +105,89 @@ export default function ClientSection({ formData, onChange, errors }) {
                     />
                 </div>
 
-                {/* ── MEDIO DE CONTACTO ────────────────────────────────── */}
-                {/* Ocupa las 2 columnas. Usamos cards visuales en lugar de radios nativos */}
-                <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.label}>
-                        MEDIO DE CONTACTO{' '}
-                        <span className={styles.optional}>(opcional)</span>
-                    </label>
-                    <div className={styles.contactoOptions}>
-                        {MEDIOS_CONTACTO.map(({ value, icon, label }) => (
-                            <label
-                                key={value}
-                                className={styles.contactoOption}
-                            >
-                                {/* Radio oculto — solo para manejar el estado */}
-                                <input
-                                    type="radio"
-                                    name="contact_method"
-                                    value={value}
-                                    checked={formData.contact_method === value}
-                                    onChange={onChange}
-                                />
-                                {/* Card visual que reacciona al estado del radio */}
-                                <div
-                                    className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : ''}`}
+                <div className={styles.containerMethods}>
+                    {/* ── MEDIO DE CONTACTO ────────────────────────────────── */}
+                    {/* Ocupa las 2 columnas. Usamos cards visuales en lugar de radios nativos */}
+                    <div className={`${styles.field}`}>
+                        <label className={styles.label}>
+                            MEDIO DE CONTACTO{' '}
+                        </label>
+                        <div className={styles.contactoOptions}>
+                            {MEDIOS_CONTACTO.map(({ value, icon, label }) => (
+                                <label
+                                    key={value}
+                                    className={styles.contactoOption}
                                 >
-                                    <span className={styles.contactoIcon}>
-                                        {icon}
-                                    </span>
-                                    <span className={styles.contactoLabel}>
-                                        {label}
-                                    </span>
-                                </div>
-                            </label>
-                        ))}
+                                    {/* Radio oculto — solo para manejar el estado */}
+                                    <input
+                                        type="radio"
+                                        name="contact_method"
+                                        value={value}
+                                        checked={
+                                            formData.contact_method === value
+                                        }
+                                        onChange={onChange}
+                                    />
+                                    {/* Card visual que reacciona al estado del radio */}
+                                    <div
+                                        className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : ''}`}
+                                    >
+                                        <span className={styles.contactoIcon}>
+                                            {icon}
+                                        </span>
+                                        <span className={styles.contactoLabel}>
+                                            {label}
+                                        </span>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
                     </div>
+
+                    {/* ── MÉTODO DE PAGO ───────────────────────────────────── */}
+                    <div className={`${styles.field} `}>
+                        <label className={styles.label}>METODOS DE PAGO </label>
+                        <div className={styles.contactoOptions}>
+                            {METODOS_PAGO.map(({ value, icon, label }) => (
+                                <label
+                                    key={value}
+                                    className={styles.contactoOption}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="payment_method"
+                                        value={value}
+                                        checked={
+                                            formData.payment_method === value
+                                        }
+                                        onChange={onChange}
+                                    />
+                                    <div
+                                        className={`${styles.contactoCard} ${formData.payment_method === value ? styles.contactoCardActive : ''}`}
+                                    >
+                                        <span className={styles.contactoIcon}>
+                                            {icon}
+                                        </span>
+                                        <span className={styles.contactoLabel}>
+                                            {label}
+                                        </span>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                {/* ── NOTAS ────────────────────────────────────────────── */}
+                <div className={`${styles.field} ${styles.fieldFull}`}>
+                    <label className={styles.label}>NOTAS </label>
+                    <textarea
+                        name="notes"
+                        value={formData.notes}
+                        onChange={onChange}
+                        placeholder="Ej. Entregar el sábado, dedicatoria incluida..."
+                        rows={3}
+                        className={styles.textarea}
+                    />
                 </div>
             </div>
         </div>

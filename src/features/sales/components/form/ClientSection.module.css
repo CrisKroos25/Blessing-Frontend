@@ -47,6 +47,11 @@
     gap: 24px;
 }
 
+.containerMethods {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* ── Campo individual ──────────────────────────────────────────────────── */
 
 .field {
@@ -90,6 +95,28 @@
     box-shadow: 0 0 0 1.2px #eaeaea;
     outline: none;
     transition: box-shadow 0.15s ease;
+}
+.textarea {
+    font-family: 'Inter-TextoNormal';
+    width: 100%;
+    min-height: 90px;
+    outline: none;
+    border: none;
+    padding: 12px 14px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    resize: none;
+    font-size: 14px;
+    color: #4b5563;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+}
+
+.textarea:focus-within {
+    box-shadow: 0 0 0 1px #ff9cbf;
+}
+
+.textarea::placeholder {
+    opacity: 0.5;
 }
 
 .input:focus {
