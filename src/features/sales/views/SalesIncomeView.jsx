@@ -1,12 +1,12 @@
+import styles from './SalesIncomeView.module.css';
+
 import { useSaleForm } from '../hooks/useSaleForm';
 import { useSaleValidation } from '../hooks/useSaleValidation';
-import { useSales } from '../hooks/useSales';
+
 import { useToastContext } from '@/shared/context/ToastContext';
+import { useSearch } from '@/shared/hooks/useSearch';
+import { useTableFilters } from '@/shared/hooks/useTableFilters';
 
-import { useSearch } from '@/features/inventory/hooks/useSearch';
-import { useTableFilters } from '@/features/inventory/hooks/useTableFilters';
-
-import styles from './SalesIncomeView.module.css';
 import ClientSection from '../components/form/ClientSection';
 import ItemsSection from '../components/form/ItemsSection';
 import TotalSection from '../components/form/TotalSection';
@@ -50,6 +50,8 @@ export default function SalesIncomeView({
             nit: customer.nit || null,
             address: customer.address || null,
             contact_method: customer.contact_method || null,
+            payment_method: customer.payment_method, // ← nuevo
+            notes: customer.notes || null, // ← nuevo
             total,
             items: items.map((i) => ({
                 item_id: i.itemId,

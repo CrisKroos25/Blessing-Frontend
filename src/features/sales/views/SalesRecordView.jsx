@@ -1,12 +1,12 @@
 import styles from './SalesRecordView.module.css';
-import { Plus } from 'lucide-react';
-import { useSearch } from '@/features/inventory/hooks/useSearch';
-import { useTableFilters } from '@/features/inventory/hooks/useTableFilters';
-import { useModalState } from '@/features/inventory/hooks/useModalState';
-import SalesTable from '../components/tables/SalesTable';
+
+import { useSearch } from '@/shared/hooks/useSearch';
+import { useTableFilters } from '@/shared/hooks/useTableFilters';
+import { useModalState } from '@/shared/hooks/useModalState';
 import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
-import Modal from '@/features/inventory/components/Modal/Modal';
-import Button from '@/shared/components/button/Button';
+
+import SalesTable from '../components/tables/SalesTable';
+import Modal from '../components/Modal/Modal';
 
 export default function SalesRecordView({ sales }) {
     const { modalState, openModal, closeModal } = useModalState();
@@ -31,19 +31,14 @@ export default function SalesRecordView({ sales }) {
                     categories={categories}
                     setFilter={setFilter}
                     resetFilters={resetFilters}
-                    action={
-                        <Button
-                            onClick={() => openModal('create', null)}
-                            colorButton="#FF9800"
-                            logoButton={Plus}
-                        >
-                            Agregar producto
-                        </Button>
-                    }
                 />
                 <SalesTable sales={filtered} openModal={openModal} />
 
-                <Modal modalState={modalState} onClose={closeModal} />
+                <Modal
+                    key={modalState.item?.id ?? 'view'}
+                    modalState={modalState}
+                    onClose={closeModal}
+                />
             </div>
         </>
     );

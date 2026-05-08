@@ -1,4 +1,5 @@
 import SalesLayout from '../sectionsPage/SalesLayout';
+import InventoryCards from '@/features/inventory/sectionsPage/InventoryCards';
 import { useSales } from '../hooks/useSales';
 
 export default function SalesPage() {
@@ -6,6 +7,7 @@ export default function SalesPage() {
 
     return (
         <>
+            <InventoryCards products={products} />
             <SalesLayout
                 products={products}
                 sales={sales}

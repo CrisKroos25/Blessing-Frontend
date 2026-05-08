@@ -12,6 +12,8 @@ const INITIAL_CUSTOMER = {
     nit: '',
     address: '',
     contact_method: '', // 'whatsapp' | 'tienda' | ''
+    payment_method: '', // con default
+    notes: '',
 };
 
 // Cada item de la venta tiene esta forma:
