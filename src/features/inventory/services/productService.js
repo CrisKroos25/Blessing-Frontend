@@ -49,7 +49,7 @@ const buildFormData = (formData) => {
 
 // ── GET /api/inventory/items/ ───────────────────────────────
 export const fetchProducts = async () => {
-    const res = await fetch(`${BASE_URL}/inventory/items/`);
+    const res = await fetch(`${BASE_URL}/items/`);
     return handleResponse(res);
 };
 
@@ -68,7 +68,7 @@ export const createProduct = async (formData) => {
         data.append('materials', JSON.stringify(mappedMaterials));
     }
 
-    const res = await fetch(`${BASE_URL}/inventory/items/`, {
+    const res = await fetch(`${BASE_URL}/items/`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -85,7 +85,7 @@ export const updateProduct = async (id, formData) => {
 
     const data = buildFormData(itemData);
 
-    const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
+    const res = await fetch(`${BASE_URL}/items/${id}/`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -105,7 +105,7 @@ export const updateProduct = async (id, formData) => {
 
 // ── DELETE /api/inventory/items/:id/ ────────────────────────
 export const deleteProduct = async (id) => {
-    const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
+    const res = await fetch(`${BASE_URL}/items/${id}/`, {
         method: 'DELETE',
     });
     return handleResponse(res);
@@ -113,7 +113,7 @@ export const deleteProduct = async (id) => {
 
 // ── Helper: guardar materiales de un bundle ─────────────────
 const saveBundleMaterials = async (bundleId, materials) => {
-    const res = await fetch(`${BASE_URL}/inventory/bundles/${bundleId}/materials/`, {
+    const res = await fetch(`${BASE_URL}/bundles/${bundleId}/materials/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const saveBundleMaterials = async (bundleId, materials) => {
             materials.map((m) => ({
                 item: m.productId,
                 quantity: m.quantity,
-            }))
+            })),
         ),
     });
 
@@ -131,6 +131,6 @@ const saveBundleMaterials = async (bundleId, materials) => {
 
 // ── GET /api/inventory/items/:id/materials/ ─────────────────
 export const fetchBundleMaterials = async (itemId) => {
-    const res = await fetch(`${BASE_URL}/inventory/items/${itemId}/materials/`);
+    const res = await fetch(`${BASE_URL}/items/${itemId}/materials/`);
     return handleResponse(res);
 };
