@@ -1,0 +1,77 @@
+.header {
+    border-bottom: 1px solid #ffcadd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+}
+
+.headerDefault {
+    padding: 24px;
+}
+
+.headerDelete {
+    padding: 12px;
+}
+
+.header_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 12px;
+}
+
+.content_icon {
+    display: flex;
+    gap: 24px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title {
+    letter-spacing: 0.1px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Ícono base — solo forma y tamaño */
+.icon {
+    padding: 14px;
+    border-radius: 14px;
+    display: flex;
+}
+
+/* Variante por tipo de acción */
+.iconDefault {
+    background-color: rgb(254, 242, 221);
+    color: #f59e0b;
+}
+
+.iconDelete {
+    background-color: #fff1f1;
+    color: #e53935;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    color: #999;
+    padding: 6px;
+    border-radius: 11px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #f0f8ff;
+}
