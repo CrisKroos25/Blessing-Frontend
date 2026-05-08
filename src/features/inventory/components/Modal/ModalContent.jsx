@@ -10,17 +10,20 @@
 // ============================================================
 
 import styles from './ModalContent.module.css';
+
 import { useProductForm } from '@/features/inventory/hooks/useProductForm';
 import { useProductValidation } from '@/features/inventory/hooks/useProductValidation';
-import { useBodyScrollLock } from '@/features/inventory/hooks/useBodyScroll';
 import { useBundleMaterials } from '@/features/inventory/hooks/useBundleMaterials';
 import { resolveInitialProduct } from '@/features/inventory/utils/productFormUtils';
-import { useToastContext } from '@/shared/context/ToastContext';
-import { useState } from 'react';
 import BodyForm from '@/features/inventory/components/form/BodyForm';
-import HeaderForm from '@/features/inventory/components/form/HeaderForm';
 import FooterForm from '@/features/inventory/components/form/FooterForm';
 import DeleteForm from '@/features/inventory/components/form/DeleteForm';
+
+import { useToastContext } from '@/shared/context/ToastContext';
+import { useBodyScrollLock } from '@/shared/hooks/useBodyScroll';
+import HeaderModal from '@/shared/components/headerModal/HeaderModal';
+
+import { useState } from 'react';
 
 // Componente interno — se monta SOLO cuando el modal está abierto. Así useState siempre se inicializa con los valores correctos
 export default function ModalContent({
@@ -98,7 +101,6 @@ export default function ModalContent({
             toast.error(error?.message || 'Ocurrió un error, intenta de nuevo');
         } finally {
             setIsSubmitting(false); // ← desbloquea siempre, con éxito o error
-            console.log(formData);
         }
     };
 
@@ -111,7 +113,7 @@ export default function ModalContent({
                 }`}
                 onClick={(e) => e.stopPropagation()}
             >
-                <HeaderForm
+                <HeaderModal
                     title={
                         action === 'create'
                             ? titles.create[defaultType]
@@ -122,7 +124,7 @@ export default function ModalContent({
                             ? 'Complete los detalles a continuación para registrar un nuevo artículo en su inventario'
                             : product?.name
                     }
-                    action={action}
+                    variant={action === 'delete' ? 'danger' : 'default'}
                     onClose={onClose}
                 />
 

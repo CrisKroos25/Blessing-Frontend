@@ -9,7 +9,7 @@ export default function Modal({
     defaultType,
     allProducts,
 }) {
-    const { action, product } = modalState;
+    const { action, item: product } = modalState;
 
     // Si no hay tipo, el modal está cerrado → no renderizamos nada
     if (!action) return null;
