@@ -15,16 +15,15 @@
 
 import styles from './InventoryView.module.css';
 import { Plus } from 'lucide-react';
-import { useSearch } from '../hooks/useSearch';
-import { useTableFilters } from '../hooks/useTableFilters'; // ← agrega esto
 
-import Button from '@/shared/components/button/Button';
+import { useSearch } from '@/shared/hooks/useSearch';
+import { useTableFilters } from '@/shared/hooks/useTableFilters';
+import { useModalState } from '@/shared/hooks/useModalState';
 import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
-import MaterialsTable from '../components/tables/MaterialsTable';
-import Modal from '@/features/inventory/components/Modal/Modal';
+import Button from '@/shared/components/button/Button';
 
-// Importamos el hook que maneja el estado del modal
-import { useModalState } from '../hooks/useModalState';
+import MaterialsTable from '@/features/inventory/components/tables/MaterialsTable';
+import Modal from '@/features/inventory/components/Modal/Modal';
 
 export default function InventoryView({
     title,
@@ -79,7 +78,7 @@ export default function InventoryView({
             />
 
             <Modal
-                key={modalState.product?.id ?? 'create'}
+                key={modalState.item?.id ?? 'create'}
                 modalState={modalState}
                 onClose={closeModal}
                 create={create}
