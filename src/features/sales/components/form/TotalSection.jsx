@@ -19,6 +19,7 @@ export default function TotalSection({
     onUpdateQuantity,
     onRemove,
     onSubmit,
+    isSubmitting,
 }) {
     return (
         <div className={styles.section}>
@@ -119,12 +120,8 @@ export default function TotalSection({
             </div>
 
             {/* ── Botón confirmar ───────────────────────────────────────── */}
-            <button
-                className={styles.confirmBtn}
-                onClick={onSubmit}
-                disabled={items.length === 0}
-            >
-                Confirmar venta
+            <button className={styles.confirmBtn} onClick={onSubmit}>
+                {isSubmitting ? 'Guardando...' : 'Confirmar venta'}
             </button>
         </div>
     );

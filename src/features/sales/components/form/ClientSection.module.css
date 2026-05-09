@@ -164,7 +164,7 @@
     height: 80px;
     padding: 14px 16px;
     border-radius: 12px;
-    border: 2px solid #e6e6e6;
+    border: none;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
@@ -173,12 +173,20 @@
     gap: 4px;
 }
 
+.contactoCardSelect {
+    box-shadow: 0 0 0 1.2px #dfdfdf;
+}
+
+.contactoCardNotSelected {
+    box-shadow: 0 0 0 1.2px #eb6d6b;
+}
+
 .contactoCard:hover {
     border-color: #ffcadd;
 }
 
 .contactoCardActive {
-    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1.2px var(--primary-color);
     background: #fff1f5;
 }
 

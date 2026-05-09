@@ -2,7 +2,7 @@
 // Sección 2 del formulario de venta: búsqueda y selección de productos.
 // El usuario busca y hace click en una card para agregar el item al carrito.
 
-import { Search, ImageOff, X, PackageOpen } from 'lucide-react';
+import { Search, ImageOff, X, PackageOpen, CircleAlert } from 'lucide-react';
 import styles from './ItemsSection.module.css';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -163,10 +163,13 @@ export default function ItemsSection({
                         <span>Limpiar</span>
                     </button>
                 )}
-
-                {/* Error si el usuario intentó confirmar sin agregar nada */}
-                {error && <span className={styles.errorText}>⚠ {error}</span>}
             </div>
+            {/* Error si el usuario intentó confirmar sin agregar nada */}
+            {error && (
+                <span className={styles.errorText}>
+                    {<CircleAlert size={12} />} {error}
+                </span>
+            )}
             {/* ── Carruseles de productos ───────────────────────────────── */}
             <div className={styles.carouselWrapper}>
                 {filtered.length === 0 ? (

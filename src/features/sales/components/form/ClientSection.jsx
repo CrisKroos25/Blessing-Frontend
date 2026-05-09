@@ -9,6 +9,7 @@ import {
     Banknote,
     CreditCard,
     Repeat,
+    CircleAlert,
 } from 'lucide-react';
 
 // Opciones de medio de contacto con ícono y etiqueta
@@ -52,7 +53,7 @@ export default function ClientSection({ formData, onChange, errors }) {
                     />
                     {errors.customer_name && (
                         <span className={styles.errorText}>
-                            ⚠ {errors.customer_name}
+                            {<CircleAlert size={12} />} {errors.customer_name}
                         </span>
                     )}
                 </div>
@@ -72,7 +73,7 @@ export default function ClientSection({ formData, onChange, errors }) {
                     />
                     {errors.telephone && (
                         <span className={styles.errorText}>
-                            ⚠ {errors.telephone}
+                            {<CircleAlert size={12} />} {errors.telephone}
                         </span>
                     )}
                 </div>
@@ -130,7 +131,7 @@ export default function ClientSection({ formData, onChange, errors }) {
                                     />
                                     {/* Card visual que reacciona al estado del radio */}
                                     <div
-                                        className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : ''}`}
+                                        className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : styles.contactoCardSelect}`}
                                     >
                                         <span className={styles.contactoIcon}>
                                             {icon}
@@ -163,7 +164,7 @@ export default function ClientSection({ formData, onChange, errors }) {
                                         onChange={onChange}
                                     />
                                     <div
-                                        className={`${styles.contactoCard} ${formData.payment_method === value ? styles.contactoCardActive : ''}`}
+                                        className={`${styles.contactoCard} ${formData.payment_method === value ? styles.contactoCardActive : ''} ${errors.payment_method ? styles.contactoCardNotSelected : styles.contactoCardSelect}`}
                                     >
                                         <span className={styles.contactoIcon}>
                                             {icon}
@@ -175,6 +176,12 @@ export default function ClientSection({ formData, onChange, errors }) {
                                 </label>
                             ))}
                         </div>
+                        {errors.payment_method && (
+                            <span className={styles.errorText}>
+                                {<CircleAlert size={12} />}{' '}
+                                {errors.payment_method}
+                            </span>
+                        )}
                     </div>
                 </div>
                 {/* ── NOTAS ────────────────────────────────────────────── */}

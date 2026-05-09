@@ -1,5 +1,7 @@
 import styles from './SalesIncomeView.module.css';
 
+import { useState } from 'react';
+
 import { useSaleForm } from '../hooks/useSaleForm';
 import { useSaleValidation } from '../hooks/useSaleValidation';
 
@@ -39,10 +41,14 @@ export default function SalesIncomeView({
     const { result, filters, categories, setFilter, resetFilters } =
         useTableFilters(filtered);
 
+    // 3. Bloquea el boton
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = async () => {
-        // Validaciones para cliente creado en useSalesForm y items tenga al menos un producto
         const isValid = validate({ customer, items });
         if (!isValid) return;
+
+        setIsSubmitting(true);
 
         const payload = {
             customer_name: customer.customer_name,
@@ -50,8 +56,8 @@ export default function SalesIncomeView({
             nit: customer.nit || null,
             address: customer.address || null,
             contact_method: customer.contact_method || null,
-            payment_method: customer.payment_method, // ← nuevo
-            notes: customer.notes || null, // ← nuevo
+            payment_method: customer.payment_method,
+            notes: customer.notes || null,
             total,
             items: items.map((i) => ({
                 item_id: i.itemId,
@@ -60,15 +66,18 @@ export default function SalesIncomeView({
             })),
         };
 
-        const result = await createSale(payload);
-
-        if (result.success) {
+        try {
+            await createSale(payload);
+            toast.success('Venta registrada correctamente.');
             resetForm();
             resetErrors();
-            toast.success(`Venta registrada correctamente.`);
-        } else {
-            // result.message viene del backend: "Stock insuficiente para Peluche Oso. Disponible: 2"
-            toast.error(result.message, 'error');
+        } catch (error) {
+            console.error('Error en handleSubmit:', error);
+            toast.error(
+                error?.message || 'Ocurrió un error, intenta de nuevo.',
+            );
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -97,6 +106,7 @@ export default function SalesIncomeView({
                 onUpdateQuantity={updateQuantity}
                 onRemove={removeItem}
                 onSubmit={handleSubmit}
+                isSubmitting={isSubmitting}
                 loading={loading} // ← deshabilita el botón mientras carga
             />
         </div>

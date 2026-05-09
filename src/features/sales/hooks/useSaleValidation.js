@@ -13,12 +13,31 @@ const CUSTOMER_RULES = {
         if (value.trim().length < 2) return 'El nombre es muy corto';
         return null;
     },
+
     telephone: (value) => {
         if (!value.trim()) return 'El teléfono es requerido';
+
         // Acepta formatos guatemaltecos: 5555-1234 o 55551234
         const soloNumeros = value.replace(/[-\s]/g, '');
-        if (soloNumeros.length < 8)
+
+        if (soloNumeros.length < 8) {
             return 'El teléfono debe tener al menos 8 dígitos';
+        }
+
+        return null;
+    },
+
+    payment_method: (value) => {
+        const allowedMethods = ['efectivo', 'transferencia', 'tarjeta'];
+
+        if (!value?.trim()) {
+            return 'El método de pago es requerido';
+        }
+
+        if (!allowedMethods.includes(value)) {
+            return 'Método de pago inválido';
+        }
+
         return null;
     },
 };
