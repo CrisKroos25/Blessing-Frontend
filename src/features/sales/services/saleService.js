@@ -13,15 +13,17 @@ const parseJSONSafe = async (res) => {
 };
 
 const handleResponse = async (res) => {
-    const data = await parseJSONSafe(res);
-    if (res.ok) return data;
-    // Construir Error con info adicional
-    const message =
-        (data && (data.detail || data.message)) || `HTTP ${res.status}`;
-    const error = new Error(message);
-    error.status = res.status;
-    error.data = data;
-    throw error;
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        const message =
+            errorData.detail ||
+            errorData.error ||
+            Object.values(errorData)[0] ||
+            `Error ${res.status}`;
+        throw new Error(message);
+    }
+    if (res.status === 204) return true;
+    return res.json();
 };
 
 const defaultHeaders = (json = true) => {
