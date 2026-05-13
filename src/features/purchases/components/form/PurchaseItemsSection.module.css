@@ -91,8 +91,7 @@
     overflow: hidden;
     cursor: pointer;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    min-width: 150px;
-    max-width: 150px;
+    width: 200px;
     flex-shrink: 0;
 }
 
@@ -102,8 +101,8 @@
 }
 
 .imageWrapper {
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    width: 200px;
+    aspect-ratio: 1 / 1;
     background-color: #eef0f2;
     display: flex;
     align-items: center;
