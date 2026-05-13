@@ -15,6 +15,8 @@ import PricingSection from './sectionsBody/PricingSection';
 import ImageSection from './sectionsBody/ImageSection';
 import MaterialsSection from './sectionsBody/MaterialsSection';
 
+import { useCatalog } from '../../hooks/useCatalog';
+
 export default function BodyForm({
     formData,
     handleChange,
@@ -23,6 +25,13 @@ export default function BodyForm({
     errors = {},
     action,
 }) {
+    const { categories, units } = useCatalog();
+
+    // Filtra categorías según el tipo de producto seleccionado
+    // bundle no muestra categorías — InventorySection no se renderiza para bundle
+    const filteredCategories = categories.filter(
+        (cat) => cat.item_type === formData.type,
+    );
     return (
         <>
             {/* Sección 1: Nombre, descripción, categoría y tipo */}
@@ -51,6 +60,8 @@ export default function BodyForm({
                     handleChange={handleChange}
                     errors={errors}
                     lockType={lockType}
+                    categories={filteredCategories}
+                    units={units}
                 />
             )}
 

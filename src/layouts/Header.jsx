@@ -3,14 +3,7 @@ import { Bell, Search } from 'lucide-react';
 import '..//shared/styles/fonts.css';
 import Button from '../shared/components/button/Button';
 
-export default function Header({
-    title,
-    placeH,
-    textButton,
-    buttonColor,
-    sizeButton = '180px',
-    logoButtona,
-}) {
+export default function Header({ title }) {
     return (
         <header className={styles.header}>
             <div className={styles.container_main}>

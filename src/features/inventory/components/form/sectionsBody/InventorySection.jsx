@@ -5,34 +5,18 @@
 // Contiene: stock actual, stock mínimo, unidad de medida
 // y clasificación del material (controlado o insumo).
 // ============================================================
+// features/inventory/components/form/sectionsBody/InventorySection.jsx
 
 import styles from './InventorySection.module.css';
 import Input from '@/shared/components/input/Input';
-import { ShieldAlert, Package, CircleAlert } from 'lucide-react';
-
-// Opciones para el selector de unidades de medida
-const UNIT_OPTIONS = [
-    { value: 'pcs', label: 'Piezas (pcs)' },
-    { value: 'kg', label: 'Kilogramos (kg)' },
-    { value: 'g', label: 'Gramos (g)' },
-    { value: 'l', label: 'Litros (l)' },
-    { value: 'ml', label: 'Mililitros (ml)' },
-    { value: 'm', label: 'Metros (m)' },
-];
-
-const CATEGORY_OPTIONS = [
-    { value: 'Peluches', label: 'Peluches' },
-    { value: 'Arreglos', label: 'Arreglos finales' },
-    { value: 'Cintas', label: 'Cintas' },
-    { value: 'Cajas', label: 'Cajas de regalo' },
-    { value: 'Decoracion', label: 'Piezas de decoracion' },
-    { value: 'Papel', label: 'Papel' },
-];
+import { CircleAlert } from 'lucide-react';
 
 export default function InventorySection({
     formData,
     handleChange,
     errors = {},
+    categories = [], // ← viene de afuera, ya filtradas por tipo
+    units = [], // ← viene de afuera
 }) {
     return (
         <section className={styles.section}>
@@ -41,7 +25,7 @@ export default function InventorySection({
                 <div className={styles.sectionTitle}>Inventario</div>
             </div>
 
-            {/* Fila 1: Categoria y unidad de medida*/}
+            {/* Fila 1: Categoría y unidad */}
             <div className={styles.gridThree}>
                 <div className={styles.field}>
                     <label className={styles.label}>
@@ -50,20 +34,15 @@ export default function InventorySection({
                     <select
                         name="category"
                         className={styles.select}
-                        value={
-                            formData.type === 'bundle'
-                                ? 'Arreglos'
-                                : formData.category
-                        }
+                        value={formData.category || ''}
                         onChange={handleChange}
-                        disabled={formData.type === 'bundle'}
                     >
                         <option value="" disabled>
                             Selecciona una categoría...
                         </option>
-                        {CATEGORY_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
+                        {categories.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                                {name}
                             </option>
                         ))}
                     </select>
@@ -73,37 +52,36 @@ export default function InventorySection({
                         </span>
                     )}
                 </div>
+
                 <div className={styles.field}>
                     <label className={styles.label}>
                         UNIDAD DE MEDIDA{' '}
                         <span className={styles.required}>*</span>
                     </label>
-                    {/* Select nativo — simple y accesible */}
                     <select
                         name="unit"
                         className={styles.select}
-                        value={formData.unit}
+                        value={formData.unit || ''}
                         onChange={handleChange}
                     >
                         <option value="" disabled>
                             Selecciona una unidad...
                         </option>
-                        {UNIT_OPTIONS.map(({ value, label }) => (
-                            <option key={value} value={value}>
-                                {label}
+                        {units.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                                {name}
                             </option>
                         ))}
                     </select>
                     {errors.unit && (
                         <span className={styles.errorText}>
-                            {<CircleAlert size={12} />}
-                            {errors.unit}
+                            <CircleAlert size={12} /> {errors.unit}
                         </span>
                     )}
                 </div>
             </div>
 
-            {/* Fila 2: Stock actual y stock mínimo */}
+            {/* Fila 2: Stock */}
             <div className={styles.gridThree}>
                 <div className={styles.field}>
                     <label className={styles.label}>
@@ -119,8 +97,7 @@ export default function InventorySection({
                     />
                     {errors.stock && (
                         <span className={styles.errorText}>
-                            {<CircleAlert size={12} />}
-                            {errors.stock}
+                            <CircleAlert size={12} /> {errors.stock}
                         </span>
                     )}
                 </div>
@@ -129,7 +106,6 @@ export default function InventorySection({
                     <label className={styles.label}>
                         STOCK MÍNIMO <span className={styles.required}>*</span>
                     </label>
-                    {/* Stock mínimo: alerta cuando el stock baja de este número */}
                     <Input
                         name="min_stock"
                         type="number"
@@ -140,8 +116,7 @@ export default function InventorySection({
                     />
                     {errors.min_stock && (
                         <span className={styles.errorText}>
-                            {<CircleAlert size={12} />}
-                            {errors.min_stock}
+                            <CircleAlert size={12} /> {errors.min_stock}
                         </span>
                     )}
                 </div>

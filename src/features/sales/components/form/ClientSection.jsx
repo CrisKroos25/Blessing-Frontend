@@ -107,44 +107,6 @@ export default function ClientSection({ formData, onChange, errors }) {
                 </div>
 
                 <div className={styles.containerMethods}>
-                    {/* ── MEDIO DE CONTACTO ────────────────────────────────── */}
-                    {/* Ocupa las 2 columnas. Usamos cards visuales en lugar de radios nativos */}
-                    <div className={`${styles.field}`}>
-                        <label className={styles.label}>
-                            MEDIO DE CONTACTO{' '}
-                        </label>
-                        <div className={styles.contactoOptions}>
-                            {MEDIOS_CONTACTO.map(({ value, icon, label }) => (
-                                <label
-                                    key={value}
-                                    className={styles.contactoOption}
-                                >
-                                    {/* Radio oculto — solo para manejar el estado */}
-                                    <input
-                                        type="radio"
-                                        name="contact_method"
-                                        value={value}
-                                        checked={
-                                            formData.contact_method === value
-                                        }
-                                        onChange={onChange}
-                                    />
-                                    {/* Card visual que reacciona al estado del radio */}
-                                    <div
-                                        className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : styles.contactoCardSelect}`}
-                                    >
-                                        <span className={styles.contactoIcon}>
-                                            {icon}
-                                        </span>
-                                        <span className={styles.contactoLabel}>
-                                            {label}
-                                        </span>
-                                    </div>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-
                     {/* ── MÉTODO DE PAGO ───────────────────────────────────── */}
                     <div className={`${styles.field} `}>
                         <label className={styles.label}>METODOS DE PAGO </label>
@@ -182,6 +144,43 @@ export default function ClientSection({ formData, onChange, errors }) {
                                 {errors.payment_method}
                             </span>
                         )}
+                    </div>
+                    {/* ── MEDIO DE CONTACTO ────────────────────────────────── */}
+                    {/* Ocupa las 2 columnas. Usamos cards visuales en lugar de radios nativos */}
+                    <div className={`${styles.field}`}>
+                        <label className={styles.label}>
+                            MEDIO DE CONTACTO{' '}
+                        </label>
+                        <div className={styles.contactoOptions}>
+                            {MEDIOS_CONTACTO.map(({ value, icon, label }) => (
+                                <label
+                                    key={value}
+                                    className={styles.contactoOption}
+                                >
+                                    {/* Radio oculto — solo para manejar el estado */}
+                                    <input
+                                        type="radio"
+                                        name="contact_method"
+                                        value={value}
+                                        checked={
+                                            formData.contact_method === value
+                                        }
+                                        onChange={onChange}
+                                    />
+                                    {/* Card visual que reacciona al estado del radio */}
+                                    <div
+                                        className={`${styles.contactoCard} ${formData.contact_method === value ? styles.contactoCardActive : styles.contactoCardSelect}`}
+                                    >
+                                        <span className={styles.contactoIcon}>
+                                            {icon}
+                                        </span>
+                                        <span className={styles.contactoLabel}>
+                                            {label}
+                                        </span>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 {/* ── NOTAS ────────────────────────────────────────────── */}

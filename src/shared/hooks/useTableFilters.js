@@ -3,11 +3,13 @@
 // disponibilidad y orden alfabético por nombre.
 // Recibe la lista ya filtrada por useSearch.
 
+// useTableFilters.js
+
 import { useState, useMemo } from 'react';
 
 const INITIAL_FILTERS = {
     category: 'all', // 'all' | cualquier categoría existente
-    availability: 'all', // 'all' | 'active' | 'inactive'
+    availability: 'all', // 'all' | 'Disponible' | 'Bajo' | 'Sin stock'
     sort: 'none', // 'none' | 'asc' | 'desc'
 };
 
@@ -22,10 +24,10 @@ export function useTableFilters(items = []) {
 
     const resetFilters = () => setFilters(INITIAL_FILTERS);
 
-    // Categorías únicas derivadas de la lista — se recalculan si items cambia
+    // Categorías únicas — usa category_name en lugar de category (que ahora es ID)
     const categories = useMemo(() => {
         const unique = [
-            ...new Set(items.map((p) => p.category).filter(Boolean)),
+            ...new Set(items.map((p) => p.category_name).filter(Boolean)),
         ];
         return unique.sort(); // alfabético para el dropdown
     }, [items]);
@@ -36,7 +38,7 @@ export function useTableFilters(items = []) {
 
         // ── Filtro por categoría ─────────────────────────────────────
         if (filters.category !== 'all') {
-            list = list.filter((p) => p.category === filters.category);
+            list = list.filter((p) => p.category_name === filters.category);
         }
 
         // ── Filtro por disponibilidad (is_activate) ──────────────────
@@ -45,7 +47,7 @@ export function useTableFilters(items = []) {
         } else if (filters.availability === 'inactive') {
             list = list.filter((p) => p.stock === 0);
         } else if (filters.availability === 'low') {
-            list = list.filter((p) => p.stock < p.min_stock && p.stock != 0);
+            list = list.filter((p) => p.stock < p.min_stock && p.stock !== 0);
         }
 
         return list;

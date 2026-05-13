@@ -3,7 +3,7 @@ import {
     DollarSign,
     ShoppingCart,
     Package,
-    FileText,
+    User,
     Bolt,
 } from 'lucide-react';
 
@@ -39,9 +39,9 @@ export const NAVIGATION_ITEMS = [
     },
     {
         id: 5,
-        label: 'Reportes',
-        path: '/reports',
-        icon: FileText,
+        label: 'Clientes',
+        path: '/customers',
+        icon: User,
     },
     {
         id: 6,

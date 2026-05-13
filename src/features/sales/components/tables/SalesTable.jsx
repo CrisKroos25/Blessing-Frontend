@@ -16,11 +16,12 @@ export default function SalesTable({ sales, openModal }) {
             <thead>
                 <tr>
                     <th>Fecha</th>
+                    <th>Hora</th>
                     <th>Cliente</th>
                     <th>Teléfono</th>
                     <th>Productos</th>
                     <th>Total</th>
-                    <th>Estado</th>
+                    <th>Pago</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

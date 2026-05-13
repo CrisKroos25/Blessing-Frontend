@@ -19,11 +19,11 @@ import { Plus } from 'lucide-react';
 import { useSearch } from '@/shared/hooks/useSearch';
 import { useTableFilters } from '@/shared/hooks/useTableFilters';
 import { useModalState } from '@/shared/hooks/useModalState';
-import HeadTitleTable from '@/shared/components/titleTable/HeadTitleTable';
 import Button from '@/shared/components/button/Button';
 
 import MaterialsTable from '@/features/inventory/components/tables/MaterialsTable';
-import Modal from '@/features/inventory/components/Modal/Modal';
+import ModalProducts from '@/features/inventory/components/modal/ModalProducts';
+import ViewHeader from '@/features/inventory/components/viewHeader/viewHeader';
 
 export default function InventoryView({
     title,
@@ -38,6 +38,7 @@ export default function InventoryView({
     error,
 }) {
     const { modalState, openModal, closeModal } = useModalState();
+    const { action, item: product } = modalState;
 
     // 1. Filtra por texto
     const { query, setQuery, filtered } = useSearch(products, 'name');
@@ -48,7 +49,7 @@ export default function InventoryView({
 
     return (
         <div className={styles.container__main}>
-            <HeadTitleTable
+            <ViewHeader
                 title={title}
                 subtitle={subtitle}
                 query={query}
@@ -77,16 +78,19 @@ export default function InventoryView({
                 error={error}
             />
 
-            <Modal
-                key={modalState.item?.id ?? 'create'}
-                modalState={modalState}
-                onClose={closeModal}
-                create={create}
-                update={update}
-                remove={remove}
-                defaultType={defaultType}
-                allProducts={allProducts}
-            />
+            {!action ? null : (
+                <ModalProducts
+                    key={modalState.item?.id ?? 'create'}
+                    action={action}
+                    product={product}
+                    defaultType={defaultType}
+                    onClose={closeModal}
+                    create={create}
+                    update={update}
+                    remove={remove}
+                    allProducts={allProducts} // Solo lo usa FinalProducts.jsx
+                />
+            )}
         </div>
     );
 }

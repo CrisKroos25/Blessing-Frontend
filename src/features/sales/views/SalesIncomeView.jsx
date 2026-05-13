@@ -2,16 +2,16 @@ import styles from './SalesIncomeView.module.css';
 
 import { useState } from 'react';
 
-import { useSaleForm } from '../hooks/useSaleForm';
-import { useSaleValidation } from '../hooks/useSaleValidation';
-
 import { useToastContext } from '@/shared/context/ToastContext';
 import { useSearch } from '@/shared/hooks/useSearch';
 import { useTableFilters } from '@/shared/hooks/useTableFilters';
 
-import ClientSection from '../components/form/ClientSection';
-import ItemsSection from '../components/form/ItemsSection';
-import TotalSection from '../components/form/TotalSection';
+import SalesHeadTitle from '@/features/sales/components/viewHeader/SalesHeadTitle';
+import ClientSection from '@/features/sales/components/form/ClientSection';
+import ItemsSection from '@/features/sales/components/form/ItemsSection';
+import TotalSection from '@/features/sales/components/form/TotalSection';
+import { useSaleForm } from '@/features/sales/hooks/useSaleForm';
+import { useSaleValidation } from '@/features/sales/hooks/useSaleValidation';
 
 export default function SalesIncomeView({
     products,
@@ -83,6 +83,12 @@ export default function SalesIncomeView({
 
     return (
         <div className={styles.container}>
+            <SalesHeadTitle
+                title={'Crear una venta'}
+                subtitle={
+                    'Complete los detalles a continuación para registrar una nueva venta.'
+                }
+            />
             <ClientSection
                 formData={customer}
                 onChange={handleCustomerChange}
