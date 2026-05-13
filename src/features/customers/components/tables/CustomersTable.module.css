@@ -1,0 +1,50 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table thead {
+    background-color: #f3f4f6;
+    text-align: center;
+    border-bottom: 2px solid #f0f0f0; /* línea que separa header del body */
+}
+
+.table th {
+    text-align: center;
+    padding: 14px;
+    font-weight: 600;
+    color: #9ca3af;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estado vacío — ocupa todo el ancho de la tabla */
+.empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: #ccc;
+}
+
+.containerEmpty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Animacion del estado de carga */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
