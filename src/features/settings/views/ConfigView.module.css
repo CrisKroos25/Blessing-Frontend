@@ -1,0 +1,25 @@
+/* features/settings/views/ConfigView.module.css */
+
+.container {
+    background: white;
+    padding: 12px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 30px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 24px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
