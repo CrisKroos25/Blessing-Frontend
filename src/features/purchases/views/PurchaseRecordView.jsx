@@ -1,5 +1,8 @@
 import { usePurchases } from '../hooks/usePurchases';
+import { useModalState } from '@/shared/hooks/useModalState';
 import styles from './PurchaseRecordView.module.css';
+import Modal from '../components/Modal/Modal';
+import { Eye } from 'lucide-react';
 
 function formatPrice(value) {
     return `Q${Number(value).toFixed(2)}`;
@@ -7,6 +10,7 @@ function formatPrice(value) {
 
 export default function PurchaseRecordView() {
     const { purchases } = usePurchases();
+    const { modalState, openModal, closeModal } = useModalState();
 
     if (purchases.length === 0) {
         return <p className={styles.empty}>No hay compras registradas aún.</p>;
@@ -20,6 +24,7 @@ export default function PurchaseRecordView() {
                 <span className={styles.tableHeaderCell}>Proveedor / Lugar</span>
                 <span className={styles.tableHeaderCell}>Productos</span>
                 <span className={styles.tableHeaderCell}>Total</span>
+                <span className={styles.tableHeaderCell}></span>
             </div>
 
             {purchases.map((p) => (
@@ -33,8 +38,22 @@ export default function PurchaseRecordView() {
                     <span className={`${styles.cell} ${styles.total}`}>
                         {formatPrice(p.total)}
                     </span>
+                    <span className={styles.cell}>
+                        <button
+                            onClick={() => openModal('view', p)}
+                            className={styles.buttonEye}
+                        >
+                            <Eye size={18} />
+                        </button>
+                    </span>
                 </div>
             ))}
+
+            <Modal
+                key={modalState.item?.id ?? 'view'}
+                modalState={modalState}
+                onClose={closeModal}
+            />
         </div>
     );
 }

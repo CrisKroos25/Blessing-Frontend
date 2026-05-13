@@ -2,7 +2,7 @@
 
 .tableHeader {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr auto auto;
+    grid-template-columns: 60px 1fr 1fr auto auto 40px;
     gap: 12px;
     padding: 0 4px 8px 4px;
     border-bottom: 1px solid #eaeaea;
@@ -19,7 +19,7 @@
 
 .tableRow {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr auto auto;
+    grid-template-columns: 60px 1fr 1fr auto auto 40px;
     gap: 12px;
     align-items: center;
     padding: 12px 4px;
@@ -47,4 +47,22 @@
     color: #bbb;
     font-size: 13px;
     font-family: 'Inter-TextoNormal';
+}
+
+.buttonEye {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ca3af;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.buttonEye:hover {
+    background: #fdf2f6;
+    color: var(--primary-color);
 }
