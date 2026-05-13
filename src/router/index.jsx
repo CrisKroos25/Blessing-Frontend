@@ -3,12 +3,14 @@ import MainLayout from '../layouts/MainLayout';
 import InventoryPage from '../features/inventory/pages/InventoryPage';
 import PurchasesPage from '../features/purchases/pages/PurchasesPage';
 import SalesPage from '../features/sales/pages/SalesPage';
+import PanelPage from '../features/panel/pages/PanelPage';
 
 export default function AppRoutes() {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/home" element={<SalesPage />} />
+                <Route path="/" element={<PanelPage />} />
+                <Route path="/home" element={<PanelPage />} />
                 <Route path="/sales" element={<SalesPage />} />
                 <Route path="/purchases" element={<PurchasesPage />} />
                 <Route path="/inventory" element={<InventoryPage />} />
