@@ -1,3 +1,11 @@
+/* features/customers/components/tables/CustomersTable.module.css */
+
+.tableWrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -6,8 +14,7 @@
 
 .table thead {
     background-color: #f3f4f6;
-    text-align: center;
-    border-bottom: 2px solid #f0f0f0; /* línea que separa header del body */
+    border-bottom: 2px solid #f0f0f0;
 }
 
 .table th {
@@ -18,13 +25,44 @@
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: 'Inter-Titulos';
 }
 
-/* Estado vacío — ocupa todo el ancho de la tabla */
+.thLeft {
+    text-align: left;
+    padding-left: 16px !important;
+}
+
+.row {
+    border-bottom: 1px solid #f3f3f3;
+    transition: background 0.15s;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+.row:hover {
+    background-color: #f9fafb;
+}
+
+.table td {
+    padding: 12px 14px;
+    color: #333;
+    font-family: 'Inter-TextoNormal';
+}
+
+.tdLeft {
+    text-align: left;
+    padding-left: 16px !important;
+}
+.tdCenter {
+    text-align: center;
+}
+
 .empty {
-    padding: 60px 20px;
     text-align: center;
     color: #ccc;
+    opacity: 0.4;
 }
 
 .containerEmpty {
@@ -33,18 +71,46 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    padding: 60px 20px;
 }
 
-/* Animacion del estado de carga */
-.spinner {
-    animation: spin 1s linear infinite;
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.editBtn,
+.deleteBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.editBtn {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.editBtn:hover {
+    filter: brightness(0.65);
+}
+
+.deleteBtn {
+    background: #f3f4f6;
+    color: #666;
+}
+
+.deleteBtn:hover {
+    background: #ffecf3;
+    color: #e91e63;
 }

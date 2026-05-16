@@ -1,5 +1,11 @@
 /* ClientSection.module.css */
 
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .section {
     width: 100%;
     display: flex;
