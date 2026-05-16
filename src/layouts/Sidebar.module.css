@@ -1,82 +1,172 @@
+/* ── Contenedor ── */
 .sidebar {
     font-family: 'Inter-TextoNormal';
-    width: 100%;
     position: sticky;
     top: 0;
     height: 100vh;
-    padding: 1.5rem 1rem;
     background-color: #ffffff;
     border-right: 1px solid #e5e7eb;
+
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    align-items: stretch;
+    overflow: hidden; /* oculta el texto que sobresale al colapsar */
+
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.open {
+    width: 250px;
+}
+.closed {
+    width: 55px;
+}
+
+/* ── Botón toggle (arriba del todo) ── */
+.toggleBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 25px;
+    padding: 0;
+    flex-shrink: 0;
+
+    background: none;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    cursor: pointer;
+    color: #6b7280;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.toggleBtn:hover {
+    background-color: #f9fafb;
+    color: #111827;
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.5rem 1.5rem;
+    gap: 12px;
+    padding: 1.2rem 6px;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
-.logoWrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: var(--primary-color);
+/* ── Contenedor del logo ── */
+
+.logoContainer {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    border-radius: 12px;
+
+    /* Gradiente con los colores del logo */
+    background: linear-gradient(135deg, #7eb4b1 0%, #5f5577 100%);
+    box-shadow: 0 4px 12px rgba(81, 62, 119, 0.25);
 }
 
-.logoIcon {
-    color: #ffffff;
+.logo {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+
+    /* Si el logo tiene partes oscuras, esto lo aclara sobre el fondo oscuro */
+    filter: brightness(0) invert(1);
 }
 
-.brandText {
+/* ── Texto ── */
+
+.brandInfo {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    justify-content: center;
+    min-width: 0;
+    overflow: hidden;
+    max-width: 160px;
+    opacity: 1;
+    transition:
+        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease;
 }
 
 .title {
     font-family: 'Inter-Titulos';
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #111827;
     margin: 0;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    color: #1a1a2e; /* casi negro con toque azul/morado */
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+}
+
+.subtitleRow {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+/* Dot decorativo con el color primario del sistema */
+.dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e91e63;
+    flex-shrink: 0;
 }
 
 .subtitle {
-    font-size: 0.75rem;
     margin: 0;
-    color: #9ca3af;
-    letter-spacing: 0.04em;
+    font-size: 0.7rem;
+    white-space: nowrap;
     text-transform: uppercase;
+    font-family: 'Inter-Titulos';
+    letter-spacing: 0.12em;
+    color: #8b95a7;
 }
 
-/* El resto se queda igual */
+.closed .brandInfo {
+    max-width: 0;
+    opacity: 0;
+}
+
+/* ── Navegación ── */
+.nav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.75rem 0;
+}
+
 .menu {
     list-style: none;
-    padding: 0;
-    margin: 2rem 0 0 0;
+    padding: 0 8px;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 4px;
 }
 
 .menuItem {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    padding: 0.7rem 10px;
     border-radius: 0.75rem;
     text-decoration: none;
-    color: inherit;
-    font-size: 0.95rem;
+    color: #374151;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
     transition:
         background 0.2s ease,
         color 0.2s ease;
@@ -95,4 +185,26 @@
 .active:hover {
     background-color: var(--primary-color);
     color: #ffffff;
+}
+
+/* El ícono no se encoge nunca */
+.iconWrapper {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* El label del navlink también transiciona */
+.label {
+    overflow: hidden;
+    max-width: 160px;
+    opacity: 1;
+    transition:
+        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease;
+}
+
+.closed .label {
+    max-width: 0;
+    opacity: 0;
 }
