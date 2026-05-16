@@ -71,7 +71,7 @@ export default function SalesRow({ sale, openModal }) {
                     }}
                     className={styles.button__options}
                 >
-                    {<Eye size={'20px'} />} Ver Venta
+                    {<Eye size={16} />} Ver Venta
                 </button>
             </td>
         </tr>
