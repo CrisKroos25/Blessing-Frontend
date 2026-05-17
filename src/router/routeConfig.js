@@ -11,7 +11,7 @@ export const ROUTE_CONFIG = {
         title: 'Gestión de Ventas',
     },
     purchases: {
-        path: '/purchases',
+        path: '/commerce/purchases',
         title: 'Gestión de Compras',
     },
     inventory: {
