@@ -34,8 +34,8 @@ export function useProductForm(product) {
         if (formData.type === 'bundle') {
             setFormData((prev) => ({
                 ...prev,
-                category: 'Arreglos',
-                unit: 'pcs',
+                category: '1',
+                unit: '1',
                 ...(product?.id ? {} : { stock: 1, min_stock: 0 }),
             }));
         }

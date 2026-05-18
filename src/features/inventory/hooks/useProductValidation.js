@@ -17,8 +17,6 @@ export function useProductValidation() {
 
     const validate = (formData) => {
         const newErrors = {};
-        console.log('Validando formData.type:', formData.type);
-        console.log('Validando formData.materials:', formData.materials);
 
         Object.entries(REQUIRED_FIELDS).forEach(([field, label]) => {
             if (!formData[field] && formData[field] !== 0) {
