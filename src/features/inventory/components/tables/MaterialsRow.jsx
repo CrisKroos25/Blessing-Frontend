@@ -37,7 +37,7 @@ export default function MaterialsRow({ product, openModal }) {
                 )}
             </td>
             <td className={styles.fontBold}>{product.name}</td>
-            <td>{product.category}</td>
+            <td>{product.category_name}</td>
             <td className={styles.fontBold}>{product.stock}</td>
             <td>{product.min_stock}</td>
             <td>
@@ -51,13 +51,13 @@ export default function MaterialsRow({ product, openModal }) {
                     onClick={() => openModal('edit', product)}
                     className={styles.button__options}
                 >
-                    {<Pencil size={'20px'} />}
+                    {<Pencil size={16} />}
                 </button>
                 <button
                     onClick={() => openModal('delete', product)}
                     className={styles.button__options}
                 >
-                    {<Trash2 size={'20px'} />}
+                    {<Trash2 size={16} />}
                 </button>
             </td>
         </tr>

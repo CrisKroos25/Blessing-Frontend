@@ -75,8 +75,8 @@ export default function ViewHeader({
                         >
                             <option value="all">Existencia</option>
                             <option value="active">Disponible</option>
-                            <option value="low">Bajo</option>
-                            <option value="inactive">No disponible</option>
+                            <option value="low">Stock Bajo</option>
+                            <option value="inactive">Agotado</option>
                         </select>
 
                         {/* ── Limpiar filtros — solo si hay alguno activo ─── */}
