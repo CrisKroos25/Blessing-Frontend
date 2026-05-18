@@ -1,0 +1,89 @@
+/* ProductCard.module.css */
+/* Estilos copiados de ItemsSection.module.css — no cambiar aquí si no cambiás allá */
+
+.productCard {
+    background: #fafafa;
+    border-radius: 12px;
+    border: 2px solid #e6e6e6;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.productCard:hover {
+    border-color: #ffcadd;
+    box-shadow: 0 2px 8px rgba(255, 150, 180, 0.15);
+}
+
+.imageWrapper {
+    width: 200px;
+    aspect-ratio: 1 / 1;
+    background-color: #eef0f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholderIcon {
+    color: #b0b8c1;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productInfo {
+    padding: 12px 14px;
+}
+
+.productName {
+    font-family: 'Inter-Titulos';
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.productMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productPrice {
+    font-family: 'Inter-TextoNormal';
+    font-size: 14px;
+    font-weight: 700;
+    color: #2e9e5b;
+}
+
+.stockBadge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.stockOk {
+    background-color: #e8f8ef;
+    color: #2e9e5b;
+}
+
+.stockLow {
+    background-color: #fff3e8;
+    color: #e07b2a;
+}
+
+.stockOut {
+    background-color: #fdecea;
+    color: #d93025;
+}

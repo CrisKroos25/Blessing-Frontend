@@ -1,14 +1,18 @@
-// ============================================================
 // MaterialsSection.jsx
-// ------------------------------------------------------------
 // Sección 5 del formulario — solo visible en productos finales.
 // Permite buscar materiales existentes y agregarlos al arreglo
 // con su cantidad correspondiente.
-// ============================================================
 
 import { useState } from 'react';
 import styles from './MaterialsSection.module.css';
-import { Search, Plus, Trash2, Package, CircleAlert } from 'lucide-react';
+import {
+    Search,
+    Trash2,
+    Package,
+    CircleAlert,
+    PackageOpen,
+} from 'lucide-react';
+import ProductCard from '@/shared/components/productCard/ProductCard';
 
 export default function MaterialsSection({
     formData,
@@ -17,10 +21,9 @@ export default function MaterialsSection({
     errors = {},
 }) {
     const [search, setSearch] = useState('');
-    const [showResults, setShowResults] = useState(false);
 
     // Filtramos los productos disponibles según lo que escribe el usuario.
-    // Excluimos productos finales (no puedes meter un arreglo dentro de otro)
+    // Excluimos bundles/supplies (no puedes meter un arreglo dentro de otro)
     // y los que ya fueron agregados al arreglo actual.
     const searchResults = allProducts.filter((product) => {
         const alreadyAdded = formData.materials?.some(
@@ -49,9 +52,7 @@ export default function MaterialsSection({
             },
         });
 
-        // Limpiamos el buscador después de agregar
         setSearch('');
-        setShowResults(false);
     };
 
     // Actualiza la cantidad de un material ya agregado
@@ -97,67 +98,33 @@ export default function MaterialsSection({
                         className={styles.searchInput}
                         placeholder="Buscar material por nombre..."
                         value={search}
-                        onChange={(e) => {
-                            setSearch(e.target.value);
-                            setShowResults(e.target.value.length > 0);
-                        }}
-                        onFocus={() => setShowResults(search.length > 0)}
-                        onBlur={() =>
-                            // Pequeño delay para que el click en resultado funcione
-                            setTimeout(() => setShowResults(false), 150)
-                        }
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 {errors.materials && (
                     <div className={styles.errorText}>
-                        {<CircleAlert size={12} />} {errors.materials}
+                        <CircleAlert size={12} /> {errors.materials}
                     </div>
                 )}
+            </div>
 
-                {/* Resultados del buscador */}
-                {showResults && (
-                    <div className={styles.searchResults}>
-                        {searchResults.length === 0 ? (
-                            <div className={styles.noResults}>
-                                Sin resultados para "{search}"
-                            </div>
-                        ) : (
-                            searchResults.map((product) => (
-                                <div
-                                    key={product.id}
-                                    className={styles.resultItem}
-                                    onClick={() => handleAddMaterial(product)}
-                                >
-                                    <div className={styles.resultInfo}>
-                                        <div className={styles.resultHeader}>
-                                            <Package
-                                                size={14}
-                                                className={styles.itemIcon}
-                                            />
-                                            <span className={styles.resultName}>
-                                                {product.name}
-                                            </span>
-                                        </div>
-                                        <div className={styles.resultDetails}>
-                                            <span
-                                                className={styles.badgeCategory}
-                                            >
-                                                {product.category}
-                                            </span>
-                                            <span
-                                                className={`${styles.badgeStock} ${product.stock <= (product.min_stock || 0) ? styles.noStock : ''}`}
-                                            >
-                                                Stock: {product.stock ?? 0}{' '}
-                                                {product.unit ?? ''}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <button className={styles.addButton}>
-                                        <Plus size={16} />
-                                    </button>
-                                </div>
-                            ))
-                        )}
+            {/* Carrusel de resultados — solo visible si hay algo escrito */}
+
+            <div className={styles.carouselWrapper}>
+                {searchResults.length === 0 ? (
+                    <div className={styles.containerEmpty}>
+                        <PackageOpen size={30} />
+                        <span>Sin resultados para "{search}"</span>
+                    </div>
+                ) : (
+                    <div className={styles.carousel}>
+                        {searchResults.map((product) => (
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                                onSelect={handleAddMaterial}
+                            />
+                        ))}
                     </div>
                 )}
             </div>
@@ -198,8 +165,25 @@ export default function MaterialsSection({
                                                     }
                                                 >
                                                     {p.stock ?? 0}{' '}
-                                                    {p.unit ?? ''}
+                                                    {p.unit_name ?? ''}
                                                 </span>
+                                                <div>
+                                                    <span
+                                                        className={styles.label}
+                                                    >
+                                                        Precio unidad:
+                                                    </span>{' '}
+                                                    <span
+                                                        className={
+                                                            styles.priceText
+                                                        }
+                                                    >
+                                                        Q
+                                                        {Number(
+                                                            p.sell_price,
+                                                        ).toFixed(2)}
+                                                    </span>
+                                                </div>
                                             </>
                                         );
                                     })()}

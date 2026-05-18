@@ -76,109 +76,53 @@
     opacity: 0.5;
 }
 
-/* Dropdown de resultados */
-.searchResults {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    right: 0;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+/* Carrusel de resultados de búsqueda */
+.carouselWrapper {
+    width: 100%;
+    min-width: 0;
     overflow: hidden;
-    border: 1px solid #f0f0f0;
 }
 
-.resultItem {
+.carousel {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: background 0.15s ease;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 12px;
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-right: 2px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
 }
 
-.resultItem:hover {
-    background: #fff1f5;
+.carousel::-webkit-scrollbar {
+    height: 6px;
+}
+.carousel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.carousel::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+.carousel::-webkit-scrollbar-thumb:hover {
+    background: #ffcadd;
 }
 
-.resultInfo {
+.containerEmpty {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    flex: 1;
-}
-
-.resultHeader {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.itemIcon {
-    color: #4b5563;
-    opacity: 0.7;
-}
-
-.resultDetails {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.badgeCategory {
-    font-size: 11px;
-    background: #f3f4f6;
-    color: #4b5563;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.badgeStock {
-    font-size: 11px;
-    background: #ecfdf5;
-    color: #10b981;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.noStock {
-    background: #fef2f2;
-    color: #ef4444;
-}
-
-.resultName {
-    font-family: 'Inter-Titulos';
-    font-size: 14px;
-    color: #333;
-}
-
-.addButton {
-    background: #fff0f5;
-    color: #e91e63;
-    border: none;
-    line-height: 0;
-    padding: 6px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.addButton:hover {
-    background: #ffe4ef;
-}
-
-.noResults {
-    padding: 16px;
-    text-align: center;
+    align-items: center;
+    gap: 10px;
+    padding: 32px;
+    opacity: 0.3;
     font-size: 13px;
-    color: #bbb;
 }
 
 /* Lista de materiales agregados */
@@ -210,6 +154,11 @@
     gap: 6px;
 }
 
+.itemIcon {
+    color: #4b5563;
+    opacity: 0.7;
+}
+
 .materialName {
     font-family: 'Inter-Titulos';
     font-size: 14px;
@@ -224,12 +173,15 @@
 
 .normalStockText {
     color: #10b981;
-    font-weight: 500;
 }
 
 .lowStockText {
     color: #ef4444;
     font-weight: 500;
+}
+
+.priceText {
+    color: #729ac1;
 }
 
 .materialControls {
