@@ -6,6 +6,10 @@
 import { Funnel, CirclePlus } from 'lucide-react';
 
 export const ROUTE_CONFIG = {
+    home: {
+        path: '/home',
+        title: 'Panel Principal',
+    },
     sales: {
         path: '/sales',
         title: 'Gestión de Ventas',
