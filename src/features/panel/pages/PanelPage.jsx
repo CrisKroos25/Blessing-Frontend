@@ -1,3 +1,4 @@
+import { RefreshCw, LayoutDashboard } from 'lucide-react';
 import { useDashboard } from '../hooks/useDashboard';
 import DashboardLayout from '../sectionsPage/DashboardLayout';
 import styles from './PanelPage.module.css';
@@ -13,9 +14,23 @@ export default function PanelPage() {
         monthTotals,
     } = useDashboard();
 
-    if (isLoading) return null;
+    if (isLoading) {
+        return (
+            <div className={styles.containerEmpty}>
+                <RefreshCw size={28} className={styles.spinner} />
+                <span>Cargando panel...</span>
+            </div>
+        );
+    }
 
-    if (error) return <p className={styles.error}>Error: {error}</p>;
+    if (error) {
+        return (
+            <div className={styles.containerEmpty}>
+                <LayoutDashboard size={28} />
+                <span>No se pudo cargar el panel</span>
+            </div>
+        );
+    }
 
     return (
         <DashboardLayout

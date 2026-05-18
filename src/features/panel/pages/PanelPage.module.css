@@ -5,3 +5,28 @@
     font-family: 'Inter-TextoNormal';
     margin: 0;
 }
+
+/* PanelPage.module.css */
+
+.containerEmpty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 60px 20px;
+    color: #ccc;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

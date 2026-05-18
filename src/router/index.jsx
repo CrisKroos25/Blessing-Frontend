@@ -12,7 +12,6 @@ export default function AppRoutes() {
         <Routes>
             <Route element={<MainLayout />}>
                 <Route path="/" element={<PanelPage />} />
-                <Route path="/home" element={<PanelPage />} />
                 <Route path="/sales" element={<SalesPage />} />
                 <Route path="/purchases" element={<PurchasesPage />} />
                 <Route path="/inventory" element={<InventoryPage />} />
