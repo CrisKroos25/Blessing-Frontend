@@ -1,0 +1,44 @@
+.row {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+}
+
+.btn:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+}
+
+.iconWrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: #333;
+}
+
+.pink .iconWrap  { background: #fff1f5; color: #e91e63; }
+.blue .iconWrap  { background: #eef0fa; color: #3f51b5; }
+.green .iconWrap { background: #e8f5e9; color: #39883c; }

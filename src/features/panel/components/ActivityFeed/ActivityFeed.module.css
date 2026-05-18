@@ -1,0 +1,66 @@
+.feed { display: flex; flex-direction: column; }
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.row:last-child { border-bottom: none; }
+
+.iconWrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.pink  { background: #fff1f5; color: #e91e63; }
+.blue  { background: #eef0fa; color: #3f51b5; }
+.green { background: #e8f5e9; color: #39883c; }
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Inter-TextoNormal';
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date {
+    font-size: 11px;
+    color: #aaa;
+    font-family: 'Inter-TextoNormal';
+}
+
+.badge {
+    font-size: 12px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+.badgeSale      { background: #e8f5e9; color: #39883c; }
+.badgePurchase  { background: #eef0fa; color: #3f51b5; }
+.badgeInventory { background: #f3f4f6; color: #6b7280; }
+
+.empty {
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    padding: 24px 0;
+    margin: 0;
+}
