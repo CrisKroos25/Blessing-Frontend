@@ -6,7 +6,7 @@
 // El resto del frontend (hooks, componentes) no sabe cómo viajan los datos.
 // ============================================================
 
-const BASE_URL = 'http://localhost:8000/api/inventory';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 // ── Helper ──────────────────────────────────────────────────
 const handleResponse = async (res) => {
@@ -49,7 +49,7 @@ const buildFormData = (formData) => {
 
 // ── GET /api/inventory/items/ ───────────────────────────────
 export const fetchProducts = async () => {
-    const res = await fetch(`${BASE_URL}/items/`);
+    const res = await fetch(`${BASE_URL}/inventory/items/`);
     return handleResponse(res);
 };
 
@@ -68,7 +68,7 @@ export const createProduct = async (formData) => {
         data.append('materials', JSON.stringify(mappedMaterials));
     }
 
-    const res = await fetch(`${BASE_URL}/items/`, {
+    const res = await fetch(`${BASE_URL}/inventory/items/`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -85,7 +85,7 @@ export const updateProduct = async (id, formData) => {
 
     const data = buildFormData(itemData);
 
-    const res = await fetch(`${BASE_URL}/items/${id}/`, {
+    const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -105,7 +105,7 @@ export const updateProduct = async (id, formData) => {
 
 // ── DELETE /api/inventory/items/:id/ ────────────────────────
 export const deleteProduct = async (id) => {
-    const res = await fetch(`${BASE_URL}/items/${id}/`, {
+    const res = await fetch(`${BASE_URL}/inventory/items/${id}/`, {
         method: 'DELETE',
     });
     return handleResponse(res);
@@ -113,24 +113,27 @@ export const deleteProduct = async (id) => {
 
 // ── Helper: guardar materiales de un bundle ─────────────────
 const saveBundleMaterials = async (bundleId, materials) => {
-    const res = await fetch(`${BASE_URL}/bundles/${bundleId}/materials/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+    const res = await fetch(
+        `${BASE_URL}/inventory/bundles/${bundleId}/materials/`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                materials.map((m) => ({
+                    item: m.productId,
+                    quantity: m.quantity,
+                })),
+            ),
         },
-        body: JSON.stringify(
-            materials.map((m) => ({
-                item: m.productId,
-                quantity: m.quantity,
-            })),
-        ),
-    });
+    );
 
     return handleResponse(res);
 };
 
 // ── GET /api/inventory/items/:id/materials/ ─────────────────
 export const fetchBundleMaterials = async (itemId) => {
-    const res = await fetch(`${BASE_URL}/items/${itemId}/materials/`);
+    const res = await fetch(`${BASE_URL}/inventory/items/${itemId}/materials/`);
     return handleResponse(res);
 };

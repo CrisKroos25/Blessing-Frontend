@@ -1,5 +1,5 @@
 // src/features/sales/services/saleService.js
-const BASE_URL = 'http://localhost:8000/api';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const getToken = () => localStorage.getItem('access_token');
 
@@ -65,6 +65,13 @@ export async function fetchSaleProducts() {
 
 export async function fetchSales() {
     return request('/sales/list/', {
+        method: 'GET',
+        headers: defaultHeaders(),
+    });
+}
+
+export async function fetchCustomers() {
+    return request('/customers/', {
         method: 'GET',
         headers: defaultHeaders(),
     });

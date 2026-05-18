@@ -1,17 +1,21 @@
-const BASE_URL = 'http://localhost:8000/api';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const getToken = () => localStorage.getItem('access_token');
 
 const parseJSONSafe = async (res) => {
     const text = await res.text();
-    try { return text ? JSON.parse(text) : null; }
-    catch { return null; }
+    try {
+        return text ? JSON.parse(text) : null;
+    } catch {
+        return null;
+    }
 };
 
 const handleResponse = async (res) => {
     const data = await parseJSONSafe(res);
     if (res.ok) return data;
-    const message = (data && (data.detail || data.message)) || `HTTP ${res.status}`;
+    const message =
+        (data && (data.detail || data.message)) || `HTTP ${res.status}`;
     const error = new Error(message);
     error.status = res.status;
     error.data = data;
@@ -55,47 +59,61 @@ export async function fetchPurchaseItems() {
 
 // ── Proveedores ────────────────────────────────────────────
 export async function fetchSuppliers() {
-    return request('/commerce/purchases/suppliers/', { headers: defaultHeaders() });
+    return request('/commerce/purchases/suppliers/', {
+        headers: defaultHeaders(),
+    });
 }
 
 export async function createSupplier(payload) {
     return request('/commerce/purchases/suppliers/', {
-        method: 'POST', headers: postHeaders(), body: JSON.stringify(payload),
+        method: 'POST',
+        headers: postHeaders(),
+        body: JSON.stringify(payload),
     });
 }
 
 export async function updateSupplier(id, payload) {
     return request(`/commerce/purchases/suppliers/${id}/`, {
-        method: 'PUT', headers: postHeaders(), body: JSON.stringify(payload),
+        method: 'PUT',
+        headers: postHeaders(),
+        body: JSON.stringify(payload),
     });
 }
 
 export async function deactivateSupplier(id) {
     return request(`/commerce/purchases/suppliers/${id}/`, {
-        method: 'DELETE', headers: postHeaders(),
+        method: 'DELETE',
+        headers: postHeaders(),
     });
 }
 
 // ── Lugares de compra ──────────────────────────────────────
 export async function fetchPlaces() {
-    return request('/commerce/purchases/places/', { headers: defaultHeaders() });
+    return request('/commerce/purchases/places/', {
+        headers: defaultHeaders(),
+    });
 }
 
 export async function createPlace(payload) {
     return request('/commerce/purchases/places/', {
-        method: 'POST', headers: postHeaders(), body: JSON.stringify(payload),
+        method: 'POST',
+        headers: postHeaders(),
+        body: JSON.stringify(payload),
     });
 }
 
 export async function updatePlace(id, payload) {
     return request(`/commerce/purchases/places/${id}/`, {
-        method: 'PUT', headers: postHeaders(), body: JSON.stringify(payload),
+        method: 'PUT',
+        headers: postHeaders(),
+        body: JSON.stringify(payload),
     });
 }
 
 export async function deactivatePlace(id) {
     return request(`/commerce/purchases/places/${id}/`, {
-        method: 'DELETE', headers: postHeaders(),
+        method: 'DELETE',
+        headers: postHeaders(),
     });
 }
 
@@ -106,6 +124,8 @@ export async function fetchPurchases() {
 
 export async function createPurchase(payload) {
     return request('/commerce/purchases/', {
-        method: 'POST', headers: postHeaders(), body: JSON.stringify(payload),
+        method: 'POST',
+        headers: postHeaders(),
+        body: JSON.stringify(payload),
     });
 }
