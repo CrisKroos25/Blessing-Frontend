@@ -6,12 +6,14 @@ import { useState, useEffect } from 'react';
 import {
     fetchSaleProducts,
     fetchSales,
+    fetchCustomers,
     createSale as createSaleService,
 } from '../services/saleService';
 
 export function useSales() {
     const [sales, setSales] = useState([]);
     const [products, setProducts] = useState([]);
+    const [customers, setCustomers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -20,6 +22,7 @@ export function useSales() {
     useEffect(() => {
         loadProducts();
         loadSales();
+        loadCustomers();
     }, []);
 
     const loadProducts = async () => {
@@ -37,6 +40,15 @@ export function useSales() {
             setSales(data);
         } catch (err) {
             setError(err.message);
+        }
+    };
+
+    const loadCustomers = async () => {
+        try {
+            const data = await fetchCustomers();
+            setCustomers(data);
+        } catch (err) {
+            console.error('Error cargando clientes:', err);
         }
     };
 
@@ -67,6 +79,7 @@ export function useSales() {
     return {
         products, // → ItemsSection
         sales, // → SalesTable
+        customers,
         isLoading, // → botón confirmar (disabled mientras carga)
         error, // → toast de error de red
         createSale, // → handleSubmit en SalesIncomeView

@@ -22,8 +22,8 @@
 
 /* Modal grande: crear y editar */
 .modalForm {
-    height: 86vh;
-    min-width: 50vw;
+    height: 85vh;
+    width: 50vw;
 }
 
 /* Modal chico: eliminar — se ajusta al contenido */

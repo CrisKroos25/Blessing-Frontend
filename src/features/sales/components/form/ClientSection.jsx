@@ -12,6 +12,8 @@ import {
     CircleAlert,
 } from 'lucide-react';
 
+import CustomerSearch from './CustomerSearch';
+
 // Opciones de medio de contacto con ícono y etiqueta
 const MEDIOS_CONTACTO = [
     { value: 'whatsapp', icon: <MessageCircle size={18} />, label: 'WhatsApp' },
@@ -28,13 +30,31 @@ const METODOS_PAGO = [
     { value: 'tarjeta', icon: <CreditCard size={18} />, label: 'Tarjeta' },
 ];
 
-export default function ClientSection({ formData, onChange, errors }) {
+export default function ClientSection({
+    formData,
+    customers,
+    onChange,
+    onSelectCustomer,
+    onClearCustomer,
+    errors,
+}) {
     return (
         <div className={styles.section}>
             {/* ── Header ───────────────────────────────────────────────── */}
             <div className={styles.sectionHeader}>
                 <span className={styles.sectionNumber}>1</span>
                 <h2 className={styles.sectionTitle}>Datos del cliente</h2>
+            </div>
+
+            {/* ── Buscador — ocupa las 2 columnas ── */}
+            <div className={`${styles.fieldFull}`}>
+                <CustomerSearch
+                    customers={customers}
+                    onSelect={onSelectCustomer}
+                    onClear={onClearCustomer}
+                    isLinked={Boolean(formData.customer_id)}
+                    linkedName={formData.customer_name}
+                />
             </div>
 
             <div className={styles.gridTwo}>

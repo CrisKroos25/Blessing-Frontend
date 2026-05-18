@@ -15,6 +15,7 @@ const VIEW_COMPONENTS = {
 export default function SalesLayout({
     products,
     sales,
+    customers,
     createSale,
     loading,
     error,
@@ -32,6 +33,7 @@ export default function SalesLayout({
             {view === 'salesIncomeView' && (
                 <CurrentView
                     products={products}
+                    customers={customers}
                     createSale={createSale}
                     loading={loading}
                     error={error}

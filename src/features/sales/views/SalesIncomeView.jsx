@@ -14,6 +14,7 @@ import { useSaleForm } from '@/features/sales/hooks/useSaleForm';
 import { useSaleValidation } from '@/features/sales/hooks/useSaleValidation';
 
 export default function SalesIncomeView({
+    customers,
     products,
     createSale,
     loading,
@@ -24,6 +25,8 @@ export default function SalesIncomeView({
     const {
         customer,
         handleCustomerChange,
+        handleSelectCustomer,
+        handleClearCustomer,
         items,
         addItem,
         updateQuantity,
@@ -92,6 +95,9 @@ export default function SalesIncomeView({
             <ClientSection
                 formData={customer}
                 onChange={handleCustomerChange}
+                onSelectCustomer={handleSelectCustomer}
+                onClearCustomer={handleClearCustomer}
+                customers={customers}
                 errors={errors.customer}
             />
             <ItemsSection

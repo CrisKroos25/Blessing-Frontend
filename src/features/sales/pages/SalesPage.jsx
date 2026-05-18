@@ -3,7 +3,8 @@ import InventoryCards from '@/features/inventory/sectionsPage/InventoryCards';
 import { useSales } from '../hooks/useSales';
 
 export default function SalesPage() {
-    const { products, sales, createSale, isLoading, error } = useSales();
+    const { products, sales, customers, createSale, isLoading, error } =
+        useSales();
 
     return (
         <>
@@ -11,6 +12,7 @@ export default function SalesPage() {
             <SalesLayout
                 products={products}
                 sales={sales}
+                customers={customers}
                 createSale={createSale}
                 loading={isLoading}
                 error={error}

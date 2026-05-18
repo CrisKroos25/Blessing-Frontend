@@ -1,0 +1,159 @@
+/* features/sales/components/form/CustomerSearch.module.css */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.05em;
+    font-family: 'Inter-Titulos';
+}
+
+/* ── Search box ── */
+
+.searchWrapper {
+    position: relative;
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 0 12px;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+    transition: box-shadow 0.15s;
+}
+
+.searchBox:focus-within {
+    box-shadow: 0 0 0 1px #ff9cbf;
+}
+
+.searchBoxLinked {
+    background: #fdf2f6;
+    box-shadow: 0 0 0 1px #ffcadd;
+}
+
+.searchIcon {
+    color: #b5b9c1;
+    flex-shrink: 0;
+}
+
+.searchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'Inter-TextoNormal';
+    color: #333;
+    padding: 10px 0;
+}
+
+.searchInput::placeholder {
+    opacity: 0.5;
+}
+
+.linkedBadge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    color: var(--primary-color);
+    background: #fdf2f6;
+    border-radius: 20px;
+    padding: 3px 8px;
+    white-space: nowrap;
+}
+
+.clearBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #bbb;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+
+.clearBtn:hover {
+    background: #ffecf3;
+    color: #e91e63;
+}
+
+/* ── Resultados ── */
+
+.searchResults {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f0f0f0;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.resultItem {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.resultItem:last-child {
+    border-bottom: none;
+}
+.resultItem:hover {
+    background: #fdf2f6;
+}
+
+.resultInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.resultName {
+    font-size: 14px;
+    font-family: 'Inter-TextoNormal';
+    color: #333;
+}
+
+.resultSub {
+    font-size: 12px;
+    color: #999;
+    font-family: 'Inter-TextoNormal';
+}
+
+.noResults {
+    padding: 14px;
+    text-align: center;
+    font-size: 13px;
+    color: #bbb;
+    font-family: 'Inter-TextoNormal';
+}
+
+/* ── Hint ── */
+
+.hint {
+    font-size: 11px;
+    color: #bbb;
+    font-family: 'Inter-TextoNormal';
+}

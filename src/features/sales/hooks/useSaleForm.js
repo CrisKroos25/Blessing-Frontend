@@ -7,6 +7,7 @@ import { useState } from 'react';
 // ── Estado inicial ──────────────────────────────────────────────────────────
 
 const INITIAL_CUSTOMER = {
+    customer_id: null,
     customer_name: '',
     telephone: '',
     nit: '',
@@ -38,6 +39,30 @@ export function useSaleForm() {
     const handleCustomerChange = (e) => {
         const { name, value } = e.target;
         setCustomer((prev) => ({ ...prev, [name]: value }));
+    };
+
+    // Vincula un cliente frecuente — llena todos los campos con sus datos
+    const handleSelectCustomer = (c) => {
+        setCustomer((prev) => ({
+            ...prev,
+            customer_id: c.id,
+            customer_name: c.name,
+            telephone: c.telephone || '',
+            nit: c.nit || '',
+            address: c.address || '',
+        }));
+    };
+
+    // Desvincula el cliente — vuelve a modo manual limpio
+    const handleClearCustomer = () => {
+        setCustomer((prev) => ({
+            ...prev,
+            customer_id: null,
+            customer_name: '',
+            telephone: '',
+            nit: '',
+            address: '',
+        }));
     };
 
     // ── Handlers de items ────────────────────────────────────────────────
@@ -111,6 +136,8 @@ export function useSaleForm() {
 
         // Handlers cliente
         handleCustomerChange,
+        handleSelectCustomer,
+        handleClearCustomer,
 
         // Handlers items
         addItem,
