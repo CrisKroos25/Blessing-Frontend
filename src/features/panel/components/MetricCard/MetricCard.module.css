@@ -1,0 +1,65 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    flex: 1;
+    min-width: 0;
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.iconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.default .iconWrap { background: #f3f4f6; color: #6b7280; }
+.warning .iconWrap { background: #fff8e1; color: #f59e0b; }
+.lower   .iconWrap { background: #fff1f5; color: #e91e63; }
+.okey    .iconWrap { background: #e8f5e9; color: #39883c; }
+.info    .iconWrap { background: #eef0fa; color: #3f51b5; }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.value {
+    font-size: 22px;
+    font-family: 'Inter-Titulos';
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Inter-TextoNormal';
+    color: #555;
+    margin: 0;
+}
+
+.sub {
+    font-size: 11px;
+    font-family: 'Inter-TextoNormal';
+    color: #aaa;
+    margin: 0;
+}
