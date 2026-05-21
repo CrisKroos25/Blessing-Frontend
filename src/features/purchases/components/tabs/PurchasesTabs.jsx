@@ -5,7 +5,6 @@ export default function PurchasesTabs({ view, setView }) {
     const TABS = [
         { key: 'newPurchaseView',      label: 'Nueva compra' },
         { key: 'purchaseRecordView',   label: 'Historial' },
-        { key: 'suppliersPlacesView',  label: 'Proveedores y lugares' },
     ];
 
     return (

@@ -1,0 +1,10 @@
+.containerMain {
+    background: white;
+    padding: 12px 24px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    padding-top: 30px;
+}

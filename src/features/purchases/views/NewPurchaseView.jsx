@@ -1,4 +1,5 @@
 import { usePurchases } from '../hooks/usePurchases';
+import { useSuppliers } from '@/features/suppliers/hooks/useSuppliers';
 import { usePurchaseForm } from '../hooks/usePurchaseForm';
 import { usePurchaseValidation } from '../hooks/usePurchaseValidation';
 import { useToastContext } from '@/shared/context/ToastContext';
@@ -8,7 +9,8 @@ import PurchaseItemsSection from '../components/form/PurchaseItemsSection';
 import PurchaseTotalSection from '../components/form/PurchaseTotalSection';
 
 export default function NewPurchaseView() {
-    const { items, suppliers, places, createPurchase, isLoading } = usePurchases();
+    const { items, createPurchase, isLoading } = usePurchases();
+    const { suppliers, places } = useSuppliers();
     const toast = useToastContext();
 
     const {

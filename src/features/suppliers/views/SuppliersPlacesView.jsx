@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { usePurchases } from '../hooks/usePurchases';
+import { useSuppliers } from '../hooks/useSuppliers';
 import { useToastContext } from '@/shared/context/ToastContext';
 import styles from './SuppliersPlacesView.module.css';
 import Button from '@/shared/components/button/Button';
@@ -167,7 +167,7 @@ export default function SuppliersPlacesView() {
         suppliers, places, isLoading,
         createSupplier, deactivateSupplier,
         createPlace, deactivatePlace,
-    } = usePurchases();
+    } = useSuppliers();
 
     // Reactivar = PUT con is_active: true (pendiente en backend si se necesita)
     const handleReactivate = () => {

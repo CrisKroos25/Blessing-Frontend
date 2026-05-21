@@ -3,12 +3,10 @@ import styles from './PurchasesLayout.module.css';
 import PurchasesTabs from '../components/tabs/PurchasesTabs';
 import NewPurchaseView from '../views/NewPurchaseView';
 import PurchaseRecordView from '../views/PurchaseRecordView';
-import SuppliersPlacesView from '../views/SuppliersPlacesView';
 
 const VIEW_COMPONENTS = {
     newPurchaseView:     NewPurchaseView,
     purchaseRecordView:  PurchaseRecordView,
-    suppliersPlacesView: SuppliersPlacesView,
 };
 
 export default function PurchasesLayout() {

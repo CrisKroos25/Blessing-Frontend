@@ -57,66 +57,6 @@ export async function fetchPurchaseItems() {
     return request('/commerce/purchases/items/', { headers: defaultHeaders() });
 }
 
-// ── Proveedores ────────────────────────────────────────────
-export async function fetchSuppliers() {
-    return request('/commerce/purchases/suppliers/', {
-        headers: defaultHeaders(),
-    });
-}
-
-export async function createSupplier(payload) {
-    return request('/commerce/purchases/suppliers/', {
-        method: 'POST',
-        headers: postHeaders(),
-        body: JSON.stringify(payload),
-    });
-}
-
-export async function updateSupplier(id, payload) {
-    return request(`/commerce/purchases/suppliers/${id}/`, {
-        method: 'PUT',
-        headers: postHeaders(),
-        body: JSON.stringify(payload),
-    });
-}
-
-export async function deactivateSupplier(id) {
-    return request(`/commerce/purchases/suppliers/${id}/`, {
-        method: 'DELETE',
-        headers: postHeaders(),
-    });
-}
-
-// ── Lugares de compra ──────────────────────────────────────
-export async function fetchPlaces() {
-    return request('/commerce/purchases/places/', {
-        headers: defaultHeaders(),
-    });
-}
-
-export async function createPlace(payload) {
-    return request('/commerce/purchases/places/', {
-        method: 'POST',
-        headers: postHeaders(),
-        body: JSON.stringify(payload),
-    });
-}
-
-export async function updatePlace(id, payload) {
-    return request(`/commerce/purchases/places/${id}/`, {
-        method: 'PUT',
-        headers: postHeaders(),
-        body: JSON.stringify(payload),
-    });
-}
-
-export async function deactivatePlace(id) {
-    return request(`/commerce/purchases/places/${id}/`, {
-        method: 'DELETE',
-        headers: postHeaders(),
-    });
-}
-
 // ── Compras ────────────────────────────────────────────────
 export async function fetchPurchases() {
     return request('/commerce/purchases/', { headers: defaultHeaders() });

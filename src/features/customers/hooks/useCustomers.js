@@ -21,7 +21,7 @@ export function useCustomers() {
         setLoading(true);
         try {
             const data = await fetchCustomers();
-            setCustomers(data);
+            setCustomers(Array.isArray(data) ? data : (data?.results ?? []));
             setError(null);
         } catch (err) {
             setError(err.message);

@@ -23,8 +23,8 @@ export function useCatalogSettings() {
                     fetchCategories(),
                     fetchUnits(),
                 ]);
-                setCategories(cats);
-                setUnits(uns);
+                setCategories(Array.isArray(cats) ? cats : (cats?.results ?? []));
+                setUnits(Array.isArray(uns) ? uns : (uns?.results ?? []));
             } catch (err) {
                 console.error('Error cargando catálogo:', err);
             } finally {
