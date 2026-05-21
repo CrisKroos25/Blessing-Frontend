@@ -122,7 +122,9 @@ export default function ModalProducts({
                     subTitle={
                         action === 'create'
                             ? 'Complete los detalles a continuación para registrar un nuevo artículo en su inventario'
-                            : product?.name
+                            : action === 'delete'
+                              ? 'Esta acción no se puede deshacer'
+                              : product?.name
                     }
                     variant={action === 'delete' ? 'danger' : 'default'}
                     onClose={onClose}
@@ -147,6 +149,7 @@ export default function ModalProducts({
                             productName={product.name}
                             onClose={onClose}
                             onConfirm={handleSubmit}
+                            isSubmitting={isSubmitting}
                         />
                     )}
                 </div>

@@ -20,9 +20,21 @@ export function useSales() {
     // ── Carga inicial ────────────────────────────────────────────────────
 
     useEffect(() => {
-        loadProducts();
-        loadSales();
-        loadCustomers();
+        const loadAll = async () => {
+            try {
+                const [products, sales, customers] = await Promise.all([
+                    fetchSaleProducts(),
+                    fetchSales(),
+                    fetchCustomers(),
+                ]);
+                setProducts(products);
+                setSales(sales);
+                setCustomers(customers);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        loadAll();
     }, []);
 
     const loadProducts = async () => {
@@ -31,24 +43,6 @@ export function useSales() {
             setProducts(data);
         } catch (err) {
             setError(err.message);
-        }
-    };
-
-    const loadSales = async () => {
-        try {
-            const data = await fetchSales();
-            setSales(data);
-        } catch (err) {
-            setError(err.message);
-        }
-    };
-
-    const loadCustomers = async () => {
-        try {
-            const data = await fetchCustomers();
-            setCustomers(data);
-        } catch (err) {
-            console.error('Error cargando clientes:', err);
         }
     };
 

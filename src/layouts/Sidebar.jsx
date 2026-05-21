@@ -23,20 +23,17 @@ export default function Sidebar({ isOpen, onToggle }) {
 
             {/* ── Brand: logo + texto ── */}
             <div className={styles.brand}>
-                <div className={styles.logoContainer}>
-                    <img
-                        src="/BlessingLogo.png"
-                        alt="Blessing Logo"
-                        className={styles.logo}
-                    />
-                </div>
+                <img
+                    src="/BlessingIcon.png"
+                    alt="BlessingIcon"
+                    className={styles.logo}
+                />
 
                 <div className={styles.brandInfo}>
-                    <h1 className={styles.title}>Blessing</h1>
                     <div className={styles.subtitleRow}>
-                        <span className={styles.dot} />
-                        <p className={styles.subtitle}>Sistema de gestión</p>
+                        <h1 className={styles.subtitle}>Blessing</h1>
                     </div>
+                    <p className={styles.subtitle}>Sistema de gestión</p>
                 </div>
             </div>
 

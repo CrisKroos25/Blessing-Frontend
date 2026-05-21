@@ -3,9 +3,15 @@
 // Reemplaza el <p> inline que había en Modal.jsx
 
 import styles from './DeleteForm.module.css';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Save } from 'lucide-react';
+import Button from '@/shared/components/button/Button';
 
-export default function DeleteForm({ productName, onClose, onConfirm }) {
+export default function DeleteForm({
+    productName,
+    onClose,
+    onConfirm,
+    isSubmitting,
+}) {
     return (
         <div className={styles.container}>
             <div className={styles.iconWrapper}>
@@ -16,18 +22,28 @@ export default function DeleteForm({ productName, onClose, onConfirm }) {
                 <h3 className={styles.title}>¿Eliminar producto?</h3>
                 <p className={styles.description}>
                     Estás a punto de eliminar <b>{productName}</b>.<br />
-                    Esta acción no se puede deshacer.
                 </p>
             </div>
 
             <div className={styles.actions}>
-                <button className={styles.cancelButton} onClick={onClose}>
-                    Cancelar
-                </button>
-                <button className={styles.deleteButton} onClick={onConfirm}>
-                    <Trash2 size={16} />
-                    Eliminar
-                </button>
+                <Button
+                    className={styles.cancelButton}
+                    children={'Cancelar'}
+                    colorButton="transparent"
+                    colorFont="#444"
+                    style={{ border: '1px solid #ccc' }}
+                    onClick={onClose}
+                    disabled={isSubmitting}
+                />
+
+                <Button
+                    className={styles.deleteButton}
+                    colorButton="#e53935"
+                    children={isSubmitting ? 'Eliminando...' : 'Eliminar'}
+                    logoButton={Trash2}
+                    onClick={onConfirm}
+                    disabled={isSubmitting}
+                />
             </div>
         </div>
     );

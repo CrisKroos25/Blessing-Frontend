@@ -8,7 +8,6 @@ export default function SalesPage() {
 
     return (
         <>
-            <InventoryCards products={products} />
             <SalesLayout
                 products={products}
                 sales={sales}

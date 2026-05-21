@@ -53,7 +53,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 1.2rem 6px;
+    padding: 1.2rem 7px;
     flex-shrink: 0;
     overflow: hidden;
 }
@@ -62,25 +62,21 @@
 
 .logoContainer {
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
 
     /* Gradiente con los colores del logo */
-    background: linear-gradient(135deg, #7eb4b1 0%, #5f5577 100%);
     box-shadow: 0 4px 12px rgba(81, 62, 119, 0.25);
 }
 
 .logo {
-    width: 26px;
-    height: 26px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
 
     /* Si el logo tiene partes oscuras, esto lo aclara sobre el fondo oscuro */
-    filter: brightness(0) invert(1);
 }
 
 /* ── Texto ── */
