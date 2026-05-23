@@ -8,8 +8,6 @@ export default function InventoryPage() {
 
     return (
         <>
-            <InventoryCards products={products} />
-
             <InventoryLayout
                 products={products}
                 create={create}

@@ -34,22 +34,23 @@ export const NAVIGATION_ITEMS = [
     },
     {
         id: 4,
-        label: 'Proveedores',
-        path: '/suppliers',
-        icon: Truck,
-    },
-    {
-        id: 5,
         label: 'Inventario',
         path: '/inventory',
         icon: Package,
     },
     {
-        id: 6,
+        id: 5,
         label: 'Clientes',
         path: '/customers',
         icon: User,
     },
+    {
+        id: 6,
+        label: 'Proveedores',
+        path: '/suppliers',
+        icon: Truck,
+    },
+
     {
         id: 7,
         label: 'Configuración',
