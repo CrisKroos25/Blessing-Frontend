@@ -11,7 +11,15 @@ import Button from '@/shared/components/button/Button';
 import SuppliersTable from '../components/tables/SuppliersTable';
 import ModalSupplier from '../components/modal/ModalSupplier';
 
-export default function SuppliersPlacesView({ suppliers, isLoading, createSupplier, updateSupplier, deactivateSupplier, reactivateSupplier, deleteSupplier }) {
+export default function SuppliersPlacesView({
+    suppliers,
+    isLoading,
+    createSupplier,
+    updateSupplier,
+    deactivateSupplier,
+    reactivateSupplier,
+    deleteSupplier,
+}) {
     const toast = useToastContext();
     const { modalState, openModal, closeModal } = useModalState();
     const { action, item: supplier } = modalState;
@@ -56,7 +64,7 @@ export default function SuppliersPlacesView({ suppliers, isLoading, createSuppli
                 onSearch={setQuery}
                 action={
                     <Button
-                        colorButton="var(--primary-color)"
+                        colorButton="#FF9800"
                         logoButton={Plus}
                         onClick={() => openModal('create', null)}
                     >

@@ -10,7 +10,15 @@ import Button from '@/shared/components/button/Button';
 import PlacesTable from '../components/tables/PlacesTable';
 import ModalPlace from '../components/modal/ModalPlace';
 
-export default function PlacesView({ places, isLoading, createPlace, updatePlace, deactivatePlace, reactivatePlace, deletePlace }) {
+export default function PlacesView({
+    places,
+    isLoading,
+    createPlace,
+    updatePlace,
+    deactivatePlace,
+    reactivatePlace,
+    deletePlace,
+}) {
     const toast = useToastContext();
     const { modalState, openModal, closeModal } = useModalState();
     const { action, item: place } = modalState;
@@ -55,7 +63,7 @@ export default function PlacesView({ places, isLoading, createPlace, updatePlace
                 onSearch={setQuery}
                 action={
                     <Button
-                        colorButton="var(--primary-color)"
+                        colorButton="#FF9800"
                         logoButton={Plus}
                         onClick={() => openModal('create', null)}
                     >
