@@ -1,0 +1,143 @@
+/* suppliers/components/tables/SuppliersTable.module.css */
+
+.tableWrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1.2px #eaeaea;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table thead {
+    background-color: #f3f4f6;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.table th {
+    text-align: center;
+    padding: 14px;
+    font-weight: 600;
+    color: #9ca3af;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Inter-Titulos';
+}
+
+.thLeft {
+    text-align: left;
+    padding-left: 16px !important;
+}
+
+.row {
+    border-bottom: 1px solid #f3f3f3;
+    transition: background 0.15s;
+}
+
+.row:last-child { border-bottom: none; }
+.row:hover { background-color: #f9fafb; }
+
+.rowInactive { opacity: 0.55; }
+
+.table td {
+    padding: 12px 14px;
+    color: #333;
+    font-family: 'Inter-TextoNormal';
+}
+
+.tdLeft {
+    text-align: left;
+    padding-left: 16px !important;
+}
+
+.tdCenter { text-align: center; }
+
+.empty {
+    text-align: center;
+    color: #ccc;
+    opacity: 0.4;
+}
+
+.containerEmpty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 60px 20px;
+}
+
+/* ── Badges ── */
+
+.badgeActive {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    background: #e8f8ef;
+    color: #2e9e5b;
+}
+
+.badgeInactive {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-family: 'Inter-Titulos';
+    font-weight: 600;
+    background: #f3f4f6;
+    color: #9ca3af;
+}
+
+/* ── Acciones ── */
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.editBtn,
+.deactivateBtn,
+.reactivateBtn,
+.deleteBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.editBtn {
+    background: transparent;
+    color: var(--primary-color);
+}
+.editBtn:hover { filter: brightness(0.65); }
+
+.deactivateBtn {
+    background: #f3f4f6;
+    color: #f59e0b;
+}
+.deactivateBtn:hover { background: #fef3c7; }
+
+.reactivateBtn {
+    background: #f3f4f6;
+    color: #2e9e5b;
+}
+.reactivateBtn:hover { background: #e8f8ef; }
+
+.deleteBtn {
+    background: #f3f4f6;
+    color: #eb6d6b;
+}
+.deleteBtn:hover { background: #fdecea; }

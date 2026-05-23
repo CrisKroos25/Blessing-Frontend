@@ -1,7 +1,7 @@
 import styles from './DashboardLayout.module.css';
 import { Box, TriangleAlert, PiggyBank, Boxes, Clock, BarChart2 } from 'lucide-react';
 
-import MetricCard from '../components/MetricCard/MetricCard';
+import CardInfo from '@/shared/components/cardInfo/CardInfo';
 import QuickAccess from '../components/QuickAccess/QuickAccess';
 import ActivityFeed from '../components/ActivityFeed/ActivityFeed';
 import StockAlerts from '../components/StockAlerts/StockAlerts';
@@ -26,41 +26,58 @@ export default function DashboardLayout({
     salesByCategory,
     monthTotals,
 }) {
-    const formatQ = (v) => `Q${Number(v).toFixed(2)}`;
+    const formatQ = (v) => `Q ${Number(v).toFixed(2)}`;
+
+    const cards = [
+        {
+            id: 1,
+            numberTitle: metrics.controlled,
+            titleInformation: 'Productos controlados',
+            description: '12 categorías',
+            icon: Box,
+            status: 'warning',
+        },
+        {
+            id: 2,
+            numberTitle: metrics.lowStock,
+            titleInformation: 'Stock bajo',
+            description: `${metrics.criticalStock} alertas críticas`,
+            icon: TriangleAlert,
+            status: 'lower',
+        },
+        {
+            id: 3,
+            numberTitle: formatQ(metrics.totalValue),
+            titleInformation: 'Valor del inventario',
+            description: 'Precio de venta × stock',
+            icon: PiggyBank,
+            status: 'okey',
+        },
+        {
+            id: 4,
+            numberTitle: metrics.bundles,
+            titleInformation: 'Arreglos activos',
+            description: 'Tipos ensamblados',
+            icon: Boxes,
+            status: 'warning',
+        },
+    ];
 
     return (
         <div className={styles.layout}>
 
             {/* ── Métricas ── */}
             <div className={styles.metricsRow}>
-                <MetricCard
-                    icon={Box}
-                    value={metrics.controlled}
-                    label="Productos controlados"
-                    sub="12 categorías"
-                    status="warning"
-                />
-                <MetricCard
-                    icon={TriangleAlert}
-                    value={metrics.lowStock}
-                    label="Stock bajo"
-                    sub={`${metrics.criticalStock} alertas críticas`}
-                    status="lower"
-                />
-                <MetricCard
-                    icon={PiggyBank}
-                    value={formatQ(metrics.totalValue)}
-                    label="Valor del inventario"
-                    sub="Precio de compra acumulado"
-                    status="okey"
-                />
-                <MetricCard
-                    icon={Boxes}
-                    value={metrics.bundles}
-                    label="Arreglos activos"
-                    sub="Tipos ensamblados"
-                    status="info"
-                />
+                {cards.map((card) => (
+                    <CardInfo
+                        key={card.id}
+                        logoButton={card.icon}
+                        numberTitle={card.numberTitle}
+                        titleInformation={card.titleInformation}
+                        description={card.description}
+                        status={card.status}
+                    />
+                ))}
             </div>
 
             {/* ── Accesos rápidos ── */}

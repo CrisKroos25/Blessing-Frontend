@@ -41,7 +41,7 @@ export function useDashboard() {
         ).length;
         const criticalStock = products.filter((p) => p.stock === 0).length;
         const totalValue = products.reduce(
-            (acc, p) => acc + Number(p.purchase_price || 0),
+            (acc, p) => acc + Number(p.sell_price || 0) * Number(p.stock || 0),
             0,
         );
         const bundles = products.filter((p) => p.type === 'bundle').length;
@@ -84,14 +84,15 @@ export function useDashboard() {
     const salesByCategory = useMemo(() => {
         const currentMonth = new Date().toISOString().slice(0, 7);
         const monthlySales = sales.filter(
-            (s) => (s.created_at || s.date || '').startsWith(currentMonth),
+            (s) => (s.created_at || '').startsWith(currentMonth),
         );
 
         const map = {};
         monthlySales.forEach((s) => {
-            (s.details || s.items || []).forEach((d) => {
-                const cat = d.category || d.item_category || 'Sin categoría';
-                map[cat] = (map[cat] || 0) + Number(d.subtotal || 0);
+            (s.items || []).forEach((item) => {
+                // El backend ahora devuelve item.category directamente
+                const cat = item.category || 'Sin categoría';
+                map[cat] = (map[cat] || 0) + Number(item.subtotal || 0);
             });
         });
 

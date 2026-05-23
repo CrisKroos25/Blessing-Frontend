@@ -6,7 +6,8 @@
 
 .metricsRow {
     display: flex;
-    gap: 14px;
+    gap: 30px;
+    justify-content: space-between;
 }
 
 .bottomRow {

@@ -1,0 +1,6 @@
+.container__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    border-bottom: 1px solid #e5e7eb;
+}

@@ -1,57 +1,56 @@
-// features/suppliers/views/SuppliersPlacesView.jsx
+// features/suppliers/views/PlacesView.jsx
 
 import styles from './SuppliersPlacesView.module.css';
 import { Plus } from 'lucide-react';
-import { useSuppliers } from '../hooks/useSuppliers';
 import { useModalState } from '@/shared/hooks/useModalState';
 import { useSearch } from '@/shared/hooks/useSearch';
 import { useToastContext } from '@/shared/context/ToastContext';
 import ViewHeader from '@/shared/components/viewHeader/ViewHeader';
 import Button from '@/shared/components/button/Button';
-import SuppliersTable from '../components/tables/SuppliersTable';
-import ModalSupplier from '../components/modal/ModalSupplier';
+import PlacesTable from '../components/tables/PlacesTable';
+import ModalPlace from '../components/modal/ModalPlace';
 
-export default function SuppliersPlacesView({ suppliers, isLoading, createSupplier, updateSupplier, deactivateSupplier, reactivateSupplier, deleteSupplier }) {
+export default function PlacesView({ places, isLoading, createPlace, updatePlace, deactivatePlace, reactivatePlace, deletePlace }) {
     const toast = useToastContext();
     const { modalState, openModal, closeModal } = useModalState();
-    const { action, item: supplier } = modalState;
-    const { query, setQuery, filtered } = useSearch(suppliers, 'name');
+    const { action, item: place } = modalState;
+    const { query, setQuery, filtered } = useSearch(places, 'name');
 
     const handleCreate = async (data) => {
-        const r = await createSupplier(data);
+        const r = await createPlace(data);
         if (!r.success) throw new Error(r.message);
-        toast.success('Proveedor agregado correctamente.');
+        toast.success('Lugar agregado correctamente.');
     };
 
     const handleUpdate = async (id, data) => {
-        const r = await updateSupplier(id, data);
+        const r = await updatePlace(id, data);
         if (!r.success) throw new Error(r.message);
-        toast.success('Proveedor actualizado correctamente.');
+        toast.success('Lugar actualizado correctamente.');
     };
 
     const handleDeactivate = async (id) => {
-        const r = await deactivateSupplier(id);
+        const r = await deactivatePlace(id);
         if (!r.success) throw new Error(r.message);
-        toast.success('Proveedor desactivado.');
+        toast.success('Lugar desactivado.');
     };
 
     const handleReactivate = async (id) => {
-        const r = await reactivateSupplier(id);
+        const r = await reactivatePlace(id);
         if (!r.success) throw new Error(r.message);
-        toast.success('Proveedor reactivado.');
+        toast.success('Lugar reactivado.');
     };
 
     const handleDelete = async (id) => {
-        const r = await deleteSupplier(id);
+        const r = await deletePlace(id);
         if (!r.success) throw new Error(r.message);
-        toast.success('Proveedor eliminado.');
+        toast.success('Lugar eliminado.');
     };
 
     return (
         <div className={styles.container}>
             <ViewHeader
-                title="Proveedores"
-                subtitle="Gestión de proveedores activos e inactivos"
+                title="Lugares de compra"
+                subtitle="Gestión de lugares donde se realizan las compras"
                 query={query}
                 onSearch={setQuery}
                 action={
@@ -60,17 +59,17 @@ export default function SuppliersPlacesView({ suppliers, isLoading, createSuppli
                         logoButton={Plus}
                         onClick={() => openModal('create', null)}
                     >
-                        Añadir proveedor
+                        Añadir lugar
                     </Button>
                 }
             />
 
-            <SuppliersTable suppliers={filtered} openModal={openModal} />
+            <PlacesTable places={filtered} openModal={openModal} />
 
             {action && (
-                <ModalSupplier
+                <ModalPlace
                     action={action}
-                    supplier={supplier}
+                    place={place}
                     onClose={closeModal}
                     onCreate={handleCreate}
                     onUpdate={handleUpdate}
