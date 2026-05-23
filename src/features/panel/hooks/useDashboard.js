@@ -84,14 +84,15 @@ export function useDashboard() {
     const salesByCategory = useMemo(() => {
         const currentMonth = new Date().toISOString().slice(0, 7);
         const monthlySales = sales.filter(
-            (s) => (s.created_at || s.date || '').startsWith(currentMonth),
+            (s) => (s.created_at || '').startsWith(currentMonth),
         );
 
         const map = {};
         monthlySales.forEach((s) => {
-            (s.details || s.items || []).forEach((d) => {
-                const cat = d.category || d.item_category || 'Sin categoría';
-                map[cat] = (map[cat] || 0) + Number(d.subtotal || 0);
+            (s.items || []).forEach((item) => {
+                // El backend ahora devuelve item.category directamente
+                const cat = item.category || 'Sin categoría';
+                map[cat] = (map[cat] || 0) + Number(item.subtotal || 0);
             });
         });
 
