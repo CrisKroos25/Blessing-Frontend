@@ -41,7 +41,7 @@ export function useDashboard() {
         ).length;
         const criticalStock = products.filter((p) => p.stock === 0).length;
         const totalValue = products.reduce(
-            (acc, p) => acc + Number(p.purchase_price || 0),
+            (acc, p) => acc + Number(p.sell_price || 0) * Number(p.stock || 0),
             0,
         );
         const bundles = products.filter((p) => p.type === 'bundle').length;

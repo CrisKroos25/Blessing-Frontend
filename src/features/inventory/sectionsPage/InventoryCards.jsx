@@ -15,7 +15,7 @@ export default function InventoryCards({ products }) {
     ).length;
 
     const totalValue = products.reduce(
-        (acc, product) => acc + Number(product.purchase_price),
+        (acc, product) => acc + Number(product.sell_price || 0) * Number(product.stock || 0),
         0,
     );
 
@@ -41,7 +41,7 @@ export default function InventoryCards({ products }) {
             id: 3,
             total: 'Q ' + totalValue.toFixed(2),
             subtitle: 'Valor total del inventario',
-            description: 'Precio de compra acumulado',
+            description: 'Precio de venta × stock',
             icon: PiggyBank,
             status: 'okey',
         },
