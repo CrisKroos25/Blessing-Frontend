@@ -107,7 +107,7 @@ function PlaceForm({ onSave, isLoading }) {
 
 // ── Lista reutilizable ──────────────────────────────────────────────────────
 
-function ItemList({ items, onDeactivate, onReactivate, isLoading, labelField = 'name', sublabel }) {
+function ItemList({ items, onDeactivate, onDelete, onReactivate, isLoading, labelField = 'name', sublabel }) {
     return (
         <div className={styles.listCard}>
             <div className={styles.listHeader}>
@@ -133,17 +133,29 @@ function ItemList({ items, onDeactivate, onReactivate, isLoading, labelField = '
                                 className={styles.deactivateBtn}
                                 onClick={() => onDeactivate(item.id)}
                                 disabled={isLoading}
+                                title="Desactivar"
                             >
                                 Desactivar
                             </button>
                         ) : (
-                            <button
-                                className={styles.reactivateBtn}
-                                onClick={() => onReactivate(item.id)}
-                                disabled={isLoading}
-                            >
-                                Reactivar
-                            </button>
+                            <>
+                                <button
+                                    className={styles.reactivateBtn}
+                                    onClick={() => onReactivate(item.id)}
+                                    disabled={isLoading}
+                                    title="Reactivar"
+                                >
+                                    Reactivar
+                                </button>
+                                <button
+                                    className={styles.deleteBtn}
+                                    onClick={() => onDelete(item.id)}
+                                    disabled={isLoading}
+                                    title="Eliminar permanentemente"
+                                >
+                                    Eliminar
+                                </button>
+                            </>
                         )}
                     </div>
                 </div>
@@ -165,14 +177,9 @@ export default function SuppliersPlacesView() {
 
     const {
         suppliers, places, isLoading,
-        createSupplier, deactivateSupplier,
-        createPlace, deactivatePlace,
+        createSupplier, deactivateSupplier, reactivateSupplier, deleteSupplier,
+        createPlace, deactivatePlace, reactivatePlace, deletePlace,
     } = useSuppliers();
-
-    // Reactivar = PUT con is_active: true (pendiente en backend si se necesita)
-    const handleReactivate = () => {
-        toast.warning('La reactivación aún no está disponible.');
-    };
 
     return (
         <div className={styles.container}>
@@ -207,7 +214,16 @@ export default function SuppliersPlacesView() {
                                 if (r.success) toast.success('Proveedor desactivado.');
                                 else toast.error(r.message);
                             }}
-                            onReactivate={handleReactivate}
+                            onDelete={async (id) => {
+                                const r = await deleteSupplier(id);
+                                if (r.success) toast.success('Proveedor eliminado.');
+                                else toast.error(r.message);
+                            }}
+                            onReactivate={async (id) => {
+                                const r = await reactivateSupplier(id);
+                                if (r.success) toast.success('Proveedor reactivado.');
+                                else toast.error(r.message);
+                            }}
                             isLoading={isLoading}
                             sublabel={(s) => [s.phone, s.nit ? `NIT ${s.nit}` : null].filter(Boolean).join(' · ') || 'Sin datos adicionales'}
                         />
@@ -228,7 +244,16 @@ export default function SuppliersPlacesView() {
                                 if (r.success) toast.success('Lugar desactivado.');
                                 else toast.error(r.message);
                             }}
-                            onReactivate={handleReactivate}
+                            onDelete={async (id) => {
+                                const r = await deletePlace(id);
+                                if (r.success) toast.success('Lugar eliminado.');
+                                else toast.error(r.message);
+                            }}
+                            onReactivate={async (id) => {
+                                const r = await reactivatePlace(id);
+                                if (r.success) toast.success('Lugar reactivado.');
+                                else toast.error(r.message);
+                            }}
                             isLoading={isLoading}
                             sublabel={(p) => p.address || 'Sin dirección'}
                         />

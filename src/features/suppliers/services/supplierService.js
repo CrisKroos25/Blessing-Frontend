@@ -75,12 +75,26 @@ export async function updateSupplier(id, payload) {
     });
 }
 
-// El backend debe tener el endpoint PATCH habilitado para suppliers con soporte a is_active
 export async function deactivateSupplier(id) {
     return request(`/commerce/purchases/suppliers/${id}/`, {
         method: 'PATCH',
         headers: postHeaders(),
         body: JSON.stringify({ is_active: false }),
+    });
+}
+
+export async function reactivateSupplier(id) {
+    return request(`/commerce/purchases/suppliers/${id}/`, {
+        method: 'PATCH',
+        headers: postHeaders(),
+        body: JSON.stringify({ is_active: true }),
+    });
+}
+
+export async function deleteSupplier(id) {
+    return request(`/commerce/purchases/suppliers/${id}/`, {
+        method: 'DELETE',
+        headers: postHeaders(),
     });
 }
 
@@ -107,11 +121,25 @@ export async function updatePlace(id, payload) {
     });
 }
 
-// El backend debe tener el endpoint PATCH habilitado para places con soporte a is_active
 export async function deactivatePlace(id) {
     return request(`/commerce/purchases/places/${id}/`, {
         method: 'PATCH',
         headers: postHeaders(),
         body: JSON.stringify({ is_active: false }),
+    });
+}
+
+export async function reactivatePlace(id) {
+    return request(`/commerce/purchases/places/${id}/`, {
+        method: 'PATCH',
+        headers: postHeaders(),
+        body: JSON.stringify({ is_active: true }),
+    });
+}
+
+export async function deletePlace(id) {
+    return request(`/commerce/purchases/places/${id}/`, {
+        method: 'DELETE',
+        headers: postHeaders(),
     });
 }

@@ -5,9 +5,13 @@ import {
     createSupplier as createSupplierService,
     updateSupplier as updateSupplierService,
     deactivateSupplier as deactivateSupplierService,
+    reactivateSupplier as reactivateSupplierService,
+    deleteSupplier as deleteSupplierService,
     createPlace as createPlaceService,
     updatePlace as updatePlaceService,
     deactivatePlace as deactivatePlaceService,
+    reactivatePlace as reactivatePlaceService,
+    deletePlace as deletePlaceService,
 } from '../services/supplierService';
 
 export function useSuppliers() {
@@ -63,8 +67,30 @@ export function useSuppliers() {
     const deactivateSupplier = async (id) => {
         setIsLoading(true);
         try {
-            await deactivateSupplierService(id);
-            setSuppliers((prev) => prev.map((s) => s.id === id ? { ...s, is_active: false } : s));
+            const updated = await deactivateSupplierService(id);
+            setSuppliers((prev) => prev.map((s) => s.id === id ? updated : s));
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally { setIsLoading(false); }
+    };
+
+    const reactivateSupplier = async (id) => {
+        setIsLoading(true);
+        try {
+            const updated = await reactivateSupplierService(id);
+            setSuppliers((prev) => prev.map((s) => s.id === id ? updated : s));
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally { setIsLoading(false); }
+    };
+
+    const deleteSupplier = async (id) => {
+        setIsLoading(true);
+        try {
+            await deleteSupplierService(id);
+            setSuppliers((prev) => prev.filter((s) => s.id !== id));
             return { success: true };
         } catch (err) {
             return { success: false, message: err.message };
@@ -97,8 +123,30 @@ export function useSuppliers() {
     const deactivatePlace = async (id) => {
         setIsLoading(true);
         try {
-            await deactivatePlaceService(id);
-            setPlaces((prev) => prev.map((p) => p.id === id ? { ...p, is_active: false } : p));
+            const updated = await deactivatePlaceService(id);
+            setPlaces((prev) => prev.map((p) => p.id === id ? updated : p));
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally { setIsLoading(false); }
+    };
+
+    const reactivatePlace = async (id) => {
+        setIsLoading(true);
+        try {
+            const updated = await reactivatePlaceService(id);
+            setPlaces((prev) => prev.map((p) => p.id === id ? updated : p));
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally { setIsLoading(false); }
+    };
+
+    const deletePlace = async (id) => {
+        setIsLoading(true);
+        try {
+            await deletePlaceService(id);
+            setPlaces((prev) => prev.filter((p) => p.id !== id));
             return { success: true };
         } catch (err) {
             return { success: false, message: err.message };
@@ -108,7 +156,7 @@ export function useSuppliers() {
     return {
         suppliers, places,
         isLoading, error,
-        createSupplier, updateSupplier, deactivateSupplier,
-        createPlace, updatePlace, deactivatePlace,
+        createSupplier, updateSupplier, deactivateSupplier, reactivateSupplier, deleteSupplier,
+        createPlace, updatePlace, deactivatePlace, reactivatePlace, deletePlace,
     };
 }

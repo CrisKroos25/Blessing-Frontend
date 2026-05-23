@@ -183,3 +183,17 @@
     text-align: center;
     padding: 16px 0;
 }
+
+.deleteBtn {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'Inter-TextoNormal';
+    background: none;
+    border: 1px solid #c0392b;
+    color: #c0392b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.deleteBtn:hover { background: #fdecea; color: #922b21; border-color: #922b21; }
