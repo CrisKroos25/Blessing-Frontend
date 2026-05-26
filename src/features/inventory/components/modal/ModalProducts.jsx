@@ -18,6 +18,7 @@ import { resolveInitialProduct } from '@/features/inventory/utils/productFormUti
 import BodyForm from '@/features/inventory/components/form/BodyForm';
 import FooterForm from '@/features/inventory/components/form/FooterForm';
 import DeleteForm from '@/features/inventory/components/form/DeleteForm';
+import ConfirmForm from '@/features/inventory/components/form/ConfirmForm';
 
 import { useToastContext } from '@/shared/context/ToastContext';
 import { useBodyScrollLock } from '@/shared/hooks/useBodyScroll';
@@ -34,6 +35,8 @@ export default function ModalProducts({
     create,
     update,
     remove,
+    deactivate,
+    reactivate,
     allProducts,
 }) {
     // Variables para titulo del formulario segun accion y tipo de producto
@@ -44,8 +47,14 @@ export default function ModalProducts({
             product: 'Añadir un producto',
         },
         edit: 'Editar producto',
+        deactivate: 'Desactivar producto',
+        reactivate: 'Reactivar producto',
         delete: 'Eliminar producto',
     };
+
+    const isConfirmAction = ['deactivate', 'reactivate', 'delete'].includes(
+        action,
+    );
 
     const { errors, validate, clearErrors } = useProductValidation();
     const toast = useToastContext();
@@ -71,24 +80,23 @@ export default function ModalProducts({
     // Esta función se ejecuta al hacer click en "Guardar"
     const handleSubmit = async () => {
         // Validación solo para CREATE y EDIT, no para DELETE
-        if (action !== 'delete' && !validate(formData)) return;
+        if ((action === 'create' || action === 'edit') && !validate(formData))
+            return;
 
         setIsSubmitting(true); // ← bloquea el botón
 
         try {
-            if (action === 'create') {
-                await create(formData);
-            }
-            if (action === 'edit') {
-                await update(product.id, formData);
-            }
-            if (action === 'delete') {
-                await remove(product.id);
-            }
+            if (action === 'create') await create(formData);
+            if (action === 'edit') await update(product.id, formData);
+            if (action === 'delete') await remove(product.id);
+            if (action === 'deactivate') await deactivate(product.id);
+            if (action === 'reactivate') await reactivate(product.id);
 
             const messages = {
                 create: `${formData.name} agregado exitosamente`,
                 edit: `${formData.name} actualizado correctamente`,
+                deactivate: `${product.name} desactivado`,
+                reactivate: `${product.name} reactivado`,
                 delete: `Producto eliminado`,
             };
             toast.success(messages[action]);
@@ -109,7 +117,9 @@ export default function ModalProducts({
             {/* stopPropagation evita que el click dentro del modal lo cierre */}
             <div
                 className={`${styles.modal} ${
-                    action === 'delete' ? styles.modalDelete : styles.modalForm
+                    action === 'create' || action === 'edit'
+                        ? styles.modalForm
+                        : styles.modalDelete
                 }`}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -129,10 +139,8 @@ export default function ModalProducts({
                     variant={action === 'delete' ? 'danger' : 'default'}
                     onClose={onClose}
                 />
-
                 <div className={styles.body}>
-                    {/* Mostramos el formulario para crear o editar */}
-                    {action !== 'delete' && (
+                    {!isConfirmAction && (
                         <BodyForm
                             action={action}
                             formData={formData}
@@ -143,7 +151,16 @@ export default function ModalProducts({
                         />
                     )}
 
-                    {/* Mostramos confirmación para eliminar */}
+                    {(action === 'deactivate' || action === 'reactivate') && (
+                        <ConfirmForm
+                            action={action}
+                            productName={product.name}
+                            onClose={onClose}
+                            onConfirm={handleSubmit}
+                            isSubmitting={isSubmitting}
+                        />
+                    )}
+
                     {action === 'delete' && (
                         <DeleteForm
                             productName={product.name}
@@ -154,8 +171,8 @@ export default function ModalProducts({
                     )}
                 </div>
 
-                {/* Footer solo para crear y editar, DeleteForm tiene sus propios botones */}
-                {action !== 'delete' && (
+                {/* Footer solo para create y edit */}
+                {!isConfirmAction && (
                     <FooterForm
                         onClose={onClose}
                         onSubmit={handleSubmit}

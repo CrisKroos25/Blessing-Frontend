@@ -21,7 +21,8 @@ export default function DeleteForm({
             <div className={styles.text}>
                 <h3 className={styles.title}>¿Eliminar producto?</h3>
                 <p className={styles.description}>
-                    Estás a punto de eliminar <b>{productName}</b>.<br />
+                    ¿Eliminar el producto <b>{productName}</b> permanentemente?
+                    Esta acción no se puede deshacer. <br />
                 </p>
             </div>
 

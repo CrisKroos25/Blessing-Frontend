@@ -3,7 +3,16 @@ import { useProducts } from '../hooks/useProducts';
 import InventoryLayout from '../sectionsPage/InventoryLayout';
 
 export default function InventoryPage() {
-    const { products, loading, error, create, update, remove } = useProducts();
+    const {
+        products,
+        loading,
+        error,
+        create,
+        update,
+        remove,
+        deactivate,
+        reactivate,
+    } = useProducts();
 
     return (
         <>
@@ -12,6 +21,8 @@ export default function InventoryPage() {
                 create={create}
                 update={update}
                 remove={remove}
+                deactivate={deactivate}
+                reactivate={reactivate}
                 loading={loading}
                 error={error}
             />

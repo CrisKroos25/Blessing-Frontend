@@ -7,7 +7,7 @@
 // ============================================================
 
 import styles from './MaterialsRow.module.css';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, PowerOff, Power } from 'lucide-react';
 import { getProductStatus } from '@shared/utils/productUtils';
 
 // Mapeamos los valores internos a textos legibles para el usuario.
@@ -24,7 +24,9 @@ export default function MaterialsRow({ product, openModal }) {
     // mostramos una alerta visual en la fila
     const status = getProductStatus(product);
     return (
-        <tr className={styles.row}>
+        <tr
+            className={`${styles.row} ${!product.is_activate ? styles.rowInactive : ''}`}
+        >
             <td>
                 {product.image ? (
                     <img
@@ -40,25 +42,64 @@ export default function MaterialsRow({ product, openModal }) {
             <td>{product.category_name}</td>
             <td className={styles.fontBold}>{product.stock}</td>
             <td>{product.min_stock}</td>
+
+            {/* ── Activo / Inactivo ── */}
+            <td>
+                <span
+                    className={
+                        product.is_activate
+                            ? styles.badgeActive
+                            : styles.badgeInactive
+                    }
+                >
+                    {product.is_activate ? 'Activo' : 'Inactivo'}
+                </span>
+            </td>
+
+            {/* ── Estatus de stock ── */}
             <td>
                 <span className={`${styles.badge} ${styles[status]}`}>
                     {STATUS_LABELS[status]}
                 </span>
             </td>
 
-            <td className={styles.container__button}>
+            {/* ── Acciones ── */}
+            <td className={styles.actions}>
                 <button
                     onClick={() => openModal('edit', product)}
-                    className={styles.button__options}
+                    className={styles.editBtn}
+                    title="Editar"
                 >
-                    {<Pencil size={16} />}
+                    <Pencil size={16} />
                 </button>
-                <button
-                    onClick={() => openModal('delete', product)}
-                    className={styles.button__options}
-                >
-                    {<Trash2 size={16} />}
-                </button>
+
+                {product.is_activate ? (
+                    <button
+                        onClick={() => openModal('deactivate', product)}
+                        className={`${styles.deactivateBtn}`}
+                        title="Desactivar"
+                    >
+                        <PowerOff size={16} />
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => openModal('reactivate', product)}
+                        className={styles.reactivateBtn}
+                        title="Reactivar"
+                    >
+                        <Power size={16} />
+                    </button>
+                )}
+
+                {!product.is_activate && (
+                    <button
+                        onClick={() => openModal('delete', product)}
+                        className={styles.deleteBtn}
+                        title="Eliminar permanentemente"
+                    >
+                        <Trash2 size={16} />
+                    </button>
+                )}
             </td>
         </tr>
     );

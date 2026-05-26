@@ -16,6 +16,8 @@ import {
     createProduct,
     updateProduct,
     deleteProduct,
+    deactivateProduct,
+    reactivateProduct,
 } from '../services/productService';
 
 export const useProducts = () => {
@@ -80,6 +82,24 @@ export const useProducts = () => {
         }
     };
 
+    const deactivate = async (id) => {
+        try {
+            const updated = await deactivateProduct(id);
+            setProducts((prev) => prev.map((p) => (p.id === id ? updated : p)));
+        } catch (err) {
+            throw err;
+        }
+    };
+
+    const reactivate = async (id) => {
+        try {
+            const updated = await reactivateProduct(id);
+            setProducts((prev) => prev.map((p) => (p.id === id ? updated : p)));
+        } catch (err) {
+            throw err;
+        }
+    };
+
     // Se ejecuta una sola vez al montar el componente que use este hook
     // El array vacío [] significa "no hay dependencias que lo re-ejecuten"
     useEffect(() => {
@@ -93,5 +113,7 @@ export const useProducts = () => {
         create,
         update,
         remove,
+        deactivate,
+        reactivate,
     };
 };

@@ -137,3 +137,34 @@ export const fetchBundleMaterials = async (itemId) => {
     const res = await fetch(`${BASE_URL}/inventory/items/${itemId}/materials/`);
     return handleResponse(res);
 };
+
+// ── PATCH /api/inventory/items/:id/toggle-active/ ───────────
+export const deactivateProduct = async (id) => {
+    const res = await fetch(
+        `${BASE_URL}/inventory/items/${id}/toggle-active/`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify({ is_activate: false }),
+        },
+    );
+    return handleResponse(res);
+};
+
+export const reactivateProduct = async (id) => {
+    const res = await fetch(
+        `${BASE_URL}/inventory/items/${id}/toggle-active/`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify({ is_activate: true }),
+        },
+    );
+    return handleResponse(res);
+};

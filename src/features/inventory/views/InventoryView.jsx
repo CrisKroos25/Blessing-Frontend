@@ -33,6 +33,8 @@ export default function InventoryView({
     create,
     update,
     remove,
+    deactivate,
+    reactivate,
     allProducts,
     loading,
     error,
@@ -88,6 +90,8 @@ export default function InventoryView({
                     create={create}
                     update={update}
                     remove={remove}
+                    deactivate={deactivate}
+                    reactivate={reactivate}
                     allProducts={allProducts} // Solo lo usa FinalProducts.jsx
                 />
             )}

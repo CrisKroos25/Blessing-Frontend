@@ -25,6 +25,7 @@ export default function MaterialsTable({
                     <th>Categoría</th>
                     <th>Stock actual</th>
                     <th>Stock mínimo</th>
+                    <th>Activo</th>
                     <th>Estatus</th>
                     <th>Acciones</th>
                 </tr>

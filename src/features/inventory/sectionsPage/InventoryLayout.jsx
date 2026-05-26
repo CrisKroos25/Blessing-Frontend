@@ -20,6 +20,8 @@ export default function InventoryLayout({
     create,
     update,
     remove,
+    deactivate,
+    reactivate,
     loading,
     error,
 }) {
@@ -43,6 +45,8 @@ export default function InventoryLayout({
                     create={create}
                     update={update}
                     remove={remove}
+                    deactivate={deactivate}
+                    reactivate={reactivate}
                     loading={loading}
                     error={error}
                 />
@@ -56,6 +60,8 @@ export default function InventoryLayout({
                     create={create}
                     update={update}
                     remove={remove}
+                    deactivate={deactivate}
+                    reactivate={reactivate}
                     loading={loading}
                     error={error}
                 />
@@ -70,6 +76,8 @@ export default function InventoryLayout({
                     create={create}
                     update={update}
                     remove={remove}
+                    deactivate={deactivate}
+                    reactivate={reactivate}
                     loading={loading}
                     error={error}
                 />
