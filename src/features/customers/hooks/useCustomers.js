@@ -6,6 +6,8 @@ import {
     createCustomer,
     updateCustomer,
     deleteCustomer,
+    deactivateCustomer as deactivateCustomerService,
+    reactivateCustomer as reactivateCustomerService,
 } from '../services/customerService';
 
 export function useCustomers() {
@@ -44,6 +46,44 @@ export function useCustomers() {
         await deleteCustomer(id);
         setCustomers((prev) => prev.filter((c) => c.id !== id));
     };
+    const deactivateCustomer = async (id) => {
+        setLoading(true);
+        try {
+            const updated = await deactivateCustomerService(id);
+            setCustomers((prev) =>
+                prev.map((c) => (c.id === id ? updated : c)),
+            );
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    return { customers, loading, error, create, update, remove };
+    const reactivateCustomer = async (id) => {
+        setLoading(true);
+        try {
+            const updated = await reactivateCustomerService(id);
+            setCustomers((prev) =>
+                prev.map((c) => (c.id === id ? updated : c)),
+            );
+            return { success: true };
+        } catch (err) {
+            return { success: false, message: err.message };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        customers,
+        loading,
+        error,
+        create,
+        update,
+        remove,
+        deactivateCustomer,
+        reactivateCustomer,
+    };
 }

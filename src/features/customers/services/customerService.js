@@ -66,3 +66,21 @@ export async function deleteCustomer(id) {
     });
     return handleResponse(res);
 }
+
+export async function deactivateCustomer(id) {
+    const res = await fetch(`${BASE_URL}/customers/${id}/`, {
+        method: 'PATCH',
+        headers: defaultHeaders(),
+        body: JSON.stringify({ is_active: false }),
+    });
+    return handleResponse(res);
+}
+
+export async function reactivateCustomer(id) {
+    const res = await fetch(`${BASE_URL}/customers/${id}/`, {
+        method: 'PATCH',
+        headers: defaultHeaders(),
+        body: JSON.stringify({ is_active: true }),
+    });
+    return handleResponse(res);
+}

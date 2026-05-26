@@ -4,7 +4,7 @@ import styles from './ModalCustomer.module.css';
 import { useState } from 'react';
 import { useBodyScrollLock } from '@/shared/hooks/useBodyScroll';
 import HeaderModal from '@/shared/components/headerModal/HeaderModal';
-import { CircleAlert } from 'lucide-react';
+import { CircleAlert, User } from 'lucide-react';
 
 const INITIAL_FORM = {
     name: '',
@@ -18,14 +18,24 @@ export default function ModalCustomer({
     action,
     customer,
     onClose,
-    create,
-    update,
-    remove,
+    onCreate,
+    onUpdate,
+    onDeactivate,
+    onReactivate,
+    onDelete,
 }) {
     useBodyScrollLock(true);
 
     const [formData, setFormData] = useState(
-        action === 'edit' ? customer : INITIAL_FORM,
+        action === 'edit'
+            ? {
+                  name: customer?.name ?? '',
+                  telephone: customer?.telephone ?? '',
+                  nit: customer?.nit ?? '',
+                  email: customer?.email ?? '',
+                  address: customer?.address ?? '',
+              }
+            : INITIAL_FORM,
     );
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,6 +43,7 @@ export default function ModalCustomer({
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
     };
 
     const validate = () => {
@@ -44,12 +55,16 @@ export default function ModalCustomer({
     };
 
     const handleSubmit = async () => {
-        if (!validate()) return;
+        if (action === 'create' || action === 'edit') {
+            if (!validate()) return;
+        }
         setIsSubmitting(true);
         try {
-            if (action === 'create') await create(formData);
-            if (action === 'edit') await update(customer.id, formData);
-            if (action === 'delete') await remove(customer.id);
+            if (action === 'create') await onCreate(formData);
+            if (action === 'edit') await onUpdate(customer.id, formData);
+            if (action === 'deactivate') await onDeactivate(customer.id);
+            if (action === 'reactivate') await onReactivate(customer.id);
+            if (action === 'delete') await onDelete(customer.id);
             onClose();
         } catch (err) {
             setErrors({ general: err.message || 'Ocurrió un error.' });
@@ -58,32 +73,74 @@ export default function ModalCustomer({
         }
     };
 
+    const isConfirmAction = ['deactivate', 'reactivate', 'delete'].includes(
+        action,
+    );
+
     const titles = {
         create: 'Agregar cliente',
         edit: 'Editar cliente',
+        deactivate: 'Desactivar cliente',
+        reactivate: 'Reactivar cliente',
         delete: 'Eliminar cliente',
     };
+
+    const confirmMessages = {
+        deactivate: (
+            <>
+                ¿Desactivar a <strong>{customer?.name}</strong>? Dejará de estar
+                disponible pero se conservará el historial.
+            </>
+        ),
+        reactivate: (
+            <>
+                ¿Reactivar a <strong>{customer?.name}</strong>? Volverá a estar
+                disponible para nuevas ventas.
+            </>
+        ),
+        delete: (
+            <>
+                ¿Eliminar permanentemente a <strong>{customer?.name}</strong>?
+                Esta acción no se puede deshacer.
+            </>
+        ),
+    };
+
+    const confirmBtnLabels = {
+        deactivate: { idle: 'Desactivar', loading: 'Desactivando...' },
+        reactivate: { idle: 'Reactivar', loading: 'Reactivando...' },
+        delete: { idle: 'Eliminar', loading: 'Eliminando...' },
+    };
+
+    const confirmBtnClass = {
+        deactivate: styles.warnBtn,
+        reactivate: styles.successBtn,
+        delete: styles.deleteBtn,
+    };
+
+    const variant = action === 'delete' ? 'danger' : 'default';
 
     return (
         <div className={styles.overlay}>
             <div
-                className={`${styles.modal} ${action === 'delete' ? styles.modalDelete : styles.modalForm}`}
+                className={`${styles.modal} ${isConfirmAction ? styles.modalConfirm : styles.modalForm}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <HeaderModal
                     title={titles[action]}
+                    icon={User}
                     subTitle={
                         action === 'create'
                             ? 'Complete los detalles para registrar un cliente recurrente'
                             : customer?.name
                     }
-                    variant={action === 'delete' ? 'danger' : 'default'}
+                    variant={variant}
                     onClose={onClose}
                 />
 
                 <div className={styles.body}>
-                    {/* ── Formulario ── */}
-                    {action !== 'delete' && (
+                    {/* ── Formulario create / edit ── */}
+                    {!isConfirmAction && (
                         <div className={styles.form}>
                             {errors.general && (
                                 <span className={styles.errorText}>
@@ -91,7 +148,6 @@ export default function ModalCustomer({
                                 </span>
                             )}
 
-                            {/* Nombre */}
                             <div className={styles.field}>
                                 <label className={styles.label}>
                                     NOMBRE{' '}
@@ -111,7 +167,6 @@ export default function ModalCustomer({
                                 )}
                             </div>
 
-                            {/* Teléfono + NIT */}
                             <div className={styles.gridTwo}>
                                 <div className={styles.field}>
                                     <label className={styles.label}>
@@ -137,7 +192,6 @@ export default function ModalCustomer({
                                 </div>
                             </div>
 
-                            {/* Correo */}
                             <div className={styles.field}>
                                 <label className={styles.label}>CORREO</label>
                                 <input
@@ -150,7 +204,6 @@ export default function ModalCustomer({
                                 />
                             </div>
 
-                            {/* Dirección */}
                             <div className={styles.field}>
                                 <label className={styles.label}>
                                     DIRECCIÓN
@@ -166,15 +219,18 @@ export default function ModalCustomer({
                         </div>
                     )}
 
-                    {/* ── Confirmación de eliminación ── */}
-                    {action === 'delete' && (
-                        <div className={styles.deleteConfirm}>
-                            <p className={styles.deleteText}>
-                                ¿Estás seguro de eliminar a{' '}
-                                <strong>{customer?.name}</strong>? Esta acción
-                                no se puede deshacer.
+                    {/* ── Confirmación deactivate / reactivate / delete ── */}
+                    {isConfirmAction && (
+                        <div className={styles.confirmSection}>
+                            {errors.general && (
+                                <span className={styles.errorText}>
+                                    <CircleAlert size={12} /> {errors.general}
+                                </span>
+                            )}
+                            <p className={styles.confirmText}>
+                                {confirmMessages[action]}
                             </p>
-                            <div className={styles.deleteActions}>
+                            <div className={styles.confirmActions}>
                                 <button
                                     className={styles.cancelBtn}
                                     onClick={onClose}
@@ -182,21 +238,21 @@ export default function ModalCustomer({
                                     Cancelar
                                 </button>
                                 <button
-                                    className={styles.deleteBtn}
+                                    className={confirmBtnClass[action]}
                                     onClick={handleSubmit}
                                     disabled={isSubmitting}
                                 >
                                     {isSubmitting
-                                        ? 'Eliminando...'
-                                        : 'Eliminar'}
+                                        ? confirmBtnLabels[action].loading
+                                        : confirmBtnLabels[action].idle}
                                 </button>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* ── Footer ── */}
-                {action !== 'delete' && (
+                {/* ── Footer formulario ── */}
+                {!isConfirmAction && (
                     <div className={styles.footer}>
                         <button className={styles.cancelBtn} onClick={onClose}>
                             Cancelar

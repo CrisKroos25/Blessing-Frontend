@@ -13,36 +13,43 @@ import ModalCustomer from '../components/modal/ModalCustomer';
 
 export default function CustomersView() {
     const toast = useToastContext();
-    const { customers, create, update, remove } = useCustomers();
+    const {
+        customers,
+        create,
+        update,
+        remove,
+        deactivateCustomer,
+        reactivateCustomer,
+    } = useCustomers();
     const { modalState, openModal, closeModal } = useModalState();
     const { action, item: client } = modalState;
     const { query, setQuery, filtered } = useSearch(customers, 'name');
 
     const handleCreate = async (data) => {
-        try {
-            await create(data);
-            toast.success('Cliente agregado correctamente.');
-        } catch (err) {
-            throw err;
-        }
+        await create(data);
+        toast.success('Cliente agregado correctamente.');
     };
 
     const handleUpdate = async (id, data) => {
-        try {
-            await update(id, data);
-            toast.success('Cliente actualizado correctamente.');
-        } catch (err) {
-            throw err;
-        }
+        await update(id, data);
+        toast.success('Cliente actualizado correctamente.');
     };
 
     const handleRemove = async (id) => {
-        try {
-            await remove(id);
-            toast.success('Cliente eliminado.');
-        } catch (err) {
-            throw err;
-        }
+        await remove(id);
+        toast.success('Cliente eliminado.');
+    };
+
+    const handleDeactivate = async (id) => {
+        const result = await deactivateCustomer(id);
+        if (result.success) toast.success('Cliente desactivado.');
+        else throw new Error(result.message);
+    };
+
+    const handleReactivate = async (id) => {
+        const result = await reactivateCustomer(id);
+        if (result.success) toast.success('Cliente reactivado.');
+        else throw new Error(result.message);
     };
 
     return (
@@ -70,9 +77,11 @@ export default function CustomersView() {
                     action={action}
                     customer={client}
                     onClose={closeModal}
-                    create={handleCreate}
-                    update={handleUpdate}
-                    remove={handleRemove}
+                    onCreate={handleCreate}
+                    onUpdate={handleUpdate}
+                    onDelete={handleRemove}
+                    onDeactivate={handleDeactivate}
+                    onReactivate={handleReactivate}
                 />
             )}
         </div>
