@@ -19,8 +19,11 @@ export default function CustomerSearch({
         return customers
             .filter(
                 (c) =>
-                    c.name.toLowerCase().includes(search.toLowerCase()) ||
-                    c.telephone?.toLowerCase().includes(search.toLowerCase()),
+                    c.is_active && // ← solo activos
+                    (c.name.toLowerCase().includes(search.toLowerCase()) ||
+                        c.telephone
+                            ?.toLowerCase()
+                            .includes(search.toLowerCase())),
             )
             .slice(0, 6);
     }, [search, customers]);
