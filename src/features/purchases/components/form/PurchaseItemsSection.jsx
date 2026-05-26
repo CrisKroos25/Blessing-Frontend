@@ -25,7 +25,7 @@ export default function PurchaseItemsSection({ items = [], onAdd, error }) {
     // Categorías únicas derivadas de los items comprables
     const categories = useMemo(() => {
         const unique = [
-            ...new Set(purchasableItems.map((i) => i.category).filter(Boolean)),
+            ...new Set(purchasableItems.map((i) => i.category_name).filter(Boolean)),
         ];
         return unique.sort();
     }, [purchasableItems]);
@@ -41,7 +41,7 @@ export default function PurchaseItemsSection({ items = [], onAdd, error }) {
     const filtered = useMemo(() => {
         return purchasableItems.filter((i) => {
             const matchesQuery = i.name.toLowerCase().includes(query.toLowerCase());
-            const matchesCategory = category === 'all' || i.category === category;
+            const matchesCategory = category === 'all' || i.category_name === category;
             const matchesType = type === 'all' || i.type === type;
             return matchesQuery && matchesCategory && matchesType;
         });
